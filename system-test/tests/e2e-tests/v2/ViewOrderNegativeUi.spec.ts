@@ -1,6 +1,5 @@
 import '../../../setup-config.js';
-import { ChannelType } from '@optivem/core/shop/ChannelType.js';
-import { channelShopDriverTest, expect } from './base/fixtures.js';
+import { test, expect } from './base/fixtures.js';
 
 const nonExistentOrderCases = [
     { orderNumber: 'NON-EXISTENT-ORDER-99999', expectedMessage: 'Order NON-EXISTENT-ORDER-99999 does not exist.' },
@@ -8,9 +7,9 @@ const nonExistentOrderCases = [
     { orderNumber: 'NON-EXISTENT-ORDER-77777', expectedMessage: 'Order NON-EXISTENT-ORDER-77777 does not exist.' },
 ];
 
-channelShopDriverTest([ChannelType.UI, ChannelType.API], 'should not be able to view non-existent order', async ({ shopDriver }) => {
+test('should not be able to view non-existent order', async ({ shopUiDriver }) => {
     for (const { orderNumber, expectedMessage } of nonExistentOrderCases) {
-        const result = await shopDriver.orders().viewOrder(orderNumber);
+        const result = await shopUiDriver.orders().viewOrder(orderNumber);
         expect(result).toBeFailureWith(expectedMessage);
     }
 });

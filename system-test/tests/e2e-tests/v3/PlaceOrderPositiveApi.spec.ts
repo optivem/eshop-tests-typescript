@@ -1,8 +1,7 @@
 import '../../../setup-config.js';
-import { ChannelType } from '@optivem/core/shop/ChannelType.js';
 import { OrderStatus } from '@optivem/core/shop/commons/dtos/orders/OrderStatus.js';
 import { GherkinDefaults } from '@optivem/dsl/gherkin/GherkinDefaults.js';
-import { channelShopDriverTest, createUniqueSku, expect } from './base/fixtures.js';
+import { test, expect, createUniqueSku } from './base/fixtures.js';
 
 function asNumber(value: unknown): number {
     if (typeof value === 'number') {
@@ -14,15 +13,15 @@ function asNumber(value: unknown): number {
     return Number(value);
 }
 
-channelShopDriverTest([ChannelType.UI, ChannelType.API], 'should place order with correct subtotal price', async ({ shopDriver, erpDriver }) => {
+test('should place order with correct subtotal price', async ({ shopApiDriver, erpDriver }) => {
     const sku = createUniqueSku(GherkinDefaults.DEFAULT_SKU);
     expect(await erpDriver.returnsProduct({ sku, price: '20.00' })).toBeSuccess();
 
-    const placeOrderResult = await shopDriver.orders().placeOrder({ sku, quantity: '5', country: GherkinDefaults.DEFAULT_COUNTRY });
+    const placeOrderResult = await shopApiDriver.orders().placeOrder({ sku, quantity: '5', country: GherkinDefaults.DEFAULT_COUNTRY });
     expect(placeOrderResult).toBeSuccess();
 
     const orderNumber = placeOrderResult.getValue().orderNumber;
-    const viewOrderResult = await shopDriver.orders().viewOrder(orderNumber);
+    const viewOrderResult = await shopApiDriver.orders().viewOrder(orderNumber);
     expect(viewOrderResult).toBeSuccess();
     expect(asNumber(viewOrderResult.getValue().subtotalPrice)).toBe(100.0);
 });
@@ -34,32 +33,32 @@ const subtotalPriceCases = [
     { unitPrice: '99.99', quantity: '1', subtotalPrice: '99.99' },
 ];
 
-channelShopDriverTest([ChannelType.UI, ChannelType.API], 'should place order with correct subtotal price parameterized', async ({ shopDriver, erpDriver }) => {
+test('should place order with correct subtotal price parameterized', async ({ shopApiDriver, erpDriver }) => {
     for (const { unitPrice, quantity, subtotalPrice } of subtotalPriceCases) {
         const sku = createUniqueSku(GherkinDefaults.DEFAULT_SKU);
         expect(await erpDriver.returnsProduct({ sku, price: unitPrice })).toBeSuccess();
 
-        const placeOrderResult = await shopDriver.orders().placeOrder({ sku, quantity, country: GherkinDefaults.DEFAULT_COUNTRY });
+        const placeOrderResult = await shopApiDriver.orders().placeOrder({ sku, quantity, country: GherkinDefaults.DEFAULT_COUNTRY });
         expect(placeOrderResult).toBeSuccess();
 
         const orderNumber = placeOrderResult.getValue().orderNumber;
-        const viewOrderResult = await shopDriver.orders().viewOrder(orderNumber);
+        const viewOrderResult = await shopApiDriver.orders().viewOrder(orderNumber);
         expect(viewOrderResult).toBeSuccess();
         expect(asNumber(viewOrderResult.getValue().subtotalPrice)).toBe(parseFloat(subtotalPrice));
     }
 });
 
-channelShopDriverTest([ChannelType.UI, ChannelType.API], 'should place order', async ({ shopDriver, erpDriver }) => {
+test('should place order', async ({ shopApiDriver, erpDriver }) => {
     const sku = createUniqueSku(GherkinDefaults.DEFAULT_SKU);
     expect(await erpDriver.returnsProduct({ sku, price: '20.00' })).toBeSuccess();
 
-    const placeOrderResult = await shopDriver.orders().placeOrder({ sku, quantity: '5', country: GherkinDefaults.DEFAULT_COUNTRY });
+    const placeOrderResult = await shopApiDriver.orders().placeOrder({ sku, quantity: '5', country: GherkinDefaults.DEFAULT_COUNTRY });
     expect(placeOrderResult).toBeSuccess();
 
     const orderNumber = placeOrderResult.getValue().orderNumber;
     expect(orderNumber.startsWith('ORD-')).toBe(true);
 
-    const viewOrderResult = await shopDriver.orders().viewOrder(orderNumber);
+    const viewOrderResult = await shopApiDriver.orders().viewOrder(orderNumber);
     expect(viewOrderResult).toBeSuccess();
 
     const order = viewOrderResult.getValue();
