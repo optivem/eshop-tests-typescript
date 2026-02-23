@@ -45,8 +45,43 @@ export class Decimal {
         return this.value.toNumber();
     }
 
+    private static normalize(other: Decimal | string | number): Decimal {
+        if (other instanceof Decimal) {
+            return other;
+        }
+        if (typeof other === 'string') {
+            return Decimal.fromString(other);
+        }
+        return Decimal.fromString(String(other));
+    }
+
+    equals(other: Decimal | string | number): boolean {
+        const normalized = Decimal.normalize(other);
+        return this.value.eq(normalized.value);
+    }
+
+    gt(other: Decimal | string | number): boolean {
+        const normalized = Decimal.normalize(other);
+        return this.value.gt(normalized.value);
+    }
+
+    gte(other: Decimal | string | number): boolean {
+        const normalized = Decimal.normalize(other);
+        return this.value.gte(normalized.value);
+    }
+
+    lt(other: Decimal | string | number): boolean {
+        const normalized = Decimal.normalize(other);
+        return this.value.lt(normalized.value);
+    }
+
+    lte(other: Decimal | string | number): boolean {
+        const normalized = Decimal.normalize(other);
+        return this.value.lte(normalized.value);
+    }
+
     eq(other: Decimal): boolean {
-        return this.value.eq(other.value);
+        return this.equals(other);
     }
 
     add(other: Decimal): Decimal {

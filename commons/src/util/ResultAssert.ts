@@ -1,4 +1,6 @@
 import { expect } from '@playwright/test';
+import { Decimal } from './Decimal.js';
+import { Integer } from './Integer.js';
 import type { Result } from './Result.js';
 
 /**
@@ -83,6 +85,38 @@ function getErrorMessages(error: unknown): string[] {
     return messages;
   }
   return [JSON.stringify(error)];
+}
+
+function toDecimalOrNull(value: unknown): Decimal | null {
+  if (value instanceof Decimal) {
+    return value;
+  }
+  if (typeof value === 'number') {
+    return Decimal.fromString(String(value));
+  }
+  if (typeof value === 'string' && value.trim() !== '') {
+    return Decimal.fromString(value);
+  }
+  if (value != null && typeof value === 'object' && typeof (value as { toNumber?: () => number }).toNumber === 'function') {
+    return Decimal.fromString(String((value as { toNumber: () => number }).toNumber()));
+  }
+  return null;
+}
+
+function toIntegerOrNull(value: unknown): Integer | null {
+  if (value instanceof Integer) {
+    return value;
+  }
+  if (typeof value === 'number' && Number.isFinite(value)) {
+    return Integer.fromNumber(value);
+  }
+  if (typeof value === 'string' && value.trim() !== '') {
+    return Integer.fromString(value);
+  }
+  if (value != null && typeof value === 'object' && typeof (value as { toNumber?: () => number }).toNumber === 'function') {
+    return Integer.fromNumber((value as { toNumber: () => number }).toNumber());
+  }
+  return null;
 }
 
 /**
@@ -184,6 +218,106 @@ export function setupResultMatchers() {
           message: () => `Expected result to have field error "${expectedMessage}" but got: ${errorMessages.join(', ')}`
         };
       }
+    },
+
+    toEqualDecimal(received: unknown, expected: Decimal | string | number) {
+      const receivedDecimal = toDecimalOrNull(received);
+      const expectedDecimal = toDecimalOrNull(expected);
+
+      if (receivedDecimal == null || expectedDecimal == null) {
+        return {
+          pass: false,
+          message: () => `Expected both values to be decimal-compatible but got received=${String(received)} expected=${String(expected)}`
+        };
+      }
+
+      const pass = receivedDecimal.equals(expectedDecimal);
+      return {
+        pass,
+        message: () => pass
+          ? `Expected decimal values not to be equal, but both were ${receivedDecimal.toString()}`
+          : `Expected decimal ${receivedDecimal.toString()} to equal ${expectedDecimal.toString()}`
+      };
+    },
+
+    toBeGreaterThanOrEqualDecimal(received: unknown, expected: Decimal | string | number) {
+      const receivedDecimal = toDecimalOrNull(received);
+      const expectedDecimal = toDecimalOrNull(expected);
+
+      if (receivedDecimal == null || expectedDecimal == null) {
+        return {
+          pass: false,
+          message: () => `Expected both values to be decimal-compatible but got received=${String(received)} expected=${String(expected)}`
+        };
+      }
+
+      const pass = receivedDecimal.gte(expectedDecimal);
+      return {
+        pass,
+        message: () => pass
+          ? `Expected decimal ${receivedDecimal.toString()} to be less than ${expectedDecimal.toString()}`
+          : `Expected decimal ${receivedDecimal.toString()} to be greater than or equal to ${expectedDecimal.toString()}`
+      };
+    },
+
+    toBeGreaterThanDecimal(received: unknown, expected: Decimal | string | number) {
+      const receivedDecimal = toDecimalOrNull(received);
+      const expectedDecimal = toDecimalOrNull(expected);
+
+      if (receivedDecimal == null || expectedDecimal == null) {
+        return {
+          pass: false,
+          message: () => `Expected both values to be decimal-compatible but got received=${String(received)} expected=${String(expected)}`
+        };
+      }
+
+      const pass = receivedDecimal.gt(expectedDecimal);
+      return {
+        pass,
+        message: () => pass
+          ? `Expected decimal ${receivedDecimal.toString()} to be less than or equal to ${expectedDecimal.toString()}`
+          : `Expected decimal ${receivedDecimal.toString()} to be greater than ${expectedDecimal.toString()}`
+      };
+    },
+
+    toEqualInteger(received: unknown, expected: Integer | string | number) {
+      const receivedInteger = toIntegerOrNull(received);
+      const expectedInteger = toIntegerOrNull(expected);
+
+      if (receivedInteger == null || expectedInteger == null) {
+        return {
+          pass: false,
+          message: () => `Expected both values to be integer-compatible but got received=${String(received)} expected=${String(expected)}`
+        };
+      }
+
+      const pass = receivedInteger.toNumber() === expectedInteger.toNumber();
+      return {
+        pass,
+        message: () => pass
+          ? `Expected integer values not to be equal, but both were ${receivedInteger.toString()}`
+          : `Expected integer ${receivedInteger.toString()} to equal ${expectedInteger.toString()}`
+      };
+    },
+
+    toBeGreaterThanOrEqualInteger(received: unknown, expected: Integer | string | number) {
+      const receivedInteger = toIntegerOrNull(received);
+      const expectedInteger = toIntegerOrNull(expected);
+
+      if (receivedInteger == null || expectedInteger == null) {
+        return {
+          pass: false,
+          message: () => `Expected both values to be integer-compatible but got received=${String(received)} expected=${String(expected)}`
+        };
+      }
+
+      const pass = receivedInteger.toNumber() >= expectedInteger.toNumber();
+      return {
+        pass,
+        message: () => pass
+          ? `Expected integer ${receivedInteger.toString()} to be less than ${expectedInteger.toString()}`
+          : `Expected integer ${receivedInteger.toString()} to be greater than or equal to ${expectedInteger.toString()}`
+      };
     }
   });
 }
@@ -195,6 +329,11 @@ declare global {
       toBeFailureWith(expectedMessage: string): R;
       toHaveErrorMessage(expectedMessage: string): R;
       toHaveFieldError(expectedMessage: string): R;
+      toEqualDecimal(expected: Decimal | string | number): R;
+      toBeGreaterThanOrEqualDecimal(expected: Decimal | string | number): R;
+      toBeGreaterThanDecimal(expected: Decimal | string | number): R;
+      toEqualInteger(expected: Integer | string | number): R;
+      toBeGreaterThanOrEqualInteger(expected: Integer | string | number): R;
     }
   }
 }
