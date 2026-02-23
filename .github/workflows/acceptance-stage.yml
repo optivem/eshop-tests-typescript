@@ -131,21 +131,21 @@ jobs:
         run: npx cross-env ENVIRONMENT=acceptance EXTERNAL_SYSTEM_MODE=REAL npm test -- tests/external-system-contract-tests
         working-directory: system-test
 
-      - name: Run E2E Tests - No Channel (v1, v2, v3)
+      - name: Run E2E Tests - No Channel
         run: |
           for v in v1 v2 v3; do
             npx cross-env ENVIRONMENT=acceptance EXTERNAL_SYSTEM_MODE=REAL npm test -- tests/e2e-tests/$v
           done
         working-directory: system-test
 
-      - name: Run E2E Tests - API Channel (v4, v5, v6, v7)
+      - name: Run E2E Tests - API Channel
         run: |
           for v in v4 v5 v6 v7; do
             npx cross-env ENVIRONMENT=acceptance EXTERNAL_SYSTEM_MODE=REAL CHANNEL=API npm test -- tests/e2e-tests/$v
           done
         working-directory: system-test
 
-      - name: Run E2E Tests - UI Channel (v4, v5, v6, v7)
+      - name: Run E2E Tests - UI Channel
         run: |
           for v in v4 v5 v6 v7; do
             npx cross-env ENVIRONMENT=acceptance EXTERNAL_SYSTEM_MODE=REAL CHANNEL=UI npm test -- tests/e2e-tests/$v
