@@ -1,15 +1,17 @@
 import '../../../setup-config.js';
 import { test, expect } from './base/fixtures.js';
+import { testConfig } from '../../../test.config.js';
 
-const nonExistentOrderCases = [
-    { orderNumber: 'NON-EXISTENT-ORDER-99999', expectedMessage: 'Order NON-EXISTENT-ORDER-99999 does not exist.' },
-    { orderNumber: 'NON-EXISTENT-ORDER-88888', expectedMessage: 'Order NON-EXISTENT-ORDER-88888 does not exist.' },
-    { orderNumber: 'NON-EXISTENT-ORDER-77777', expectedMessage: 'Order NON-EXISTENT-ORDER-77777 does not exist.' },
-];
+const shopApiBaseUrl = testConfig.urls.shopApi;
 
-test('should not be able to view non-existent order', async ({ shopApiDriver }) => {
-    for (const { orderNumber, expectedMessage } of nonExistentOrderCases) {
-        const result = await shopApiDriver.orders().viewOrder(orderNumber);
-        expect(result).toBeFailureWith(expectedMessage);
-    }
+test('should not be able to view non-existent order', async () => {
+    const response = await fetch(`${shopApiBaseUrl}/api/orders/NON-EXISTENT-ORDER-99999`, {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+    });
+
+    const body = await response.json();
+
+    expect(response.status).toBe(404);
+    expect(body.detail).toBe('Order NON-EXISTENT-ORDER-99999 does not exist.');
 });

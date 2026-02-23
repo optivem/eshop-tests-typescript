@@ -1,6 +1,6 @@
 /**
- * V4 e2e fixtures: channel-based shop driver + external drivers (ERP/Tax).
- * Mirrors reference V4 driver-level style (no ScenarioDsl).
+ * V1 e2e fixtures: raw-driver style (Shop/ERP/Tax), no ScenarioDsl.
+ * Parity with Java/.NET v1 BaseE2eTest: fixed REAL external system mode.
  */
 import { randomUUID } from 'node:crypto';
 import { test as base } from '@playwright/test';
@@ -12,7 +12,8 @@ import {
     createErpDriver,
     createTaxApiDriver,
 } from '@optivem/test-infrastructure';
-import { getExternalSystemMode } from '../../../../test.config.js';
+
+const FIXED_EXTERNAL_SYSTEM_MODE = 'REAL';
 
 setupResultMatchers();
 
@@ -23,22 +24,22 @@ export const test = base.extend<{
     taxDriver: ReturnType<typeof createTaxApiDriver>;
 }>({
     shopUiDriver: async ({}, use) => {
-        const driver = createShopUiDriver(getExternalSystemMode());
+        const driver = createShopUiDriver(FIXED_EXTERNAL_SYSTEM_MODE);
         await use(driver);
         await Closer.close(driver);
     },
     shopApiDriver: async ({}, use) => {
-        const driver = createShopApiDriver(getExternalSystemMode());
+        const driver = createShopApiDriver(FIXED_EXTERNAL_SYSTEM_MODE);
         await use(driver);
         await Closer.close(driver);
     },
     erpDriver: async ({}, use) => {
-        const driver = createErpDriver(getExternalSystemMode());
+        const driver = createErpDriver(FIXED_EXTERNAL_SYSTEM_MODE);
         await use(driver);
         await Closer.close(driver);
     },
     taxDriver: async ({}, use) => {
-        const driver = createTaxApiDriver(getExternalSystemMode());
+        const driver = createTaxApiDriver(FIXED_EXTERNAL_SYSTEM_MODE);
         await use(driver);
         await Closer.close(driver);
     },

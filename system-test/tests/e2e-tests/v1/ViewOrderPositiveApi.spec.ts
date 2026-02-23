@@ -1,41 +1,75 @@
 import '../../../setup-config.js';
-import { OrderStatus } from '@optivem/core/shop/commons/dtos/orders/OrderStatus.js';
 import { GherkinDefaults } from '@optivem/dsl/gherkin/GherkinDefaults.js';
 import { test, expect, createUniqueSku } from './base/fixtures.js';
+import { testConfig } from '../../../test.config.js';
 
-function asNumber(value: unknown): number {
-    if (typeof value === 'number') {
-        return value;
-    }
-    if (value != null && typeof (value as { toNumber?: () => number }).toNumber === 'function') {
-        return (value as { toNumber: () => number }).toNumber();
-    }
-    return Number(value);
+const shopApiBaseUrl = testConfig.urls.shopApi;
+const erpApiBaseUrl = testConfig.urls.erpApi;
+
+async function createProductViaErp(sku: string, price: string): Promise<void> {
+    const response = await fetch(`${erpApiBaseUrl}/api/products`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            id: sku,
+            title: 'Test Product',
+            description: 'Test Description',
+            category: 'Test Category',
+            brand: 'Test Brand',
+            price,
+        }),
+    });
+
+    expect(response.status).toBe(201);
 }
 
-test('should view placed order', async ({ shopApiDriver, erpDriver }) => {
+async function placeOrderViaApi(sku: string, quantity: string, country: string): Promise<{ status: number; body: any }> {
+    const response = await fetch(`${shopApiBaseUrl}/api/orders`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ sku, quantity, country }),
+    });
+
+    const body = await response.json();
+    return { status: response.status, body };
+}
+
+async function viewOrderViaApi(orderId: string): Promise<{ status: number; body: any }> {
+    const response = await fetch(`${shopApiBaseUrl}/api/orders/${orderId}`, {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+    });
+
+    const body = await response.json();
+    return { status: response.status, body };
+}
+
+test('should view placed order', async () => {
     const sku = createUniqueSku(GherkinDefaults.DEFAULT_SKU);
-    expect(await erpDriver.returnsProduct({ sku, price: '25.00' })).toBeSuccess();
+    await createProductViaErp(sku, '20.00');
 
-    const placeOrderResult = await shopApiDriver.orders().placeOrder({ sku, quantity: '4', country: GherkinDefaults.DEFAULT_COUNTRY });
-    expect(placeOrderResult).toBeSuccess();
+    const placeOrderResult = await placeOrderViaApi(
+        sku,
+        '5',
+        GherkinDefaults.DEFAULT_COUNTRY
+    );
 
-    const orderNumber = placeOrderResult.getValue().orderNumber;
-    const viewOrderResult = await shopApiDriver.orders().viewOrder(orderNumber);
-    expect(viewOrderResult).toBeSuccess();
+    expect(placeOrderResult.status).toBe(201);
+    expect(placeOrderResult.body.orderNumber).toBeDefined();
 
-    const order = viewOrderResult.getValue();
-    expect(order.orderNumber).toBe(orderNumber);
-    expect(order.sku).toBe(sku);
-    expect(order.country).toBe(GherkinDefaults.DEFAULT_COUNTRY);
-    expect(asNumber(order.quantity)).toBe(4);
-    expect(asNumber(order.unitPrice)).toBe(25.0);
-    expect(asNumber(order.subtotalPrice)).toBe(100.0);
-    expect(order.status).toBe(OrderStatus.PLACED);
-    expect(asNumber(order.discountRate)).toBeGreaterThanOrEqual(0);
-    expect(asNumber(order.discountAmount)).toBeGreaterThanOrEqual(0);
-    expect(asNumber(order.subtotalPrice)).toBeGreaterThan(0);
-    expect(asNumber(order.taxRate)).toBeGreaterThanOrEqual(0);
-    expect(asNumber(order.taxAmount)).toBeGreaterThanOrEqual(0);
-    expect(asNumber(order.totalPrice)).toBeGreaterThan(0);
+    const viewOrderResult = await viewOrderViaApi(placeOrderResult.body.orderNumber);
+
+    expect(viewOrderResult.status).toBe(200);
+    expect(viewOrderResult.body.orderNumber).toBe(placeOrderResult.body.orderNumber);
+    expect(viewOrderResult.body.sku).toBe(sku);
+    expect(viewOrderResult.body.country).toBe(GherkinDefaults.DEFAULT_COUNTRY);
+    expect(viewOrderResult.body.quantity).toBe(5);
+    expect(viewOrderResult.body.unitPrice).toBe('20.00');
+    expect(viewOrderResult.body.subtotalPrice).toBe('100.00');
+    expect(viewOrderResult.body.status).toBe('PLACED');
+    expect(parseFloat(viewOrderResult.body.discountRate)).toBeGreaterThanOrEqual(0);
+    expect(parseFloat(viewOrderResult.body.discountAmount)).toBeGreaterThanOrEqual(0);
+    expect(parseFloat(viewOrderResult.body.taxRate)).toBeGreaterThanOrEqual(0);
+    expect(parseFloat(viewOrderResult.body.taxAmount)).toBeGreaterThanOrEqual(0);
+    expect(parseFloat(viewOrderResult.body.totalPrice)).toBeGreaterThan(0);
 });

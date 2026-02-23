@@ -2,148 +2,184 @@ import '../../../setup-config.js';
 import { GherkinDefaults } from '@optivem/dsl/gherkin/GherkinDefaults.js';
 import { emptyArgumentsProvider } from '../../shared/argumentProviders.js';
 import { test, expect, createUniqueSku } from './base/fixtures.js';
+import { testConfig } from '../../../test.config.js';
 
 const validationError = 'The request contains one or more validation errors';
+const shopApiBaseUrl = testConfig.urls.shopApi;
+const erpApiBaseUrl = testConfig.urls.erpApi;
 
-test('should reject order with invalid quantity', async ({ shopApiDriver }) => {
-    const result = await shopApiDriver.orders().placeOrder({
+type PlaceOrderPayload = {
+    sku: string | null;
+    quantity: string | null;
+    country: string | null;
+};
+
+async function createProductViaErp(sku: string, price: string): Promise<void> {
+    const response = await fetch(`${erpApiBaseUrl}/api/products`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            id: sku,
+            title: 'Test Product',
+            description: 'Test Description',
+            category: 'Test Category',
+            brand: 'Test Brand',
+            price,
+        }),
+    });
+
+    expect(response.status).toBe(201);
+}
+
+async function placeOrderViaApi(payload: PlaceOrderPayload): Promise<{ status: number; body: any }> {
+    const response = await fetch(`${shopApiBaseUrl}/api/orders`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+    });
+
+    const body = await response.json();
+    return { status: response.status, body };
+}
+
+function assertValidationError(status: number, body: any, field: string, message: string): void {
+    expect(status).toBe(422);
+    expect(body.detail).toBe(validationError);
+
+    const found = Array.isArray(body.errors) && body.errors.some(
+        (error: any) => error.field === field && error.message === message
+    );
+
+    expect(found).toBe(true);
+}
+
+test('should reject order with invalid quantity', async () => {
+    const { status, body } = await placeOrderViaApi({
         sku: createUniqueSku(GherkinDefaults.DEFAULT_SKU),
         quantity: 'invalid-quantity',
         country: GherkinDefaults.DEFAULT_COUNTRY,
     });
 
-    expect(result).toHaveErrorMessage(validationError);
-    expect(result).toHaveFieldError('Quantity must be an integer');
+    assertValidationError(status, body, 'quantity', 'Quantity must be an integer');
 });
 
-test('should reject order with non-existent SKU', async ({ shopApiDriver }) => {
-    const result = await shopApiDriver.orders().placeOrder({
+test('should reject order with non-existent SKU', async () => {
+    const { status, body } = await placeOrderViaApi({
         sku: 'NON-EXISTENT-SKU-12345',
         quantity: GherkinDefaults.DEFAULT_QUANTITY,
         country: GherkinDefaults.DEFAULT_COUNTRY,
     });
 
-    expect(result).toHaveErrorMessage(validationError);
-    expect(result).toHaveFieldError('Product does not exist for SKU: NON-EXISTENT-SKU-12345');
+    assertValidationError(status, body, 'sku', 'Product does not exist for SKU: NON-EXISTENT-SKU-12345');
 });
 
-test('should reject order with negative quantity', async ({ shopApiDriver }) => {
-    const result = await shopApiDriver.orders().placeOrder({
+test('should reject order with negative quantity', async () => {
+    const { status, body } = await placeOrderViaApi({
         sku: createUniqueSku(GherkinDefaults.DEFAULT_SKU),
         quantity: '-10',
         country: GherkinDefaults.DEFAULT_COUNTRY,
     });
 
-    expect(result).toHaveErrorMessage(validationError);
-    expect(result).toHaveFieldError('Quantity must be positive');
+    assertValidationError(status, body, 'quantity', 'Quantity must be positive');
 });
 
-test('should reject order with zero quantity', async ({ shopApiDriver }) => {
-    const result = await shopApiDriver.orders().placeOrder({
+test('should reject order with zero quantity', async () => {
+    const { status, body } = await placeOrderViaApi({
         sku: 'ANOTHER-SKU-67890',
         quantity: '0',
         country: GherkinDefaults.DEFAULT_COUNTRY,
     });
 
-    expect(result).toHaveErrorMessage(validationError);
-    expect(result).toHaveFieldError('Quantity must be positive');
+    assertValidationError(status, body, 'quantity', 'Quantity must be positive');
 });
 
-test('should reject order with empty SKU', async ({ shopApiDriver }) => {
+test('should reject order with empty SKU', async () => {
     for (const sku of emptyArgumentsProvider) {
-        const result = await shopApiDriver.orders().placeOrder({
+        const { status, body } = await placeOrderViaApi({
             sku,
             quantity: GherkinDefaults.DEFAULT_QUANTITY,
             country: GherkinDefaults.DEFAULT_COUNTRY,
         });
 
-        expect(result).toHaveErrorMessage(validationError);
-        expect(result).toHaveFieldError('SKU must not be empty');
+        assertValidationError(status, body, 'sku', 'SKU must not be empty');
     }
 });
 
-test('should reject order with empty quantity', async ({ shopApiDriver }) => {
+test('should reject order with empty quantity', async () => {
     for (const emptyQuantity of emptyArgumentsProvider) {
-        const result = await shopApiDriver.orders().placeOrder({
+        const { status, body } = await placeOrderViaApi({
             sku: createUniqueSku(GherkinDefaults.DEFAULT_SKU),
             quantity: emptyQuantity,
             country: GherkinDefaults.DEFAULT_COUNTRY,
         });
 
-        expect(result).toHaveErrorMessage(validationError);
-        expect(result).toHaveFieldError('Quantity must not be empty');
+        assertValidationError(status, body, 'quantity', 'Quantity must not be empty');
     }
 });
 
-test('should reject order with non-integer quantity', async ({ shopApiDriver }) => {
+test('should reject order with non-integer quantity', async () => {
     for (const nonIntegerQuantity of ['3.5', 'lala']) {
-        const result = await shopApiDriver.orders().placeOrder({
+        const { status, body } = await placeOrderViaApi({
             sku: createUniqueSku(GherkinDefaults.DEFAULT_SKU),
             quantity: nonIntegerQuantity,
             country: GherkinDefaults.DEFAULT_COUNTRY,
         });
 
-        expect(result).toHaveErrorMessage(validationError);
-        expect(result).toHaveFieldError('Quantity must be an integer');
+        assertValidationError(status, body, 'quantity', 'Quantity must be an integer');
     }
 });
 
-test('should reject order with empty country', async ({ shopApiDriver }) => {
+test('should reject order with empty country', async () => {
     for (const emptyCountry of emptyArgumentsProvider) {
-        const result = await shopApiDriver.orders().placeOrder({
+        const { status, body } = await placeOrderViaApi({
             sku: createUniqueSku(GherkinDefaults.DEFAULT_SKU),
             quantity: GherkinDefaults.DEFAULT_QUANTITY,
             country: emptyCountry,
         });
 
-        expect(result).toHaveErrorMessage(validationError);
-        expect(result).toHaveFieldError('Country must not be empty');
+        assertValidationError(status, body, 'country', 'Country must not be empty');
     }
 });
 
-test('should reject order with invalid country', async ({ shopApiDriver, erpDriver }) => {
+test('should reject order with invalid country', async () => {
     const sku = createUniqueSku(GherkinDefaults.DEFAULT_SKU);
-    expect(await erpDriver.returnsProduct({ sku, price: '20.00' })).toBeSuccess();
+    await createProductViaErp(sku, '20.00');
 
-    const result = await shopApiDriver.orders().placeOrder({
+    const { status, body } = await placeOrderViaApi({
         sku,
         quantity: GherkinDefaults.DEFAULT_QUANTITY,
         country: 'XX',
     });
 
-    expect(result).toHaveErrorMessage(validationError);
-    expect(result).toHaveFieldError('Country does not exist: XX');
+    assertValidationError(status, body, 'country', 'Country does not exist: XX');
 });
 
-test('should reject order with null quantity', async ({ shopApiDriver }) => {
-    const result = await shopApiDriver.orders().placeOrder({
+test('should reject order with null quantity', async () => {
+    const { status, body } = await placeOrderViaApi({
         sku: createUniqueSku(GherkinDefaults.DEFAULT_SKU),
         quantity: null,
         country: GherkinDefaults.DEFAULT_COUNTRY,
     });
 
-    expect(result).toHaveErrorMessage(validationError);
-    expect(result).toHaveFieldError('Quantity must not be empty');
+    assertValidationError(status, body, 'quantity', 'Quantity must not be empty');
 });
 
-test('should reject order with null SKU', async ({ shopApiDriver }) => {
-    const result = await shopApiDriver.orders().placeOrder({
+test('should reject order with null SKU', async () => {
+    const { status, body } = await placeOrderViaApi({
         sku: null,
         quantity: GherkinDefaults.DEFAULT_QUANTITY,
         country: GherkinDefaults.DEFAULT_COUNTRY,
     });
 
-    expect(result).toHaveErrorMessage(validationError);
-    expect(result).toHaveFieldError('SKU must not be empty');
+    assertValidationError(status, body, 'sku', 'SKU must not be empty');
 });
 
-test('should reject order with null country', async ({ shopApiDriver }) => {
-    const result = await shopApiDriver.orders().placeOrder({
+test('should reject order with null country', async () => {
+    const { status, body } = await placeOrderViaApi({
         sku: createUniqueSku(GherkinDefaults.DEFAULT_SKU),
         quantity: GherkinDefaults.DEFAULT_QUANTITY,
         country: null,
     });
 
-    expect(result).toHaveErrorMessage(validationError);
-    expect(result).toHaveFieldError('Country must not be empty');
+    assertValidationError(status, body, 'country', 'Country must not be empty');
 });
