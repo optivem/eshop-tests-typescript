@@ -70,9 +70,9 @@ $Config = @{
                 "npx playwright install chromium"
             ) },
         @{
-            Id = "e2e";
-            Name = "E2E Tests";
-            Command = "npx cross-env EXTERNAL_SYSTEM_MODE=REAL npm test -- tests/e2e-tests";
+            Id = "e2e-no-channel";
+            Name = "E2E Tests - No Channel (v1, v2, v3)";
+            Command = "npx cross-env EXTERNAL_SYSTEM_MODE=REAL npm test -- tests/e2e-tests/v1 tests/e2e-tests/v2 tests/e2e-tests/v3";
             Path = "system-test";
             TestReportPath = "system-test/playwright-report/index.html";
             TestInstallCommands = @(
