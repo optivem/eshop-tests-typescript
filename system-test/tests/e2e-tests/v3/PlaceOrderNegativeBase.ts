@@ -1,10 +1,15 @@
 import { GherkinDefaults } from '@optivem/dsl/gherkin/GherkinDefaults.js';
+import type { ShopDriver } from '@optivem/core/shop/driver/ShopDriver.js';
 import { emptyArgumentsProvider } from '../../shared/argumentProviders.js';
 import { expect, createUniqueSku } from './base/fixtures.js';
 
+type ErpDriver = {
+    returnsProduct: (request: { sku: string; price: string }) => Promise<unknown>;
+};
+
 const validationError = 'The request contains one or more validation errors';
 
-export async function shouldRejectOrderWithInvalidQuantity(shopDriver: any): Promise<void> {
+export async function shouldRejectOrderWithInvalidQuantity(shopDriver: ShopDriver): Promise<void> {
     const result = await shopDriver.orders().placeOrder({
         sku: createUniqueSku(GherkinDefaults.DEFAULT_SKU),
         quantity: 'invalid-quantity',
@@ -14,7 +19,7 @@ export async function shouldRejectOrderWithInvalidQuantity(shopDriver: any): Pro
     expect(result).toHaveFieldError('Quantity must be an integer');
 }
 
-export async function shouldRejectOrderWithNonExistentSku(shopDriver: any): Promise<void> {
+export async function shouldRejectOrderWithNonExistentSku(shopDriver: ShopDriver): Promise<void> {
     const result = await shopDriver.orders().placeOrder({
         sku: 'NON-EXISTENT-SKU-12345',
         quantity: GherkinDefaults.DEFAULT_QUANTITY,
@@ -24,7 +29,7 @@ export async function shouldRejectOrderWithNonExistentSku(shopDriver: any): Prom
     expect(result).toHaveFieldError('Product does not exist for SKU: NON-EXISTENT-SKU-12345');
 }
 
-export async function shouldRejectOrderWithNegativeQuantity(shopDriver: any): Promise<void> {
+export async function shouldRejectOrderWithNegativeQuantity(shopDriver: ShopDriver): Promise<void> {
     const result = await shopDriver.orders().placeOrder({
         sku: createUniqueSku(GherkinDefaults.DEFAULT_SKU),
         quantity: '-10',
@@ -34,7 +39,7 @@ export async function shouldRejectOrderWithNegativeQuantity(shopDriver: any): Pr
     expect(result).toHaveFieldError('Quantity must be positive');
 }
 
-export async function shouldRejectOrderWithZeroQuantity(shopDriver: any): Promise<void> {
+export async function shouldRejectOrderWithZeroQuantity(shopDriver: ShopDriver): Promise<void> {
     const result = await shopDriver.orders().placeOrder({
         sku: 'ANOTHER-SKU-67890',
         quantity: '0',
@@ -44,7 +49,7 @@ export async function shouldRejectOrderWithZeroQuantity(shopDriver: any): Promis
     expect(result).toHaveFieldError('Quantity must be positive');
 }
 
-export async function shouldRejectOrderWithEmptySku(shopDriver: any): Promise<void> {
+export async function shouldRejectOrderWithEmptySku(shopDriver: ShopDriver): Promise<void> {
     for (const sku of emptyArgumentsProvider) {
         const result = await shopDriver.orders().placeOrder({
             sku,
@@ -56,7 +61,7 @@ export async function shouldRejectOrderWithEmptySku(shopDriver: any): Promise<vo
     }
 }
 
-export async function shouldRejectOrderWithEmptyQuantity(shopDriver: any): Promise<void> {
+export async function shouldRejectOrderWithEmptyQuantity(shopDriver: ShopDriver): Promise<void> {
     for (const emptyQuantity of emptyArgumentsProvider) {
         const result = await shopDriver.orders().placeOrder({
             sku: createUniqueSku(GherkinDefaults.DEFAULT_SKU),
@@ -68,7 +73,7 @@ export async function shouldRejectOrderWithEmptyQuantity(shopDriver: any): Promi
     }
 }
 
-export async function shouldRejectOrderWithNonIntegerQuantity(shopDriver: any): Promise<void> {
+export async function shouldRejectOrderWithNonIntegerQuantity(shopDriver: ShopDriver): Promise<void> {
     for (const nonIntegerQuantity of ['3.5', 'lala']) {
         const result = await shopDriver.orders().placeOrder({
             sku: createUniqueSku(GherkinDefaults.DEFAULT_SKU),
@@ -80,7 +85,7 @@ export async function shouldRejectOrderWithNonIntegerQuantity(shopDriver: any): 
     }
 }
 
-export async function shouldRejectOrderWithEmptyCountry(shopDriver: any): Promise<void> {
+export async function shouldRejectOrderWithEmptyCountry(shopDriver: ShopDriver): Promise<void> {
     for (const emptyCountry of emptyArgumentsProvider) {
         const result = await shopDriver.orders().placeOrder({
             sku: createUniqueSku(GherkinDefaults.DEFAULT_SKU),
@@ -92,7 +97,7 @@ export async function shouldRejectOrderWithEmptyCountry(shopDriver: any): Promis
     }
 }
 
-export async function shouldRejectOrderWithInvalidCountry(shopDriver: any, erpDriver: any): Promise<void> {
+export async function shouldRejectOrderWithInvalidCountry(shopDriver: ShopDriver, erpDriver: ErpDriver): Promise<void> {
     const sku = createUniqueSku(GherkinDefaults.DEFAULT_SKU);
     expect(await erpDriver.returnsProduct({ sku, price: '20.00' })).toBeSuccess();
     const result = await shopDriver.orders().placeOrder({
@@ -104,7 +109,7 @@ export async function shouldRejectOrderWithInvalidCountry(shopDriver: any, erpDr
     expect(result).toHaveFieldError('Country does not exist: XX');
 }
 
-export async function shouldRejectOrderWithNullQuantity(shopDriver: any): Promise<void> {
+export async function shouldRejectOrderWithNullQuantity(shopDriver: ShopDriver): Promise<void> {
     const result = await shopDriver.orders().placeOrder({
         sku: createUniqueSku(GherkinDefaults.DEFAULT_SKU),
         quantity: null,
@@ -114,7 +119,7 @@ export async function shouldRejectOrderWithNullQuantity(shopDriver: any): Promis
     expect(result).toHaveFieldError('Quantity must not be empty');
 }
 
-export async function shouldRejectOrderWithNullSku(shopDriver: any): Promise<void> {
+export async function shouldRejectOrderWithNullSku(shopDriver: ShopDriver): Promise<void> {
     const result = await shopDriver.orders().placeOrder({
         sku: null,
         quantity: GherkinDefaults.DEFAULT_QUANTITY,
@@ -124,7 +129,7 @@ export async function shouldRejectOrderWithNullSku(shopDriver: any): Promise<voi
     expect(result).toHaveFieldError('SKU must not be empty');
 }
 
-export async function shouldRejectOrderWithNullCountry(shopDriver: any): Promise<void> {
+export async function shouldRejectOrderWithNullCountry(shopDriver: ShopDriver): Promise<void> {
     const result = await shopDriver.orders().placeOrder({
         sku: createUniqueSku(GherkinDefaults.DEFAULT_SKU),
         quantity: GherkinDefaults.DEFAULT_QUANTITY,
