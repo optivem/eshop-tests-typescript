@@ -7,9 +7,9 @@ const nonExistentOrderCases = [
     { orderNumber: 'NON-EXISTENT-ORDER-77777', expectedMessage: 'Order NON-EXISTENT-ORDER-77777 does not exist.' },
 ];
 
-test('should not be able to view non-existent order', async ({ shopApiDriver }) => {
+test('should not be able to view non-existent order', async ({ shopApiClient }) => {
     for (const { orderNumber, expectedMessage } of nonExistentOrderCases) {
-        const result = await shopApiDriver.orders().viewOrder(orderNumber);
+        const result = await shopApiClient.orders().viewOrder(orderNumber);
         expect(result).toBeFailureWith(expectedMessage);
     }
 });

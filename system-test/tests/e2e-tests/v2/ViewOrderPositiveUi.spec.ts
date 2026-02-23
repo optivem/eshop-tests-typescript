@@ -2,6 +2,7 @@ import '../../../setup-config.js';
 import { OrderStatus } from '@optivem/core/shop/commons/dtos/orders/OrderStatus.js';
 import { GherkinDefaults } from '@optivem/dsl/gherkin/GherkinDefaults.js';
 import { test, expect, createUniqueSku } from './base/fixtures.js';
+import { placeOrderUsingUiClient, viewOrderUsingUiClient } from './base/shopUiClientOrderFlows.js';
 
 function asNumber(value: unknown): number {
     if (typeof value === 'number') {
@@ -13,15 +14,15 @@ function asNumber(value: unknown): number {
     return Number(value);
 }
 
-test('should view placed order', async ({ shopUiDriver, erpDriver }) => {
+test('should view placed order', async ({ shopUiClient, erpClient }) => {
     const sku = createUniqueSku(GherkinDefaults.DEFAULT_SKU);
-    expect(await erpDriver.returnsProduct({ sku, price: '25.00' })).toBeSuccess();
+    expect(await erpClient.createProduct({ sku, price: '25.00' })).toBeSuccess();
 
-    const placeOrderResult = await shopUiDriver.orders().placeOrder({ sku, quantity: '4', country: GherkinDefaults.DEFAULT_COUNTRY });
+    const placeOrderResult = await placeOrderUsingUiClient(shopUiClient, { sku, quantity: '4', country: GherkinDefaults.DEFAULT_COUNTRY });
     expect(placeOrderResult).toBeSuccess();
 
     const orderNumber = placeOrderResult.getValue().orderNumber;
-    const viewOrderResult = await shopUiDriver.orders().viewOrder(orderNumber);
+    const viewOrderResult = await viewOrderUsingUiClient(shopUiClient, orderNumber);
     expect(viewOrderResult).toBeSuccess();
 
     const order = viewOrderResult.getValue();

@@ -2,6 +2,7 @@ import '../../../setup-config.js';
 import { OrderStatus } from '@optivem/core/shop/commons/dtos/orders/OrderStatus.js';
 import { GherkinDefaults } from '@optivem/dsl/gherkin/GherkinDefaults.js';
 import { test, expect, createUniqueSku } from './base/fixtures.js';
+import { placeOrderUsingUiClient, viewOrderUsingUiClient } from './base/shopUiClientOrderFlows.js';
 
 function asNumber(value: unknown): number {
     if (typeof value === 'number') {
@@ -13,15 +14,15 @@ function asNumber(value: unknown): number {
     return Number(value);
 }
 
-test('should place order with correct subtotal price', async ({ shopUiDriver, erpDriver }) => {
+test('should place order with correct subtotal price', async ({ shopUiClient, erpClient }) => {
     const sku = createUniqueSku(GherkinDefaults.DEFAULT_SKU);
-    expect(await erpDriver.returnsProduct({ sku, price: '20.00' })).toBeSuccess();
+    expect(await erpClient.createProduct({ sku, price: '20.00' })).toBeSuccess();
 
-    const placeOrderResult = await shopUiDriver.orders().placeOrder({ sku, quantity: '5', country: GherkinDefaults.DEFAULT_COUNTRY });
+    const placeOrderResult = await placeOrderUsingUiClient(shopUiClient, { sku, quantity: '5', country: GherkinDefaults.DEFAULT_COUNTRY });
     expect(placeOrderResult).toBeSuccess();
 
     const orderNumber = placeOrderResult.getValue().orderNumber;
-    const viewOrderResult = await shopUiDriver.orders().viewOrder(orderNumber);
+    const viewOrderResult = await viewOrderUsingUiClient(shopUiClient, orderNumber);
     expect(viewOrderResult).toBeSuccess();
     expect(asNumber(viewOrderResult.getValue().subtotalPrice)).toBe(100.0);
 });
@@ -33,32 +34,32 @@ const subtotalPriceCases = [
     { unitPrice: '99.99', quantity: '1', subtotalPrice: '99.99' },
 ];
 
-test('should place order with correct subtotal price parameterized', async ({ shopUiDriver, erpDriver }) => {
+test('should place order with correct subtotal price parameterized', async ({ shopUiClient, erpClient }) => {
     for (const { unitPrice, quantity, subtotalPrice } of subtotalPriceCases) {
         const sku = createUniqueSku(GherkinDefaults.DEFAULT_SKU);
-        expect(await erpDriver.returnsProduct({ sku, price: unitPrice })).toBeSuccess();
+        expect(await erpClient.createProduct({ sku, price: unitPrice })).toBeSuccess();
 
-        const placeOrderResult = await shopUiDriver.orders().placeOrder({ sku, quantity, country: GherkinDefaults.DEFAULT_COUNTRY });
+        const placeOrderResult = await placeOrderUsingUiClient(shopUiClient, { sku, quantity, country: GherkinDefaults.DEFAULT_COUNTRY });
         expect(placeOrderResult).toBeSuccess();
 
         const orderNumber = placeOrderResult.getValue().orderNumber;
-        const viewOrderResult = await shopUiDriver.orders().viewOrder(orderNumber);
+        const viewOrderResult = await viewOrderUsingUiClient(shopUiClient, orderNumber);
         expect(viewOrderResult).toBeSuccess();
         expect(asNumber(viewOrderResult.getValue().subtotalPrice)).toBe(parseFloat(subtotalPrice));
     }
 });
 
-test('should place order', async ({ shopUiDriver, erpDriver }) => {
+test('should place order', async ({ shopUiClient, erpClient }) => {
     const sku = createUniqueSku(GherkinDefaults.DEFAULT_SKU);
-    expect(await erpDriver.returnsProduct({ sku, price: '20.00' })).toBeSuccess();
+    expect(await erpClient.createProduct({ sku, price: '20.00' })).toBeSuccess();
 
-    const placeOrderResult = await shopUiDriver.orders().placeOrder({ sku, quantity: '5', country: GherkinDefaults.DEFAULT_COUNTRY });
+    const placeOrderResult = await placeOrderUsingUiClient(shopUiClient, { sku, quantity: '5', country: GherkinDefaults.DEFAULT_COUNTRY });
     expect(placeOrderResult).toBeSuccess();
 
     const orderNumber = placeOrderResult.getValue().orderNumber;
     expect(orderNumber.startsWith('ORD-')).toBe(true);
 
-    const viewOrderResult = await shopUiDriver.orders().viewOrder(orderNumber);
+    const viewOrderResult = await viewOrderUsingUiClient(shopUiClient, orderNumber);
     expect(viewOrderResult).toBeSuccess();
 
     const order = viewOrderResult.getValue();

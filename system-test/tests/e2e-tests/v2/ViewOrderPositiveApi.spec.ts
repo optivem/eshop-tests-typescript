@@ -13,15 +13,15 @@ function asNumber(value: unknown): number {
     return Number(value);
 }
 
-test('should view placed order', async ({ shopApiDriver, erpDriver }) => {
+test('should view placed order', async ({ shopApiClient, erpClient }) => {
     const sku = createUniqueSku(GherkinDefaults.DEFAULT_SKU);
-    expect(await erpDriver.returnsProduct({ sku, price: '25.00' })).toBeSuccess();
+    expect(await erpClient.createProduct({ sku, price: '25.00' })).toBeSuccess();
 
-    const placeOrderResult = await shopApiDriver.orders().placeOrder({ sku, quantity: '4', country: GherkinDefaults.DEFAULT_COUNTRY });
+    const placeOrderResult = await shopApiClient.orders().placeOrder({ sku, quantity: '4', country: GherkinDefaults.DEFAULT_COUNTRY });
     expect(placeOrderResult).toBeSuccess();
 
     const orderNumber = placeOrderResult.getValue().orderNumber;
-    const viewOrderResult = await shopApiDriver.orders().viewOrder(orderNumber);
+    const viewOrderResult = await shopApiClient.orders().viewOrder(orderNumber);
     expect(viewOrderResult).toBeSuccess();
 
     const order = viewOrderResult.getValue();

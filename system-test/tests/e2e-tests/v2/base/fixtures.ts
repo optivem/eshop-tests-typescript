@@ -1,46 +1,39 @@
-/**
- * V4 e2e fixtures: channel-based shop driver + external drivers (ERP/Tax).
- * Mirrors reference V4 driver-level style (no ScenarioDsl).
- */
 import { randomUUID } from 'node:crypto';
 import { test as base } from '@playwright/test';
-import type { ShopDriver } from '@optivem/core/shop/driver/ShopDriver.js';
+import { ShopUiClient } from '@optivem/core/shop/client/ui/ShopUiClient.js';
+import { ShopApiClient } from '@optivem/core/shop/client/api/ShopApiClient.js';
+import { ErpRealClient } from '@optivem/core/erp/client/ErpRealClient.js';
+import { TaxRealClient } from '@optivem/core/tax/client/TaxRealClient.js';
 import { Closer, setupResultMatchers } from '@optivem/commons/util';
-import {
-    createShopUiDriver,
-    createShopApiDriver,
-    createErpDriver,
-    createTaxApiDriver,
-} from '@optivem/test-infrastructure';
-import { getExternalSystemMode } from '../../../../test.config.js';
+import { testConfig } from '../../../../test.config.js';
 
 setupResultMatchers();
 
 export const test = base.extend<{
-    shopUiDriver: ShopDriver;
-    shopApiDriver: ShopDriver;
-    erpDriver: ReturnType<typeof createErpDriver>;
-    taxDriver: ReturnType<typeof createTaxApiDriver>;
+    shopUiClient: ShopUiClient;
+    shopApiClient: ShopApiClient;
+    erpClient: ErpRealClient;
+    taxClient: TaxRealClient;
 }>({
-    shopUiDriver: async ({}, use) => {
-        const driver = createShopUiDriver(getExternalSystemMode());
-        await use(driver);
-        await Closer.close(driver);
+    shopUiClient: async ({}, use) => {
+        const client = new ShopUiClient(testConfig.urls.shopUi);
+        await use(client);
+        await client.close();
     },
-    shopApiDriver: async ({}, use) => {
-        const driver = createShopApiDriver(getExternalSystemMode());
-        await use(driver);
-        await Closer.close(driver);
+    shopApiClient: async ({}, use) => {
+        const client = new ShopApiClient(testConfig.urls.shopApi);
+        await use(client);
+        client.close();
     },
-    erpDriver: async ({}, use) => {
-        const driver = createErpDriver(getExternalSystemMode());
-        await use(driver);
-        await Closer.close(driver);
+    erpClient: async ({}, use) => {
+        const client = new ErpRealClient(testConfig.urls.erpApi);
+        await use(client);
+        await Closer.close(client);
     },
-    taxDriver: async ({}, use) => {
-        const driver = createTaxApiDriver(getExternalSystemMode());
-        await use(driver);
-        await Closer.close(driver);
+    taxClient: async ({}, use) => {
+        const client = new TaxRealClient(testConfig.urls.taxApi);
+        await use(client);
+        await Closer.close(client);
     },
 });
 
