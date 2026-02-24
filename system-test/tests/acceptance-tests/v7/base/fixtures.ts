@@ -6,6 +6,7 @@ process.env.EXTERNAL_SYSTEM_MODE = process.env.EXTERNAL_SYSTEM_MODE ?? 'STUB';
 
 import { test as base } from '@playwright/test';
 import type { SystemDsl } from '@optivem/dsl/system/SystemDsl.js';
+import type { ScenarioDslPort } from '@optivem/dsl-port/gherkin/ScenarioDslPort.js';
 import { ScenarioDsl } from '@optivem/dsl/gherkin/ScenarioDsl.js';
 import {
     scenarioChannelTest as sharedScenarioChannelTest,
@@ -14,7 +15,7 @@ import {
 import { SystemDslFactory } from '../../../../SystemDslFactory.js';
 import { getExternalSystemMode } from '../../../../test.config.js';
 
-export const test = base.extend<{ app: SystemDsl; scenario: ScenarioDsl }>({
+export const test = base.extend<{ app: SystemDsl; scenario: ScenarioDslPort }>({
     app: async ({}, use) => {
         const app = SystemDslFactory.create(getExternalSystemMode());
         await use(app);
@@ -28,7 +29,7 @@ export const test = base.extend<{ app: SystemDsl; scenario: ScenarioDsl }>({
 
 export { expect } from '@playwright/test';
 
-export type ScenarioChannelFixtures = SharedScenarioChannelFixtures<ScenarioDsl>;
+export type ScenarioChannelFixtures = SharedScenarioChannelFixtures<ScenarioDslPort>;
 
 /**
  * When CHANNEL env is set (e.g. API or UI), only that channel is run.
@@ -41,7 +42,7 @@ export function scenarioChannelTest(
     testName: string,
     testFn: (fixtures: ScenarioChannelFixtures) => Promise<void>
 ): void {
-    sharedScenarioChannelTest<ScenarioDsl>(
+    sharedScenarioChannelTest<ScenarioDslPort>(
         (name, scenarioTestFn) => {
             test(name, async ({ scenario }) => {
                 await scenarioTestFn({ scenario });

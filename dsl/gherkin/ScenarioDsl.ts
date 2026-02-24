@@ -1,8 +1,9 @@
 import type { SystemDsl } from '../system/SystemDsl.js';
+import type { ScenarioDslPort } from '@optivem/dsl-port/gherkin/ScenarioDslPort.js';
 import { GivenClause } from './given/Given.js';
 import { WhenClause } from './when/When.js';
 
-export class ScenarioDsl {
+export class ScenarioDsl implements ScenarioDslPort {
     private executed = false;
 
     constructor(private readonly app: SystemDsl) {}

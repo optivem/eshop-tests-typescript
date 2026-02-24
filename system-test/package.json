@@ -19,6 +19,7 @@
   "dependencies": {
     "@optivem/commons": "file:../commons",
     "@optivem/core": "file:../core",
+    "@optivem/dsl-port": "file:../dsl-port",
     "@optivem/dsl": "file:../dsl",
     "@optivem/optivem-testing": "file:../optivem-testing",
     "@optivem/test-infrastructure": "file:../test-infrastructure",

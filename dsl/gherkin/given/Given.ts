@@ -64,6 +64,10 @@ export class GivenClause {
         );
     }
 
+    and(): GivenClause {
+        return this;
+    }
+
     private async setupGiven(): Promise<void> {
         await this.setupClock();
         await this.setupErp();
