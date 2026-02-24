@@ -1,6 +1,6 @@
 import '../../../setup-config.js';
 import { OrderStatus } from '@optivem/core/shop/commons/dtos/orders/OrderStatus.js';
-import { GherkinDefaults } from '@optivem/dsl/gherkin/GherkinDefaults.js';
+import { GherkinDefaults } from '@optivem/dsl-core/gherkin/GherkinDefaults.js';
 import { test, expect, createUniqueSku } from './base/fixtures.js';
 
 test('should view placed order', async ({ shopUiDriver, erpDriver }) => {

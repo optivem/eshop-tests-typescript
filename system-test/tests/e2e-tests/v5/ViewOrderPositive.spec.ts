@@ -2,7 +2,7 @@ import '../../../setup-config.js';
 import { Channel } from './base/fixtures.js';
 import { ChannelType } from '@optivem/core/shop/ChannelType.js';
 import { OrderStatus } from '@optivem/core/shop/commons/dtos/orders/OrderStatus.js';
-import { GherkinDefaults } from '@optivem/dsl/gherkin/GherkinDefaults.js';
+import { GherkinDefaults } from '@optivem/dsl-core/gherkin/GherkinDefaults.js';
 
 Channel(ChannelType.UI, ChannelType.API)('should view placed order', async ({ app }) => {
     (await app.erp().returnsProduct()

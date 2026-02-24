@@ -3,8 +3,8 @@
  * Uses getExternalSystemMode() so e2e can run against REAL or STUB.
  */
 import { test as base } from '@playwright/test';
-import type { SystemDsl } from '@optivem/dsl/system/SystemDsl.js';
-import { ScenarioDsl } from '@optivem/dsl/gherkin/ScenarioDsl.js';
+import type { SystemDsl } from '@optivem/dsl-core/system/SystemDsl.js';
+import { ScenarioDsl } from '@optivem/dsl-core/gherkin/ScenarioDsl.js';
 import {
     scenarioChannelTest as sharedScenarioChannelTest,
     type ScenarioChannelFixtures as SharedScenarioChannelFixtures,

@@ -1,5 +1,5 @@
 import { test as base } from '@playwright/test';
-import type { SystemDsl } from '@optivem/dsl/system/SystemDsl.js';
+import type { SystemDsl } from '@optivem/dsl-core/system/SystemDsl.js';
 import { ChannelContext } from '@optivem/optivem-testing';
 import { SystemDslFactory } from '../../../SystemDslFactory.js';
 import { getExternalSystemMode } from '../../../test.config.js';
