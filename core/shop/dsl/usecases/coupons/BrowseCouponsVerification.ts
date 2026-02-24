@@ -15,10 +15,16 @@ export class BrowseCouponsVerification extends ResponseVerification<BrowseCoupon
 
     couponHasDiscountRate(couponCodeAlias: string, expectedDiscountRate: number): BrowseCouponsVerification {
         const coupon = this.findCouponByCode(couponCodeAlias);
+        const discountRateValue = coupon.discountRate as unknown;
+        const actualDiscountRate =
+            discountRateValue != null && typeof discountRateValue === 'object' && 'toNumber' in discountRateValue
+                ? (discountRateValue as { toNumber: () => number }).toNumber()
+                : Number(discountRateValue);
+
         expect(
-            coupon.discountRate,
+            actualDiscountRate,
             `Discount rate for coupon '${couponCodeAlias}'`
-        ).toBe(expectedDiscountRate);
+        ).toBeCloseTo(expectedDiscountRate, 10);
         return this;
     }
 

@@ -4,16 +4,6 @@ import { GherkinDefaults } from '@optivem/dsl/gherkin/GherkinDefaults.js';
 import { test, expect, createUniqueSku } from './base/fixtures.js';
 import { placeOrderUsingUiClient, viewOrderUsingUiClient } from './base/shopUiClientOrderFlows.js';
 
-function asNumber(value: unknown): number {
-    if (typeof value === 'number') {
-        return value;
-    }
-    if (value != null && typeof (value as { toNumber?: () => number }).toNumber === 'function') {
-        return (value as { toNumber: () => number }).toNumber();
-    }
-    return Number(value);
-}
-
 test('should view placed order', async ({ shopUiClient, erpDriver }) => {
     const sku = createUniqueSku(GherkinDefaults.DEFAULT_SKU);
     expect(await erpDriver.returnsProduct({ sku, price: '25.00' })).toBeSuccess();
@@ -29,14 +19,14 @@ test('should view placed order', async ({ shopUiClient, erpDriver }) => {
     expect(order.orderNumber).toBe(orderNumber);
     expect(order.sku).toBe(sku);
     expect(order.country).toBe(GherkinDefaults.DEFAULT_COUNTRY);
-    expect(asNumber(order.quantity)).toBe(4);
-    expect(asNumber(order.unitPrice)).toBe(25.0);
-    expect(asNumber(order.subtotalPrice)).toBe(100.0);
+    expect(order.quantity).toEqualInteger(4);
+    expect(order.unitPrice).toEqualDecimal(25.0);
+    expect(order.subtotalPrice).toEqualDecimal(100.0);
     expect(order.status).toBe(OrderStatus.PLACED);
-    expect(asNumber(order.discountRate)).toBeGreaterThanOrEqual(0);
-    expect(asNumber(order.discountAmount)).toBeGreaterThanOrEqual(0);
-    expect(asNumber(order.subtotalPrice)).toBeGreaterThan(0);
-    expect(asNumber(order.taxRate)).toBeGreaterThanOrEqual(0);
-    expect(asNumber(order.taxAmount)).toBeGreaterThanOrEqual(0);
-    expect(asNumber(order.totalPrice)).toBeGreaterThan(0);
+    expect(order.discountRate).toBeGreaterThanOrEqualDecimal(0);
+    expect(order.discountAmount).toBeGreaterThanOrEqualDecimal(0);
+    expect(order.subtotalPrice).toBeGreaterThanDecimal(0);
+    expect(order.taxRate).toBeGreaterThanOrEqualDecimal(0);
+    expect(order.taxAmount).toBeGreaterThanOrEqualDecimal(0);
+    expect(order.totalPrice).toBeGreaterThanDecimal(0);
 });
