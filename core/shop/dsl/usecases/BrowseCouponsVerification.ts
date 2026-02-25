@@ -1,6 +1,6 @@
 import { ResponseVerification, UseCaseContext } from '@optivem/commons/dsl';
 import { Converter } from '@optivem/commons/util';
-import type { BrowseCouponsResponse, CouponDto } from '../../../commons/dtos/coupons/index.js';
+import type { BrowseCouponsResponse, CouponDto } from '../../commons/dtos/coupons/index.js';
 import { expect } from '@playwright/test';
 
 export class BrowseCouponsVerification extends ResponseVerification<BrowseCouponsResponse> {
@@ -75,3 +75,4 @@ export class BrowseCouponsVerification extends ResponseVerification<BrowseCoupon
         return coupon!;
     }
 }
+

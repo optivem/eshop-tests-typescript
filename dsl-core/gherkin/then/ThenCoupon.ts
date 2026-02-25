@@ -10,7 +10,7 @@ export abstract class BaseThenCouponVerifier<
     TSuccessResponse,
     TSuccessVerification extends ResponseVerification<TSuccessResponse>
 > implements PromiseLike<void> {
-    protected readonly verifications: Array<(code: string, v: import('@optivem/core/shop/dsl/usecases/coupons/BrowseCouponsVerification.js').BrowseCouponsVerification) => void> = [];
+    protected readonly verifications: Array<(code: string, v: import('@optivem/core/shop/dsl/usecases/BrowseCouponsVerification.js').BrowseCouponsVerification) => void> = [];
 
     constructor(
         protected readonly thenClause: ThenClause<TSuccessResponse, TSuccessVerification>,
@@ -112,3 +112,4 @@ export class ThenFailureCouponVerifier<
         }
     }
 }
+

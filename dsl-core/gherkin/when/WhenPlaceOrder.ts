@@ -6,7 +6,7 @@ import { ExecutionResultBuilder } from '../ExecutionResultBuilder.js';
 import { GherkinDefaults } from '../GherkinDefaults.js';
 import { BaseWhenBuilder } from './BaseWhenStep.js';
 import type { PlaceOrderResponse } from '@optivem/core/shop/commons/dtos/orders/index.js';
-import type { PlaceOrderVerification } from '@optivem/core/shop/dsl/usecases/orders/PlaceOrderVerification.js';
+import type { PlaceOrderVerification } from '@optivem/core/shop/dsl/usecases/PlaceOrderVerification.js';
 
 export class PlaceOrderBuilder extends BaseWhenBuilder<PlaceOrderResponse, PlaceOrderVerification> {
     private orderNumberValue: Optional<string>;
@@ -73,3 +73,4 @@ export class PlaceOrderBuilder extends BaseWhenBuilder<PlaceOrderResponse, Place
             .build();
     }
 }
+
