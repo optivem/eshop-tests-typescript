@@ -1,14 +1,4 @@
-import type { Integer } from '@optivem/commons/util';
-
-export interface CouponDto {
-    code: string;
-    discountRate: number;
-    validFrom: Date | string;
-    validTo: Date | string;
-    usageLimit?: Integer;
-    usedCount?: Integer;
-}
-
-export interface BrowseCouponsResponse {
-    coupons: CouponDto[];
-}
+export type {
+    BrowseCouponsResponse,
+    CouponDto,
+} from '@optivem/driver-api/shop/driver/dtos/BrowseCouponsResponse.js';

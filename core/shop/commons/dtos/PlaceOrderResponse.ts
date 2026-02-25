@@ -1,3 +1,1 @@
-export interface PlaceOrderResponse {
-    orderNumber: string;
-}
+export type { PlaceOrderResponse } from '@optivem/driver-api/shop/driver/dtos/PlaceOrderResponse.js';

@@ -1,13 +1,12 @@
-export interface SystemErrorField {
-    field: string;
-    message: string;
-    code?: string;
-}
+import type {
+    SystemError,
+    SystemErrorField,
+} from '@optivem/driver-api/shop/driver/dtos/errors/SystemError.js';
 
-export interface SystemError {
-    message: string;
-    fields?: SystemErrorField[];
-}
+export type {
+    SystemError,
+    SystemErrorField,
+} from '@optivem/driver-api/shop/driver/dtos/errors/SystemError.js';
 
 export function systemErrorOf(message: string, fields?: SystemErrorField[]): SystemError {
     return { message, fields };

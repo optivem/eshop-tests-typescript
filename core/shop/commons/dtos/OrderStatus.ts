@@ -1,4 +1,1 @@
-export enum OrderStatus {
-    PLACED = 'PLACED',
-    CANCELLED = 'CANCELLED',
-}
+export { OrderStatus } from '@optivem/driver-api/shop/driver/dtos/OrderStatus.js';

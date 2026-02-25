@@ -1,9 +1,1 @@
-import type { Optional } from '@optivem/commons/util';
-
-export interface PublishCouponRequest {
-    code?: Optional<string>;
-    discountRate?: Optional<string>;
-    validFrom?: Optional<string>;
-    validTo?: Optional<string>;
-    usageLimit?: Optional<string>;
-}
+export type { PublishCouponRequest } from '@optivem/driver-api/shop/driver/dtos/PublishCouponRequest.js';
