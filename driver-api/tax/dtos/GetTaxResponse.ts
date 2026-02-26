@@ -1,4 +1,4 @@
-import type { Decimal } from '@optivem/common/util';
+import type { Decimal } from '@optivem/commons/util';
 
 export interface GetTaxResponse {
 	country: string;

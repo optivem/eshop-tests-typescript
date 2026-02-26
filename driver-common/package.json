@@ -20,7 +20,7 @@
     }
   },
   "dependencies": {
-    "@optivem/common": "file:../common",
+    "@optivem/commons": "file:../common",
     "@optivem/driver-api": "file:../driver-api",
     "axios": "^1.7.9"
   },

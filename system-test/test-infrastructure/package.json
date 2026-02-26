@@ -10,7 +10,7 @@
     "build": "rimraf dist && tsc"
   },
   "dependencies": {
-    "@optivem/common": "file:../../common",
+    "@optivem/commons": "file:../../common",
     "@optivem/driver-api": "file:../../driver-api",
     "@optivem/driver-common": "file:../../driver-common",
     "@optivem/driver-core": "file:../../driver-core",

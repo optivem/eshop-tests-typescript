@@ -1,5 +1,5 @@
 {
-  "name": "@optivem/common",
+  "name": "@optivem/commons",
   "version": "0.0.1",
   "description": "Shared utilities for Optivem acceptance testing (util)",
   "type": "module",
