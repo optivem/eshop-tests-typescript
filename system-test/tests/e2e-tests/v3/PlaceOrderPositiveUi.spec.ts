@@ -1,5 +1,5 @@
 import '../../../setup-config.js';
-import { OrderStatus } from '@optivem/core/shop/commons/dtos/OrderStatus.js';
+import { OrderStatus } from '@optivem/driver-api/shop/dtos/OrderStatus.js';
 import { GherkinDefaults } from '@optivem/dsl-core/gherkin/GherkinDefaults.js';
 import { test, expect, createUniqueSku } from './base/fixtures.js';
 

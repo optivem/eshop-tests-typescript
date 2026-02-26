@@ -1,6 +1,6 @@
 import '../../../setup-config.js';
 import { ChannelType } from '@optivem/core/shop/ChannelType.js';
-import { OrderStatus } from '@optivem/core/shop/commons/dtos/OrderStatus.js';
+import { OrderStatus } from '@optivem/driver-api/shop/dtos/OrderStatus.js';
 import { GherkinDefaults } from '@optivem/dsl-core/gherkin/GherkinDefaults.js';
 import { channelShopDriverTest, createUniqueSku, expect } from './base/fixtures.js';
 

@@ -4,7 +4,7 @@
 import '../../../../setup-config.js';
 import { Channel } from '../base/fixtures.js';
 import { ChannelType } from '@optivem/core/shop/ChannelType.js';
-import { OrderStatus } from '@optivem/core/shop/commons/dtos/OrderStatus.js';
+import { OrderStatus } from '@optivem/driver-api/shop/dtos/OrderStatus.js';
 
 const nonExistentOrderCases = [
     { orderNumber: 'NON-EXISTENT-ORDER-99999', message: 'Order NON-EXISTENT-ORDER-99999 does not exist.' },

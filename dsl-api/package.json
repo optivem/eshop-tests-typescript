@@ -5,6 +5,9 @@
   "private": true,
   "scripts": { "clean": "rimraf dist", "build": "rimraf dist && tsc -p tsconfig.build.json" },
   "exports": { "./*": "./dist/*" },
+  "dependencies": {
+    "@optivem/driver-api": "file:../driver-api"
+  },
   "devDependencies": {
     "rimraf": "^6.0.1",
     "typescript": "^5.7.2"

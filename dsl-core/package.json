@@ -8,6 +8,7 @@
   "dependencies": {
     "@optivem/commons": "file:../commons",
     "@optivem/core": "file:../core",
+    "@optivem/driver-api": "file:../driver-api",
     "@optivem/dsl-api": "file:../dsl-api"
   }
 }

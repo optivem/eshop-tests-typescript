@@ -5,7 +5,7 @@ import { ExecutionResult } from '../ExecutionResult.js';
 import { ExecutionResultBuilder } from '../ExecutionResultBuilder.js';
 import { GherkinDefaults } from '../GherkinDefaults.js';
 import { BaseWhenBuilder } from './BaseWhenStep.js';
-import type { PlaceOrderResponse } from '@optivem/core/shop/commons/dtos/index.js';
+import type { PlaceOrderResponse } from '@optivem/driver-api/shop/dtos/index.js';
 import type { PlaceOrderVerification } from '@optivem/core/shop/usecases/PlaceOrderVerification.js';
 
 export class PlaceOrderBuilder extends BaseWhenBuilder<PlaceOrderResponse, PlaceOrderVerification> {
