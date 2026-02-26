@@ -7,6 +7,7 @@
   "exports": { "./*": "./dist/*" },
   "dependencies": {
     "@optivem/commons": "file:../commons",
-    "@optivem/driver-api": "file:../driver-api"
+    "@optivem/driver-api": "file:../driver-api",
+    "@optivem/driver-common": "file:../driver-common"
   }
 }
