@@ -50,10 +50,12 @@ Test projects get DSL **only** via TestInfrastructure (no direct reference to Ds
 | Package | dependencies |
 |---------|----------------|
 | **commons** | (none internal) |
-| **core** | (none in package.json; may use commons via workspace) |
-| **dsl** | @optivem/commons, @optivem/core |
-| **test-infrastructure** | @optivem/commons, @optivem/core, @optivem/optivem-testing |
-| **system-test** | @optivem/commons, @optivem/core, **@optivem/dsl**, @optivem/optivem-testing, @optivem/test-infrastructure |
+| **driver-api** | (none internal) |
+| **driver-core** | @optivem/commons, @optivem/driver-api |
+| **dsl-api** | @optivem/driver-api |
+| **dsl-core** | @optivem/commons, @optivem/driver-api, @optivem/driver-core, @optivem/dsl-api, @optivem/optivem-testing |
+| **test-infrastructure** | @optivem/commons, @optivem/driver-api, @optivem/driver-core, @optivem/dsl-core, @optivem/optivem-testing |
+| **system-test** | @optivem/commons, @optivem/driver-api, @optivem/driver-core, @optivem/dsl-api, @optivem/dsl-core, @optivem/optivem-testing, @optivem/test-infrastructure |
 
 ---
 
@@ -62,9 +64,7 @@ Test projects get DSL **only** via TestInfrastructure (no direct reference to Ds
 | Aspect | Java | .NET | TypeScript |
 |--------|------|------|------------|
 | **Test project depends on** | test-infrastructure only | TestInfrastructure (+ Commons) | test-infrastructure **and** dsl |
-| **Who depends on dsl** | Unclear (test-infrastructure uses it but doesn't declare `:dsl`) | TestInfrastructure | system-test (and dsl -> core, commons) |
-| **test-infrastructure depends on dsl?** | No (only commons, core) | **Yes** (Dsl.System, Dsl.Gherkin) | **No** (commons, core, optivem-testing) |
+| **Who depends on dsl** | Unclear (test-infrastructure uses it but doesn't declare `:dsl`) | TestInfrastructure | test-infrastructure and system-test (via dsl-core / dsl-api) |
+| **test-infrastructure depends on dsl?** | No (only commons, core) | **Yes** (Dsl.System, Dsl.Gherkin) | **Yes** (depends on dsl-core) |
 
-To mirror .NET: **test-infrastructure** could depend on **@optivem/dsl** and system-test could drop its direct dsl dependency (get it transitively via test-infrastructure). That would match .NET where SmokeTests only reference TestInfrastructure and get DSL through it.
-
-Current TypeScript setup (system-test -> dsl + test-infrastructure) is valid; the main difference is that in .NET, test projects do not reference Dsl directly.
+Current TypeScript setup uses split packages (`dsl-api`, `dsl-core`) and no longer has a standalone `core` workspace. It is broadly aligned with .NET in that `test-infrastructure` consumes DSL; `system-test` still keeps direct DSL dependencies for convenience.
