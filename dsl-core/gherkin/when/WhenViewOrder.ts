@@ -5,7 +5,7 @@ import { ExecutionResultBuilder } from '../ExecutionResultBuilder.js';
 import { GherkinDefaults } from '../GherkinDefaults.js';
 import { BaseWhenBuilder } from './BaseWhenStep.js';
 import type { ViewOrderResponse } from '@optivem/driver-api/shop/dtos/index.js';
-import type { ViewOrderVerification } from '@optivem/core/shop/usecases/ViewOrderVerification.js';
+import type { ViewOrderVerification } from '../../system/shop/usecases/ViewOrderVerification.js';
 
 export class ViewOrderBuilder extends BaseWhenBuilder<ViewOrderResponse, ViewOrderVerification> {
     private orderNumberValue: Optional<string>;

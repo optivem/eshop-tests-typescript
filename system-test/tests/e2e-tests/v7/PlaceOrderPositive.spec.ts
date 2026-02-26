@@ -4,7 +4,7 @@
  */
 import '../../../setup-config.js';
 import { Channel } from './base/fixtures.js';
-import { ChannelType } from '@optivem/core/shop/ChannelType.js';
+import { ChannelType } from '@optivem/dsl-core/system/shop/ChannelType.js';
 
 Channel(ChannelType.UI, ChannelType.API)('should place order', async ({ scenario }) => {
     await scenario

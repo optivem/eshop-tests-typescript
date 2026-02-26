@@ -3,7 +3,7 @@
  */
 import '../../../../setup-config.js';
 import { Channel } from '../fixtures.js';
-import { ChannelType } from '@optivem/core/shop/ChannelType.js';
+import { ChannelType } from '@optivem/dsl-core/system/shop/ChannelType.js';
 
 Channel(ChannelType.UI, ChannelType.API)('should be able to go to shop', async ({ scenario }) => {
     await scenario

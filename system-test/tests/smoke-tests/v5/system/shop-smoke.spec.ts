@@ -3,7 +3,7 @@
  */
 import '../../../../setup-config.js';
 import { test, channelAppTest } from '../fixtures.js';
-import { ChannelType } from '@optivem/core/shop/ChannelType.js';
+import { ChannelType } from '@optivem/dsl-core/system/shop/ChannelType.js';
 
 test.describe('V5 Shop Smoke Tests', () => {
     channelAppTest(

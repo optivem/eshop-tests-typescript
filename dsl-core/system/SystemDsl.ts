@@ -1,10 +1,10 @@
 import { UseCaseContext } from '@optivem/commons/dsl';
 import { Closer } from '@optivem/commons/util';
 import type { SystemConfiguration } from './SystemConfiguration.js';
-import { ShopDsl } from '@optivem/core/shop/ShopDsl.js';
-import { ErpDsl } from '@optivem/core/erp/ErpDsl.js';
-import { TaxDsl } from '@optivem/core/tax/TaxDsl.js';
-import { ClockDsl } from '@optivem/core/clock/ClockDsl.js';
+import { ShopDsl } from './shop/ShopDsl.js';
+import { ErpDsl } from './erp/ErpDsl.js';
+import { TaxDsl } from './tax/TaxDsl.js';
+import { ClockDsl } from './clock/ClockDsl.js';
 
 export class SystemDsl {
     private readonly context: UseCaseContext;

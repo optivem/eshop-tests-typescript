@@ -5,7 +5,7 @@
 import { randomUUID } from 'node:crypto';
 import { test as base } from '@playwright/test';
 import type { ShopDriver } from '@optivem/driver-core/shop/driver/ShopDriver.js';
-import { ChannelType } from '@optivem/core/shop/ChannelType.js';
+import { ChannelType } from '@optivem/dsl-core/system/shop/ChannelType.js';
 import { ChannelContext } from '@optivem/optivem-testing';
 import { Closer, setupResultMatchers } from '@optivem/commons/util';
 import {

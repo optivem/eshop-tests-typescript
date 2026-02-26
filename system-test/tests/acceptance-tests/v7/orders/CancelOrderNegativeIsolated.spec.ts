@@ -5,7 +5,7 @@
  */
 import '../../../../setup-config.js';
 import { test, Channel } from '../base/fixtures.js';
-import { ChannelType } from '@optivem/core/shop/ChannelType.js';
+import { ChannelType } from '@optivem/dsl-core/system/shop/ChannelType.js';
 import { OrderStatus } from '@optivem/driver-api/shop/dtos/OrderStatus.js';
 
 test.describe.configure({ mode: 'serial' });
