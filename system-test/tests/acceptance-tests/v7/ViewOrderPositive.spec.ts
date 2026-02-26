@@ -1,8 +1,8 @@
 /**
  * V7 acceptance: view order (positive). Migrated from Java ViewOrderPositiveTest.
  */
-import '../../../../setup-config.js';
-import { test, withChannels } from '../base/fixtures.js';
+import '../../../setup-config.js';
+import { test, withChannels } from './base/fixtures.js';
 import { ChannelType } from '@optivem/dsl-core/system/shop/ChannelType.js';
 
 withChannels(ChannelType.UI, ChannelType.API)(() => {

@@ -1,10 +1,10 @@
 /**
  * V7 acceptance: place order (negative). Migrated from Java PlaceOrderNegativeTest.
  */
-import '../../../../setup-config.js';
-import { test, withChannels } from '../base/fixtures.js';
+import '../../../setup-config.js';
+import { test, withChannels } from './base/fixtures.js';
 import { ChannelType } from '@optivem/dsl-core/system/shop/ChannelType.js';
-import { emptyArgumentsProvider } from '../../../shared/argumentProviders.js';
+import { emptyArgumentsProvider } from '../../shared/argumentProviders.js';
 
 const validationError = 'The request contains one or more validation errors';
 

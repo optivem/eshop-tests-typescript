@@ -1,8 +1,8 @@
 /**
  * V7 acceptance: view order (negative). Migrated from Java ViewOrderNegativeTest.
  */
-import '../../../../setup-config.js';
-import { test, withChannels } from '../base/fixtures.js';
+import '../../../setup-config.js';
+import { test, withChannels } from './base/fixtures.js';
 import { ChannelType } from '@optivem/dsl-core/system/shop/ChannelType.js';
 
 const nonExistentOrderCases = [

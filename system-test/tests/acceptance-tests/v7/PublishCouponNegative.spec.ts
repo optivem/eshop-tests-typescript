@@ -1,8 +1,8 @@
 /**
  * V7 acceptance: publish coupon (negative). Migrated from Java PublishCouponNegativeTest.
  */
-import '../../../../setup-config.js';
-import { test, withChannels } from '../base/fixtures.js';
+import '../../../setup-config.js';
+import { test, withChannels } from './base/fixtures.js';
 import { ChannelType } from '@optivem/dsl-core/system/shop/ChannelType.js';
 
 const validationError = 'The request contains one or more validation errors';
