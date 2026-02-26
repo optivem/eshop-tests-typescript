@@ -10,8 +10,8 @@ import type { ScenarioDslPort } from '@optivem/dsl-api/scenario/ScenarioDslPort.
 import { ScenarioDsl } from '@optivem/dsl-core/scenario/ScenarioDsl.js';
 import {
     scenarioChannelTest as sharedScenarioChannelTest,
+    withChannels as sharedWithChannels,
     type ScenarioChannelFixtures as SharedScenarioChannelFixtures,
-    ChannelContext,
 } from '@optivem/optivem-testing';
 import { SystemDslFactory } from '../../../../SystemDslFactory.js';
 import { getExternalSystemMode } from '../../../../test.config.js';
@@ -71,18 +71,12 @@ export function Channel(
  * Registers a describe block per channel so inner tests are standard test() calls.
  */
 export function withChannels(...channelTypes: string[]): (block: () => void) => void {
-    return (block: () => void) => {
-        const channelEnv = process.env.CHANNEL;
-        const channelsToRun = channelEnv
-            ? channelTypes.filter((c) => c === channelEnv)
-            : channelTypes;
-
-        for (const channel of channelsToRun) {
-            test.describe(`[${channel} Channel]`, () => {
-                test.beforeEach(() => { ChannelContext.set(channel); });
-                test.afterEach(() => { ChannelContext.clear(); });
-                block();
-            });
-        }
-    };
+    return sharedWithChannels(
+        {
+            describe: (name, callback) => test.describe(name, callback),
+            beforeEach: (callback) => test.beforeEach(callback),
+            afterEach: (callback) => test.afterEach(callback),
+        },
+        ...channelTypes
+    );
 }
