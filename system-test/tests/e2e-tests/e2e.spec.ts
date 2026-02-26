@@ -5,6 +5,7 @@ test('hello world', () => {
     expect(true).toBe(true);
 });
 
+<<<<<<< HEAD
 /*
 import { setupResultMatchers } from '@optivem/common/util';
 import { ChannelType } from '@optivem/dsl-core/system/shop/ChannelType.js';
@@ -209,3 +210,5 @@ channelTest(getExternalSystemMode(), [ChannelType.API], 'should not cancel alrea
     expect(secondCancelResult).toBeFailureWith('Order has already been cancelled');
 });
 */
+=======
+>>>>>>> 7f179f7f8482181c1bb0f2b3c817b4b0a52d0838
