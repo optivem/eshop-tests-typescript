@@ -9,7 +9,8 @@ import type { SystemDsl } from '@optivem/dsl-core/system/SystemDsl.js';
 import { withApp, withScenario } from '@optivem/test-infrastructure';
 
 const _test = withScenario(withApp(), (app: SystemDsl) => new ScenarioDsl(app));
-const test = Object.assign(_test, { each: createTestEach(_test) });
+type TestEach = ReturnType<typeof createTestEach>;
+const test: typeof _test & { each: TestEach } = Object.assign(_test, { each: createTestEach(_test) });
 
 const { withChannels } = createChannelHelpers(test);
 

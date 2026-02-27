@@ -1,3 +1,5 @@
+import type { TestType } from '@playwright/test';
+
 /**
  * Extends a Playwright test object with a `scenario` fixture derived from the `app` fixture.
  *
@@ -9,10 +11,10 @@
  * ```
  */
 export function withScenario<TApp, TScenario>(
-    appTest: any,
+    appTest: TestType<{ app: TApp }, any>,
     createScenario: (app: TApp) => TScenario,
 ) {
-    return appTest.extend({
+    return appTest.extend<{ scenario: TScenario }>({
         scenario: async ({ app }: { app: TApp }, use: (scenario: TScenario) => Promise<void>) => {
             const scenario = createScenario(app);
             await use(scenario);
