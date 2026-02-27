@@ -87,6 +87,8 @@ export function testEach<T extends Record<string, unknown>>(
     };
 }
 
+(test as typeof test & { each?: typeof testEach }).each = testEach;
+
 /**
  * withChannels(UI, API)(() => { test(...) }) - decorator-style wrapper.
  * Registers a describe block per channel so inner tests are standard test() calls.
