@@ -11,6 +11,6 @@
     "@optivem/driver-core": "file:../driver-core",
     "@optivem/dsl-api": "file:../dsl-api",
     "@optivem/dsl-common": "file:../dsl-common",
-    "@optivem/optivem-testing": "file:../optivem-testing"
+    "@optivem/optivem-testing": "1.0.12"
   }
 }

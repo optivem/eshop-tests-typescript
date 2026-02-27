@@ -15,7 +15,7 @@
     "@optivem/dsl-api": "file:../../dsl-api",
     "@optivem/dsl-common": "file:../../dsl-common",
     "@optivem/dsl-core": "file:../../dsl-core",
-    "@optivem/optivem-testing": "file:../../optivem-testing",
+    "@optivem/optivem-testing": "1.0.12",
     "@optivem/test-infrastructure": "file:../test-infrastructure"
   }
 }

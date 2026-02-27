@@ -15,7 +15,7 @@
     "@optivem/driver-common": "file:../../driver-common",
     "@optivem/driver-core": "file:../../driver-core",
     "@optivem/dsl-core": "file:../../dsl-core",
-    "@optivem/optivem-testing": "file:../../optivem-testing"
+    "@optivem/optivem-testing": "1.0.12"
   },
   "devDependencies": {
     "rimraf": "^6.0.1",
