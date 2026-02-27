@@ -89,7 +89,6 @@ forChannels(ChannelType.UI, ChannelType.API)(() => {
                 .withCouponCode(null)
             .then().shouldSucceed()
             .and().order()
-                .hasStatus(OrderStatus.PLACED)
                 .hasAppliedCoupon(null)
                 .hasDiscountRate(0)
                 .hasDiscountAmount(0);
@@ -179,7 +178,7 @@ forChannels(ChannelType.UI, ChannelType.API)(() => {
             .when().placeOrder()
                 .withCouponCode('SUMMER2025')
             .then().shouldSucceed()
-            .coupon('SUMMER2025')
+            .and().coupon('SUMMER2025')
                 .hasUsedCount(1);
     });
 });

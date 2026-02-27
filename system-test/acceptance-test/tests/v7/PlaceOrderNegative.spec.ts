@@ -83,7 +83,6 @@ forChannels(ChannelType.UI, ChannelType.API)(() => {
 
     test('should reject order with invalid country', async ({ scenario }) => {
         await scenario
-            .given().product()
             .when().placeOrder()
                 .withCountry('XX')
             .then().shouldFail()
