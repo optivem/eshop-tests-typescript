@@ -1,6 +1,6 @@
 # @optivem/optivem-testing
 
-Multi-channel testing utilities for Playwright - run the same test against UI and API channels.
+Composable Playwright helpers for channelized tests.
 
 ## Installation
 
@@ -8,39 +8,41 @@ Multi-channel testing utilities for Playwright - run the same test against UI an
 npm install @optivem/optivem-testing
 ```
 
-## Usage
+## Exports
+
+- `withChannels` and channel primitives from `channel`
+- `createChannelHelpers(test)`
+- `createTestEach(test)`
+- `channelTest` (legacy convenience helper)
+
+## Example
 
 ```typescript
-import { ChannelType, channelTest } from '@optivem/optivem-testing';
-import { expect } from '@playwright/test';
+import { test as base } from '@playwright/test';
+import { createChannelHelpers, createTestEach } from '@optivem/optivem-testing';
 
-const shopDriverFactory = (channelType: string) => {
-  return channelType === ChannelType.UI 
-    ? new ShopUiDriver()
-    : new ShopApiDriver();
-};
+const _test = base.extend<{ app: MyApp }>({
+    app: async ({}, use) => {
+        const app = createMyApp();
+        await use(app);
+        await app.close();
+    },
+});
 
-channelTest(
-  [ChannelType.UI, ChannelType.API],
-  shopDriverFactory,
-  'shopDriver',
-  {},
-  'should place order successfully',
-  async ({ shopDriver }) => {
-    const result = await shopDriver.placeOrder('SKU-123', '5', 'US');
-    expect(result.isSuccess()).toBe(true);
-  }
-);
+const test = Object.assign(_test, { each: createTestEach(_test) });
+const { withChannels } = createChannelHelpers(test);
+
+withChannels('UI', 'API')(() => {
+    test.each(['3.5', 'lala'])(
+        'rejects non-integer quantity ($quantity)',
+        async ({ app, quantity }) => {
+            await app.placeOrder(quantity);
+        },
+    );
+});
 ```
 
-## Features
+## Notes
 
-- **ChannelType**: Enum for UI and API channels
-- **channelTest**: Run the same test across multiple channels (UI, API)
-- **Automatic resource cleanup**: Uses Closer to clean up drivers after tests
-
-Inspired by .NET's `[Theory]` and `[ChannelData]` attributes.
-
-## License
-
-MIT
+- This package does **not** define domain fixtures like `app` or `scenario`.
+- Build domain fixtures in your test-infrastructure layer, then compose them with these helpers.
