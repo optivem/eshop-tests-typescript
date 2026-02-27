@@ -19,7 +19,7 @@ const times = [
 
 test.describe('@isolated', () => {
     withChannels(ChannelType.UI, ChannelType.API)(() => {
-        test.each(times.map((time) => ({ time })))(
+        test.each(times)(
             'should be able to cancel order outside of blackout period 31st Dec between 22:00 and 22:30 ($time)',
             async ({ scenario, time }) => {
                 await scenario

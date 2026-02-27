@@ -49,7 +49,7 @@ test('should reject order with zero quantity', async ({ shopApiDriver }) => {
 	expect(result).toHaveFieldError('Quantity must be positive');
 });
 
-test.each(emptyArgumentsProvider.map((sku) => ({ sku })))('should reject order with empty SKU (sku=$sku)', async ({ shopApiDriver, sku }) => {
+test.each(emptyArgumentsProvider)('should reject order with empty SKU (sku=$sku)', async ({ shopApiDriver, sku }) => {
 	const result = await shopApiDriver.placeOrder({
 		sku,
 		quantity: GherkinDefaults.DEFAULT_QUANTITY,
@@ -60,7 +60,7 @@ test.each(emptyArgumentsProvider.map((sku) => ({ sku })))('should reject order w
 	expect(result).toHaveFieldError('SKU must not be empty');
 });
 
-test.each(emptyArgumentsProvider.map((emptyQuantity) => ({ emptyQuantity })))('should reject order with empty quantity (quantity=$emptyQuantity)', async ({ shopApiDriver, emptyQuantity }) => {
+test.each(emptyArgumentsProvider)('should reject order with empty quantity (quantity=$emptyQuantity)', async ({ shopApiDriver, emptyQuantity }) => {
 	const result = await shopApiDriver.placeOrder({
 		sku: createUniqueSku(GherkinDefaults.DEFAULT_SKU),
 		quantity: emptyQuantity,
@@ -71,7 +71,7 @@ test.each(emptyArgumentsProvider.map((emptyQuantity) => ({ emptyQuantity })))('s
 	expect(result).toHaveFieldError('Quantity must not be empty');
 });
 
-test.each([{ nonIntegerQuantity: '3.5' }, { nonIntegerQuantity: 'lala' }])('should reject order with non-integer quantity (quantity=$nonIntegerQuantity)', async ({ shopApiDriver, nonIntegerQuantity }) => {
+test.each(['3.5', 'lala'])('should reject order with non-integer quantity (quantity=$nonIntegerQuantity)', async ({ shopApiDriver, nonIntegerQuantity }) => {
 	const result = await shopApiDriver.placeOrder({
 		sku: createUniqueSku(GherkinDefaults.DEFAULT_SKU),
 		quantity: nonIntegerQuantity,
@@ -82,7 +82,7 @@ test.each([{ nonIntegerQuantity: '3.5' }, { nonIntegerQuantity: 'lala' }])('shou
 	expect(result).toHaveFieldError('Quantity must be an integer');
 });
 
-test.each(emptyArgumentsProvider.map((emptyCountry) => ({ emptyCountry })))('should reject order with empty country (country=$emptyCountry)', async ({ shopApiDriver, emptyCountry }) => {
+test.each(emptyArgumentsProvider)('should reject order with empty country (country=$emptyCountry)', async ({ shopApiDriver, emptyCountry }) => {
 	const result = await shopApiDriver.placeOrder({
 		sku: createUniqueSku(GherkinDefaults.DEFAULT_SKU),
 		quantity: GherkinDefaults.DEFAULT_QUANTITY,

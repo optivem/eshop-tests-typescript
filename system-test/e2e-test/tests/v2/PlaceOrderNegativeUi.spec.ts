@@ -72,7 +72,7 @@ test('should reject order with zero quantity', async ({ shopUiClient }) => {
     assertValidationError(result, 'quantity', 'Quantity must be positive');
 });
 
-test.each(emptyArgumentsProvider.map((sku) => ({ sku })))('should reject order with empty SKU (sku=$sku)', async ({ shopUiClient, sku }) => {
+test.each(emptyArgumentsProvider)('should reject order with empty SKU (sku=$sku)', async ({ shopUiClient, sku }) => {
     await shopUiClient.close();
     const homePage = await shopUiClient.openHomePage();
     const newOrderPage = await homePage.clickNewOrder();
@@ -87,7 +87,7 @@ test.each(emptyArgumentsProvider.map((sku) => ({ sku })))('should reject order w
     assertValidationError(result, 'sku', 'SKU must not be empty');
 });
 
-test.each(emptyArgumentsProvider.map((emptyQuantity) => ({ emptyQuantity })))('should reject order with empty quantity (quantity=$emptyQuantity)', async ({ shopUiClient, emptyQuantity }) => {
+test.each(emptyArgumentsProvider)('should reject order with empty quantity (quantity=$emptyQuantity)', async ({ shopUiClient, emptyQuantity }) => {
     await shopUiClient.close();
     const homePage = await shopUiClient.openHomePage();
     const newOrderPage = await homePage.clickNewOrder();
@@ -102,7 +102,7 @@ test.each(emptyArgumentsProvider.map((emptyQuantity) => ({ emptyQuantity })))('s
     assertValidationError(result, 'quantity', 'Quantity must not be empty');
 });
 
-test.each([{ nonIntegerQuantity: '3.5' }, { nonIntegerQuantity: 'lala' }])('should reject order with non-integer quantity (quantity=$nonIntegerQuantity)', async ({ shopUiClient, nonIntegerQuantity }) => {
+test.each(['3.5', 'lala'])('should reject order with non-integer quantity (quantity=$nonIntegerQuantity)', async ({ shopUiClient, nonIntegerQuantity }) => {
     await shopUiClient.close();
     const homePage = await shopUiClient.openHomePage();
     const newOrderPage = await homePage.clickNewOrder();
@@ -117,7 +117,7 @@ test.each([{ nonIntegerQuantity: '3.5' }, { nonIntegerQuantity: 'lala' }])('shou
     assertValidationError(result, 'quantity', 'Quantity must be an integer');
 });
 
-test.each(emptyArgumentsProvider.map((emptyCountry) => ({ emptyCountry })))('should reject order with empty country (country=$emptyCountry)', async ({ shopUiClient, emptyCountry }) => {
+test.each(emptyArgumentsProvider)('should reject order with empty country (country=$emptyCountry)', async ({ shopUiClient, emptyCountry }) => {
     await shopUiClient.close();
     const homePage = await shopUiClient.openHomePage();
     const newOrderPage = await homePage.clickNewOrder();

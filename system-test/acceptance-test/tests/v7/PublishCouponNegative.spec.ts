@@ -8,7 +8,7 @@ import { ChannelType } from '@optivem/dsl-core/system/shop/ChannelType.js';
 const validationError = 'The request contains one or more validation errors';
 
 withChannels(ChannelType.UI, ChannelType.API)(() => {
-    test.each([{ discountRate: '0.0' }, { discountRate: '-0.01' }, { discountRate: '-0.15' }])('cannot publish coupon with zero or negative discount (discountRate=$discountRate)', async ({ scenario, discountRate }) => {
+    test.each(['0.0', '-0.01', '-0.15'])('cannot publish coupon with zero or negative discount (discountRate=$discountRate)', async ({ scenario, discountRate }) => {
         await scenario
             .when().publishCoupon()
                 .withCouponCode('INVALID-COUPON')
@@ -18,7 +18,7 @@ withChannels(ChannelType.UI, ChannelType.API)(() => {
                 .fieldErrorMessage('discountRate', 'Discount rate must be greater than 0.00');
     });
 
-    test.each([{ discountRate: '1.01' }, { discountRate: '2.00' }])('cannot publish coupon with discount greater than 100 percent (discountRate=$discountRate)', async ({ scenario, discountRate }) => {
+    test.each(['1.01', '2.00'])('cannot publish coupon with discount greater than 100 percent (discountRate=$discountRate)', async ({ scenario, discountRate }) => {
         await scenario
             .when().publishCoupon()
                 .withCouponCode('INVALID-COUPON')
@@ -41,7 +41,7 @@ withChannels(ChannelType.UI, ChannelType.API)(() => {
                 .fieldErrorMessage('couponCode', 'Coupon code EXISTING-COUPON already exists');
     });
 
-    test.each([{ usageLimit: '0' }, { usageLimit: '-1' }, { usageLimit: '-100' }])('cannot publish coupon with zero or negative usage limit (usageLimit=$usageLimit)', async ({ scenario, usageLimit }) => {
+    test.each(['0', '-1', '-100'])('cannot publish coupon with zero or negative usage limit (usageLimit=$usageLimit)', async ({ scenario, usageLimit }) => {
         await scenario
             .when().publishCoupon()
                 .withCouponCode('INVALID-LIMIT')

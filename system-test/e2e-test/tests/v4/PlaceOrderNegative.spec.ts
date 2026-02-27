@@ -59,7 +59,7 @@ withChannels(ChannelType.UI, ChannelType.API)(() => {
         });
     });
 
-    test.each(emptyArgumentsProvider.map((sku) => ({ sku })))(
+    test.each(emptyArgumentsProvider)(
         'should reject order with empty SKU (sku=$sku)',
         async ({ sku }) => {
             await withChannelShopDriver(async (shopDriver) => {
@@ -75,7 +75,7 @@ withChannels(ChannelType.UI, ChannelType.API)(() => {
         }
     );
 
-    test.each(emptyArgumentsProvider.map((emptyQuantity) => ({ emptyQuantity })))(
+    test.each(emptyArgumentsProvider)(
         'should reject order with empty quantity (quantity=$emptyQuantity)',
         async ({ emptyQuantity }) => {
             await withChannelShopDriver(async (shopDriver) => {
@@ -91,7 +91,7 @@ withChannels(ChannelType.UI, ChannelType.API)(() => {
         }
     );
 
-    test.each([{ nonIntegerQuantity: '3.5' }, { nonIntegerQuantity: 'lala' }])(
+    test.each(['3.5', 'lala'])(
         'should reject order with non-integer quantity (quantity=$nonIntegerQuantity)',
         async ({ nonIntegerQuantity }) => {
             await withChannelShopDriver(async (shopDriver) => {
@@ -107,7 +107,7 @@ withChannels(ChannelType.UI, ChannelType.API)(() => {
         }
     );
 
-    test.each(emptyArgumentsProvider.map((emptyCountry) => ({ emptyCountry })))(
+    test.each(emptyArgumentsProvider)(
         'should reject order with empty country (country=$emptyCountry)',
         async ({ emptyCountry }) => {
             await withChannelShopDriver(async (shopDriver) => {

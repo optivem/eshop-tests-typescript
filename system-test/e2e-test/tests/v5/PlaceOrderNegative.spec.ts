@@ -51,7 +51,7 @@ withChannels(ChannelType.UI, ChannelType.API)(() => {
             .fieldErrorMessage('quantity', 'Quantity must be positive');
     });
 
-    test.each(emptyArgumentsProvider.map((sku) => ({ sku })))(
+    test.each(emptyArgumentsProvider)(
         'should reject order with empty SKU (sku=$sku)',
         async ({ app, sku }) => {
             (await app.shop().placeOrder()
@@ -65,7 +65,7 @@ withChannels(ChannelType.UI, ChannelType.API)(() => {
         }
     );
 
-    test.each(emptyArgumentsProvider.map((emptyQuantity) => ({ emptyQuantity })))(
+    test.each(emptyArgumentsProvider)(
         'should reject order with empty quantity (quantity=$emptyQuantity)',
         async ({ app, emptyQuantity }) => {
             (await app.shop().placeOrder()
@@ -79,7 +79,7 @@ withChannels(ChannelType.UI, ChannelType.API)(() => {
         }
     );
 
-    test.each([{ nonIntegerQuantity: '3.5' }, { nonIntegerQuantity: 'lala' }])(
+    test.each(['3.5', 'lala'])(
         'should reject order with non-integer quantity (quantity=$nonIntegerQuantity)',
         async ({ app, nonIntegerQuantity }) => {
             (await app.shop().placeOrder()
@@ -93,7 +93,7 @@ withChannels(ChannelType.UI, ChannelType.API)(() => {
         }
     );
 
-    test.each(emptyArgumentsProvider.map((emptyCountry) => ({ emptyCountry })))(
+    test.each(emptyArgumentsProvider)(
         'should reject order with empty country (country=$emptyCountry)',
         async ({ app, emptyCountry }) => {
             (await app.shop().placeOrder()
