@@ -1,7 +1,7 @@
 import '../../../setup-config.js';
 import { ChannelType } from '@optivem/dsl-core/system/shop/ChannelType.js';
 import { GherkinDefaults } from '@optivem/dsl-core/scenario/GherkinDefaults.js';
-import { emptyArgumentsProvider } from '../../shared/argumentProviders.js';
+import { emptyArgumentsProvider } from '../shared/argumentProviders.js';
 import { channelShopDriverTest, createUniqueSku, expect } from './base/fixtures.js';
 
 const validationError = 'The request contains one or more validation errors';

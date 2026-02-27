@@ -1,7 +1,7 @@
 import '../../../setup-config.js';
 import { Channel } from './base/fixtures.js';
 import { ChannelType } from '@optivem/dsl-core/system/shop/ChannelType.js';
-import { emptyArgumentsProvider } from '../../shared/argumentProviders.js';
+import { emptyArgumentsProvider } from '../shared/argumentProviders.js';
 
 const validationError = 'The request contains one or more validation errors';
 
