@@ -9,5 +9,9 @@
     "@optivem/commons": "file:../common",
     "@optivem/driver-api": "file:../driver-api",
     "@optivem/driver-common": "file:../driver-common"
+  },
+  "devDependencies": {
+    "rimraf": "^6.0.1",
+    "typescript": "^5.7.2"
   }
 }

@@ -12,5 +12,9 @@
     "@optivem/dsl-api": "file:../dsl-api",
     "@optivem/dsl-common": "file:../dsl-common",
     "@optivem/optivem-testing": "1.0.12"
+  },
+  "devDependencies": {
+    "rimraf": "^6.0.1",
+    "typescript": "^5.7.2"
   }
 }
