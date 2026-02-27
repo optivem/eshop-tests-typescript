@@ -9,7 +9,14 @@ import { testConfig } from '@optivem/test-infrastructure';
 
 setupResultMatchers();
 
-export const test = base.extend<{
+type V2Fixtures = {
+    shopUiClient: ShopUiClient;
+    shopApiClient: ShopApiClient;
+    erpClient: ErpRealClient;
+    taxClient: TaxRealClient;
+};
+
+const testBase = base.extend<{
     shopUiClient: ShopUiClient;
     shopApiClient: ShopApiClient;
     erpClient: ErpRealClient;
@@ -36,6 +43,28 @@ export const test = base.extend<{
         await Closer.close(client);
     },
 });
+
+const testEach = <TCase extends Record<string, unknown>>(
+    cases: ReadonlyArray<TCase>
+): ((name: string, fn: (args: V2Fixtures & TCase) => Promise<void>) => void) => {
+    return (name: string, fn: (args: V2Fixtures & TCase) => Promise<void>): void => {
+        cases.forEach((row) => {
+            const testName = name.replaceAll(/\$(\w+)/g, (_, key) => {
+                const value = row[key as keyof TCase];
+                if (typeof value === 'string') return value;
+                if (typeof value === 'number') return value.toString();
+                return '';
+            });
+
+            testBase(testName, async ({ shopUiClient, shopApiClient, erpClient, taxClient }) => {
+                await fn({ shopUiClient, shopApiClient, erpClient, taxClient, ...row });
+            });
+        });
+    };
+};
+
+export const test = testBase as typeof testBase & { each: typeof testEach };
+test.each = testEach;
 
 export { expect } from '@playwright/test';
 

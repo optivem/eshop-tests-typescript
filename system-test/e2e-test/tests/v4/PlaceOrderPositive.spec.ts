@@ -2,20 +2,7 @@ import '../../../setup-config.js';
 import { ChannelType } from '@optivem/dsl-core/system/shop/ChannelType.js';
 import { OrderStatus } from '@optivem/driver-api/shop/dtos/OrderStatus.js';
 import { GherkinDefaults } from '@optivem/dsl-core/scenario/GherkinDefaults.js';
-import { channelShopDriverTest, createUniqueSku, expect } from './base/fixtures.js';
-
-channelShopDriverTest([ChannelType.UI, ChannelType.API], 'should place order with correct subtotal price', async ({ shopDriver, erpDriver }) => {
-    const sku = createUniqueSku(GherkinDefaults.DEFAULT_SKU);
-    expect(await erpDriver.returnsProduct({ sku, price: '20.00' })).toBeSuccess();
-
-    const placeOrderResult = await shopDriver.placeOrder({ sku, quantity: '5', country: GherkinDefaults.DEFAULT_COUNTRY });
-    expect(placeOrderResult).toBeSuccess();
-
-    const orderNumber = placeOrderResult.getValue().orderNumber;
-    const viewOrderResult = await shopDriver.viewOrder(orderNumber);
-    expect(viewOrderResult).toBeSuccess();
-    expect(viewOrderResult.getValue().subtotalPrice).toEqualDecimal(100.0);
-});
+import { createUniqueSku, expect, test, withChannelShopDriver, withChannels } from './base/fixtures.js';
 
 const subtotalPriceCases = [
     { unitPrice: '20.00', quantity: '5', subtotalPrice: '100.00' },
@@ -24,48 +11,69 @@ const subtotalPriceCases = [
     { unitPrice: '99.99', quantity: '1', subtotalPrice: '99.99' },
 ];
 
-channelShopDriverTest([ChannelType.UI, ChannelType.API], 'should place order with correct subtotal price parameterized', async ({ shopDriver, erpDriver }) => {
-    for (const { unitPrice, quantity, subtotalPrice } of subtotalPriceCases) {
+withChannels(ChannelType.UI, ChannelType.API)(() => {
+    test('should place order with correct subtotal price', async ({ erpDriver }) => {
         const sku = createUniqueSku(GherkinDefaults.DEFAULT_SKU);
-        expect(await erpDriver.returnsProduct({ sku, price: unitPrice })).toBeSuccess();
+        expect(await erpDriver.returnsProduct({ sku, price: '20.00' })).toBeSuccess();
 
-        const placeOrderResult = await shopDriver.placeOrder({ sku, quantity, country: GherkinDefaults.DEFAULT_COUNTRY });
-        expect(placeOrderResult).toBeSuccess();
+        await withChannelShopDriver(async (shopDriver) => {
+            const placeOrderResult = await shopDriver.placeOrder({ sku, quantity: '5', country: GherkinDefaults.DEFAULT_COUNTRY });
+            expect(placeOrderResult).toBeSuccess();
 
-        const orderNumber = placeOrderResult.getValue().orderNumber;
-        const viewOrderResult = await shopDriver.viewOrder(orderNumber);
-        expect(viewOrderResult).toBeSuccess();
-        expect(viewOrderResult.getValue().subtotalPrice).toEqualDecimal(subtotalPrice);
-    }
+            const orderNumber = placeOrderResult.getValue().orderNumber;
+            const viewOrderResult = await shopDriver.viewOrder(orderNumber);
+            expect(viewOrderResult).toBeSuccess();
+            expect(viewOrderResult.getValue().subtotalPrice).toEqualDecimal(100.0);
+        });
+    });
+
+    test.each(subtotalPriceCases)(
+        'should place order with correct subtotal price parameterized (unitPrice=$unitPrice, quantity=$quantity, subtotalPrice=$subtotalPrice)',
+        async ({ erpDriver, unitPrice, quantity, subtotalPrice }: { erpDriver: any; unitPrice: string; quantity: string; subtotalPrice: string }) => {
+            await withChannelShopDriver(async (shopDriver) => {
+
+            const sku = createUniqueSku(GherkinDefaults.DEFAULT_SKU);
+            expect(await erpDriver.returnsProduct({ sku, price: unitPrice })).toBeSuccess();
+
+            const placeOrderResult = await shopDriver.placeOrder({ sku, quantity, country: GherkinDefaults.DEFAULT_COUNTRY });
+            expect(placeOrderResult).toBeSuccess();
+
+            const orderNumber = placeOrderResult.getValue().orderNumber;
+            const viewOrderResult = await shopDriver.viewOrder(orderNumber);
+            expect(viewOrderResult).toBeSuccess();
+            expect(viewOrderResult.getValue().subtotalPrice).toEqualDecimal(subtotalPrice);
+        });
+        }
+    );
+
+    test('should place order', async ({ erpDriver }) => {
+        const sku = createUniqueSku(GherkinDefaults.DEFAULT_SKU);
+        expect(await erpDriver.returnsProduct({ sku, price: '20.00' })).toBeSuccess();
+
+        await withChannelShopDriver(async (shopDriver) => {
+            const placeOrderResult = await shopDriver.placeOrder({ sku, quantity: '5', country: GherkinDefaults.DEFAULT_COUNTRY });
+            expect(placeOrderResult).toBeSuccess();
+
+            const orderNumber = placeOrderResult.getValue().orderNumber;
+            expect(orderNumber.startsWith('ORD-')).toBe(true);
+
+            const viewOrderResult = await shopDriver.viewOrder(orderNumber);
+            expect(viewOrderResult).toBeSuccess();
+
+            const order = viewOrderResult.getValue();
+            expect(order.orderNumber).toBe(orderNumber);
+            expect(order.sku).toBe(sku);
+            expect(order.country).toBe(GherkinDefaults.DEFAULT_COUNTRY);
+            expect(order.quantity).toEqualInteger(5);
+            expect(order.unitPrice).toEqualDecimal(20.0);
+            expect(order.subtotalPrice).toEqualDecimal(100.0);
+            expect(order.status).toBe(OrderStatus.PLACED);
+            expect(order.discountRate).toBeGreaterThanOrEqualDecimal(0);
+            expect(order.discountAmount).toBeGreaterThanOrEqualDecimal(0);
+            expect(order.subtotalPrice).toBeGreaterThanDecimal(0);
+            expect(order.taxRate).toBeGreaterThanOrEqualDecimal(0);
+            expect(order.taxAmount).toBeGreaterThanOrEqualDecimal(0);
+            expect(order.totalPrice).toBeGreaterThanDecimal(0);
+        });
+    });
 });
-
-channelShopDriverTest([ChannelType.UI, ChannelType.API], 'should place order', async ({ shopDriver, erpDriver }) => {
-    const sku = createUniqueSku(GherkinDefaults.DEFAULT_SKU);
-    expect(await erpDriver.returnsProduct({ sku, price: '20.00' })).toBeSuccess();
-
-    const placeOrderResult = await shopDriver.placeOrder({ sku, quantity: '5', country: GherkinDefaults.DEFAULT_COUNTRY });
-    expect(placeOrderResult).toBeSuccess();
-
-    const orderNumber = placeOrderResult.getValue().orderNumber;
-    expect(orderNumber.startsWith('ORD-')).toBe(true);
-
-    const viewOrderResult = await shopDriver.viewOrder(orderNumber);
-    expect(viewOrderResult).toBeSuccess();
-
-    const order = viewOrderResult.getValue();
-    expect(order.orderNumber).toBe(orderNumber);
-    expect(order.sku).toBe(sku);
-    expect(order.country).toBe(GherkinDefaults.DEFAULT_COUNTRY);
-    expect(order.quantity).toEqualInteger(5);
-    expect(order.unitPrice).toEqualDecimal(20.0);
-    expect(order.subtotalPrice).toEqualDecimal(100.0);
-    expect(order.status).toBe(OrderStatus.PLACED);
-    expect(order.discountRate).toBeGreaterThanOrEqualDecimal(0);
-    expect(order.discountAmount).toBeGreaterThanOrEqualDecimal(0);
-    expect(order.subtotalPrice).toBeGreaterThanDecimal(0);
-    expect(order.taxRate).toBeGreaterThanOrEqualDecimal(0);
-    expect(order.taxAmount).toBeGreaterThanOrEqualDecimal(0);
-    expect(order.totalPrice).toBeGreaterThanDecimal(0);
-});
-
-

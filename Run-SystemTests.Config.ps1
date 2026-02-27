@@ -15,7 +15,7 @@ $Config = @{
     Tests = @(
         @{  Id = "smoke";
             Name = "Smoke Tests";
-            Command = "npm test";
+            Command = "npx cross-env EXTERNAL_SYSTEM_MODE=REAL npm test";
             Path = "system-test/smoke-test";
             TestReportPath = "system-test/smoke-test/playwright-report/index.html"
             TestInstallCommands = @(

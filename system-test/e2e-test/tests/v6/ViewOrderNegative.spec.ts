@@ -1,5 +1,5 @@
 import '../../../setup-config.js';
-import { Channel } from './base/fixtures.js';
+import { test, withChannels } from './base/fixtures.js';
 import { ChannelType } from '@optivem/dsl-core/system/shop/ChannelType.js';
 
 const nonExistentOrderCases = [
@@ -8,12 +8,15 @@ const nonExistentOrderCases = [
     { orderNumber: 'NON-EXISTENT-ORDER-77777', expectedMessage: 'Order NON-EXISTENT-ORDER-77777 does not exist.' },
 ];
 
-Channel(ChannelType.UI, ChannelType.API)('should not be able to view non-existent order', async ({ scenario }) => {
-    for (const { orderNumber, expectedMessage } of nonExistentOrderCases) {
-        await scenario
-            .when().viewOrder()
-                .withOrderNumber(orderNumber)
-            .then().shouldFail()
-                .errorMessage(expectedMessage);
-    }
+withChannels(ChannelType.UI, ChannelType.API)(() => {
+    test.each(nonExistentOrderCases)(
+        'should not be able to view non-existent order (orderNumber=$orderNumber)',
+        async ({ scenario, orderNumber, expectedMessage }) => {
+            await scenario
+                .when().viewOrder()
+                    .withOrderNumber(orderNumber)
+                .then().shouldFail()
+                    .errorMessage(expectedMessage);
+        }
+    );
 });

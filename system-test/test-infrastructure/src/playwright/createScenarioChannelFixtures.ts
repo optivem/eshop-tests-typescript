@@ -14,7 +14,11 @@ export interface ScenarioChannelFixtureBuilderOptions<TScenario> {
 }
 
 export interface ScenarioChannelFixtureBundle<TScenario> {
-    test: any;
+    test: ReturnType<typeof base.extend<{ app: SystemDsl; scenario: TScenario }>> & {
+        each: <TCase extends Record<string, unknown>>(
+            cases: ReadonlyArray<TCase>
+        ) => (name: string, fn: (args: { scenario: TScenario } & TCase) => Promise<void>) => void;
+    };
     expect: typeof expect;
     scenarioChannelTest: (
         _externalSystemMode: unknown,
@@ -74,7 +78,7 @@ export function createScenarioChannelFixtures<TScenario>(
         cases: ReadonlyArray<TCase>
     ): ((name: string, fn: (args: { scenario: TScenario } & TCase) => Promise<void>) => void) => {
         return (name: string, fn: (args: { scenario: TScenario } & TCase) => Promise<void>): void => {
-            for (const row of cases) {
+            cases.forEach((row) => {
                 const testName = name.replaceAll(/\$(\w+)/g, (_, key) => {
                     const value = row[key];
                     if (typeof value === 'string') return value;
@@ -84,13 +88,11 @@ export function createScenarioChannelFixtures<TScenario>(
                 test(testName, async ({ scenario }) => {
                     await fn({ scenario, ...row } as { scenario: TScenario } & TCase);
                 });
-            }
+            });
         };
     };
 
-    if (options.enableTestEachAlias) {
-        (test as { each?: typeof testEach }).each = testEach;
-    }
+    (test as unknown as { each: typeof testEach }).each = testEach;
 
     const withChannels = (...channelTypes: string[]): ((block: () => void) => void) => {
         return sharedWithChannels(
@@ -104,7 +106,7 @@ export function createScenarioChannelFixtures<TScenario>(
     };
 
     return {
-        test,
+        test: test as ScenarioChannelFixtureBundle<TScenario>['test'],
         expect,
         scenarioChannelTest,
         Channel,

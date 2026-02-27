@@ -1,5 +1,5 @@
 import '../../../setup-config.js';
-import { Channel } from './base/fixtures.js';
+import { test, Channel, withChannels } from './base/fixtures.js';
 import { ChannelType } from '@optivem/dsl-core/system/shop/ChannelType.js';
 import { emptyArgumentsProvider } from '../shared/argumentProviders.js';
 
@@ -42,48 +42,54 @@ Channel(ChannelType.UI, ChannelType.API)('should reject order with zero quantity
             .fieldErrorMessage('quantity', 'Quantity must be positive');
 });
 
-Channel(ChannelType.UI, ChannelType.API)('should reject order with empty SKU', async ({ scenario }) => {
-    for (const sku of emptyArgumentsProvider) {
-        await scenario
-            .when().placeOrder()
-                .withSku(sku)
-            .then().shouldFail()
-                .errorMessage(validationError)
-                .fieldErrorMessage('sku', 'SKU must not be empty');
-    }
-});
+withChannels(ChannelType.UI, ChannelType.API)(() => {
+    test.each(emptyArgumentsProvider.map((sku) => ({ sku })))(
+        'should reject order with empty SKU (sku=$sku)',
+        async ({ scenario, sku }) => {
+            await scenario
+                .when().placeOrder()
+                    .withSku(sku)
+                .then().shouldFail()
+                    .errorMessage(validationError)
+                    .fieldErrorMessage('sku', 'SKU must not be empty');
+        }
+    );
 
-Channel(ChannelType.UI, ChannelType.API)('should reject order with empty quantity', async ({ scenario }) => {
-    for (const emptyQuantity of emptyArgumentsProvider) {
-        await scenario
-            .when().placeOrder()
-                .withQuantity(emptyQuantity)
-            .then().shouldFail()
-                .errorMessage(validationError)
-                .fieldErrorMessage('quantity', 'Quantity must not be empty');
-    }
-});
+    test.each(emptyArgumentsProvider.map((emptyQuantity) => ({ emptyQuantity })))(
+        'should reject order with empty quantity (quantity=$emptyQuantity)',
+        async ({ scenario, emptyQuantity }) => {
+            await scenario
+                .when().placeOrder()
+                    .withQuantity(emptyQuantity)
+                .then().shouldFail()
+                    .errorMessage(validationError)
+                    .fieldErrorMessage('quantity', 'Quantity must not be empty');
+        }
+    );
 
-Channel(ChannelType.UI, ChannelType.API)('should reject order with non-integer quantity', async ({ scenario }) => {
-    for (const nonIntegerQuantity of ['3.5', 'lala']) {
-        await scenario
-            .when().placeOrder()
-                .withQuantity(nonIntegerQuantity)
-            .then().shouldFail()
-                .errorMessage(validationError)
-                .fieldErrorMessage('quantity', 'Quantity must be an integer');
-    }
-});
+    test.each([{ nonIntegerQuantity: '3.5' }, { nonIntegerQuantity: 'lala' }])(
+        'should reject order with non-integer quantity (quantity=$nonIntegerQuantity)',
+        async ({ scenario, nonIntegerQuantity }) => {
+            await scenario
+                .when().placeOrder()
+                    .withQuantity(nonIntegerQuantity)
+                .then().shouldFail()
+                    .errorMessage(validationError)
+                    .fieldErrorMessage('quantity', 'Quantity must be an integer');
+        }
+    );
 
-Channel(ChannelType.UI, ChannelType.API)('should reject order with empty country', async ({ scenario }) => {
-    for (const emptyCountry of emptyArgumentsProvider) {
-        await scenario
-            .when().placeOrder()
-                .withCountry(emptyCountry)
-            .then().shouldFail()
-                .errorMessage(validationError)
-                .fieldErrorMessage('country', 'Country must not be empty');
-    }
+    test.each(emptyArgumentsProvider.map((emptyCountry) => ({ emptyCountry })))(
+        'should reject order with empty country (country=$emptyCountry)',
+        async ({ scenario, emptyCountry }) => {
+            await scenario
+                .when().placeOrder()
+                    .withCountry(emptyCountry)
+                .then().shouldFail()
+                    .errorMessage(validationError)
+                    .fieldErrorMessage('country', 'Country must not be empty');
+        }
+    );
 });
 
 Channel(ChannelType.UI, ChannelType.API)('should reject order with invalid country', async ({ scenario }) => {

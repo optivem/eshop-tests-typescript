@@ -97,10 +97,10 @@ export function shopChannelTestEach<T>(
     testData: T[],
     testFn: (fixtures: ShopFixtures, data: T) => Promise<void>
 ): void {
-    for (const data of testData) {
+    testData.forEach((data) => {
         const formattedName = testName.replace('%s', JSON.stringify(data));
         shopChannelTest(getDefaultExternalSystemMode(), channelTypes, formattedName, async (fixtures) => {
             await testFn(fixtures, data);
         });
-    }
+    });
 }

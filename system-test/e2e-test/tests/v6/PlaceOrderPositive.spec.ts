@@ -1,7 +1,8 @@
 import '../../../setup-config.js';
-import { Channel } from './base/fixtures.js';
+import { test, Channel, withChannels } from './base/fixtures.js';
 import { ChannelType } from '@optivem/dsl-core/system/shop/ChannelType.js';
 import { OrderStatus } from '@optivem/driver-api/shop/dtos/OrderStatus.js';
+import type { ScenarioDsl } from '@optivem/dsl-core/scenario/ScenarioDsl.js';
 
 Channel(ChannelType.UI, ChannelType.API)('should place order with correct subtotal price', async ({ scenario }) => {
     await scenario
@@ -21,17 +22,20 @@ const subtotalPriceCases = [
     { unitPrice: '99.99', quantity: '1', subtotalPrice: '99.99' },
 ];
 
-Channel(ChannelType.UI, ChannelType.API)('should place order with correct subtotal price parameterized', async ({ scenario }) => {
-    for (const { unitPrice, quantity, subtotalPrice } of subtotalPriceCases) {
-        await scenario
-            .given().product()
-                .withUnitPrice(unitPrice)
-            .when().placeOrder()
-                .withQuantity(quantity)
-            .then().shouldSucceed()
-            .and().order()
-                .hasSubtotalPrice(subtotalPrice);
-    }
+withChannels(ChannelType.UI, ChannelType.API)(() => {
+    test.each(subtotalPriceCases)(
+        'should place order with correct subtotal price parameterized (unitPrice=$unitPrice, quantity=$quantity, subtotalPrice=$subtotalPrice)',
+        async ({ scenario, unitPrice, quantity, subtotalPrice }: { scenario: ScenarioDsl; unitPrice: string; quantity: string; subtotalPrice: string }) => {
+            await scenario
+                .given().product()
+                    .withUnitPrice(unitPrice)
+                .when().placeOrder()
+                    .withQuantity(quantity)
+                .then().shouldSucceed()
+                .and().order()
+                    .hasSubtotalPrice(subtotalPrice);
+        }
+    );
 });
 
 Channel(ChannelType.UI, ChannelType.API)('should place order', async ({ scenario }) => {

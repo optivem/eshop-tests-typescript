@@ -1,5 +1,5 @@
 import '../../../setup-config.js';
-import { Channel } from './base/fixtures.js';
+import { test, Channel, withChannels } from './base/fixtures.js';
 import { ChannelType } from '@optivem/dsl-core/system/shop/ChannelType.js';
 import { GherkinDefaults } from '@optivem/dsl-core/scenario/GherkinDefaults.js';
 import { emptyArgumentsProvider } from '../shared/argumentProviders.js';
@@ -50,56 +50,62 @@ Channel(ChannelType.UI, ChannelType.API)('should reject order with zero quantity
         .fieldErrorMessage('quantity', 'Quantity must be positive');
 });
 
-Channel(ChannelType.UI, ChannelType.API)('should reject order with empty SKU', async ({ app }) => {
-    for (const sku of emptyArgumentsProvider) {
-        (await app.shop().placeOrder()
-            .sku(sku)
-            .quantity(GherkinDefaults.DEFAULT_QUANTITY)
-            .country(GherkinDefaults.DEFAULT_COUNTRY)
-            .execute())
-            .shouldFail()
-            .errorMessage(validationError)
-            .fieldErrorMessage('sku', 'SKU must not be empty');
-    }
-});
+withChannels(ChannelType.UI, ChannelType.API)(() => {
+    test.each(emptyArgumentsProvider.map((sku) => ({ sku })))(
+        'should reject order with empty SKU (sku=$sku)',
+        async ({ app, sku }) => {
+            (await app.shop().placeOrder()
+                .sku(sku)
+                .quantity(GherkinDefaults.DEFAULT_QUANTITY)
+                .country(GherkinDefaults.DEFAULT_COUNTRY)
+                .execute())
+                .shouldFail()
+                .errorMessage(validationError)
+                .fieldErrorMessage('sku', 'SKU must not be empty');
+        }
+    );
 
-Channel(ChannelType.UI, ChannelType.API)('should reject order with empty quantity', async ({ app }) => {
-    for (const emptyQuantity of emptyArgumentsProvider) {
-        (await app.shop().placeOrder()
-            .sku(GherkinDefaults.DEFAULT_SKU)
-            .country(GherkinDefaults.DEFAULT_COUNTRY)
-            .quantity(emptyQuantity)
-            .execute())
-            .shouldFail()
-            .errorMessage(validationError)
-            .fieldErrorMessage('quantity', 'Quantity must not be empty');
-    }
-});
+    test.each(emptyArgumentsProvider.map((emptyQuantity) => ({ emptyQuantity })))(
+        'should reject order with empty quantity (quantity=$emptyQuantity)',
+        async ({ app, emptyQuantity }) => {
+            (await app.shop().placeOrder()
+                .sku(GherkinDefaults.DEFAULT_SKU)
+                .country(GherkinDefaults.DEFAULT_COUNTRY)
+                .quantity(emptyQuantity)
+                .execute())
+                .shouldFail()
+                .errorMessage(validationError)
+                .fieldErrorMessage('quantity', 'Quantity must not be empty');
+        }
+    );
 
-Channel(ChannelType.UI, ChannelType.API)('should reject order with non-integer quantity', async ({ app }) => {
-    for (const nonIntegerQuantity of ['3.5', 'lala']) {
-        (await app.shop().placeOrder()
-            .sku(GherkinDefaults.DEFAULT_SKU)
-            .country(GherkinDefaults.DEFAULT_COUNTRY)
-            .quantity(nonIntegerQuantity)
-            .execute())
-            .shouldFail()
-            .errorMessage(validationError)
-            .fieldErrorMessage('quantity', 'Quantity must be an integer');
-    }
-});
+    test.each([{ nonIntegerQuantity: '3.5' }, { nonIntegerQuantity: 'lala' }])(
+        'should reject order with non-integer quantity (quantity=$nonIntegerQuantity)',
+        async ({ app, nonIntegerQuantity }) => {
+            (await app.shop().placeOrder()
+                .sku(GherkinDefaults.DEFAULT_SKU)
+                .country(GherkinDefaults.DEFAULT_COUNTRY)
+                .quantity(nonIntegerQuantity)
+                .execute())
+                .shouldFail()
+                .errorMessage(validationError)
+                .fieldErrorMessage('quantity', 'Quantity must be an integer');
+        }
+    );
 
-Channel(ChannelType.UI, ChannelType.API)('should reject order with empty country', async ({ app }) => {
-    for (const emptyCountry of emptyArgumentsProvider) {
-        (await app.shop().placeOrder()
-            .sku(GherkinDefaults.DEFAULT_SKU)
-            .quantity(GherkinDefaults.DEFAULT_QUANTITY)
-            .country(emptyCountry)
-            .execute())
-            .shouldFail()
-            .errorMessage(validationError)
-            .fieldErrorMessage('country', 'Country must not be empty');
-    }
+    test.each(emptyArgumentsProvider.map((emptyCountry) => ({ emptyCountry })))(
+        'should reject order with empty country (country=$emptyCountry)',
+        async ({ app, emptyCountry }) => {
+            (await app.shop().placeOrder()
+                .sku(GherkinDefaults.DEFAULT_SKU)
+                .quantity(GherkinDefaults.DEFAULT_QUANTITY)
+                .country(emptyCountry)
+                .execute())
+                .shouldFail()
+                .errorMessage(validationError)
+                .fieldErrorMessage('country', 'Country must not be empty');
+        }
+    );
 });
 
 Channel(ChannelType.UI, ChannelType.API)('should reject order with invalid country', async ({ app }) => {

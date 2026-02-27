@@ -32,8 +32,9 @@ const subtotalPriceCases = [
     { unitPrice: '99.99', quantity: '1', subtotalPrice: '99.99' },
 ];
 
-test('should place order with correct subtotal price parameterized', async ({ shopApiClient, erpClient }) => {
-    for (const { unitPrice, quantity, subtotalPrice } of subtotalPriceCases) {
+test.each(subtotalPriceCases)(
+    'should place order with correct subtotal price parameterized (unitPrice=$unitPrice, quantity=$quantity, subtotalPrice=$subtotalPrice)',
+    async ({ shopApiClient, erpClient, unitPrice, quantity, subtotalPrice }) => {
         const sku = createUniqueSku(GherkinDefaults.DEFAULT_SKU);
         const createProductResult = await erpClient.createProduct({ id: sku, price: unitPrice });
         expect(createProductResult.isSuccess()).toBe(true);
@@ -46,7 +47,7 @@ test('should place order with correct subtotal price parameterized', async ({ sh
         expect(viewOrderResult.isSuccess()).toBe(true);
         expect(decimalToNumber(viewOrderResult.getValue().subtotalPrice)).toBe(Number(subtotalPrice));
     }
-});
+);
 
 test('should place order', async ({ shopApiClient, erpClient }) => {
     const sku = createUniqueSku(GherkinDefaults.DEFAULT_SKU);
