@@ -4,7 +4,7 @@
  */
 import { test as base } from '@playwright/test';
 import type { ShopDriver } from '@optivem/driver-core/shop/driver/ShopDriver.js';
-import { bindTestEach, createUniqueSku, forChannels as sharedForChannels } from '@optivem/optivem-testing';
+import { bindTestEach, forChannels as sharedForChannels } from '@optivem/optivem-testing';
 import { Closer, setupResultMatchers } from '@optivem/commons/util';
 import {
     channelShopDriverTest as sharedChannelShopDriverTest,
@@ -13,6 +13,7 @@ import {
     createTaxApiDriver,
     getExternalSystemMode,
     withChannelShopDriver,
+    createUniqueSku,
 } from '@optivem/test-infrastructure';
 
 setupResultMatchers();

@@ -38,3 +38,4 @@ export { SystemDslFactory } from './system/SystemDslFactory.js';
 export { testConfig } from './configuration/legacyTestConfig.js';
 export { withApp } from './playwright/withApp.js';
 export { withScenario } from './playwright/withScenario.js';
+export { createUniqueSku } from './createUniqueSku.js';

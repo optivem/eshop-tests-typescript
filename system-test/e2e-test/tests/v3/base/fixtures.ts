@@ -4,7 +4,6 @@
  */
 import { test as base } from '@playwright/test';
 import type { ShopDriver } from '@optivem/driver-core/shop/driver/ShopDriver.js';
-import { createUniqueSku } from '@optivem/optivem-testing';
 import { Closer, setupResultMatchers } from '@optivem/commons/util';
 import { bindTestEach } from '@optivem/optivem-testing';
 import {
@@ -13,6 +12,7 @@ import {
     createErpDriver,
     createTaxApiDriver,
     getExternalSystemMode,
+    createUniqueSku,
 } from '@optivem/test-infrastructure';
 
 setupResultMatchers();

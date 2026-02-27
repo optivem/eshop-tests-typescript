@@ -4,13 +4,13 @@
  */
 import { test as base } from '@playwright/test';
 import type { ShopDriver } from '@optivem/driver-core/shop/driver/ShopDriver.js';
-import { createUniqueSku } from '@optivem/optivem-testing';
 import { Closer, setupResultMatchers } from '@optivem/commons/util';
 import {
     createShopUiDriver,
     createShopApiDriver,
     createErpDriver,
     createTaxApiDriver,
+    createUniqueSku,
 } from '@optivem/test-infrastructure';
 
 const FIXED_EXTERNAL_SYSTEM_MODE = 'REAL';

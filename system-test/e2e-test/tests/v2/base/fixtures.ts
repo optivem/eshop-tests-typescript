@@ -1,12 +1,11 @@
 import { test as base } from '@playwright/test';
-import { createUniqueSku } from '@optivem/optivem-testing';
 import { ShopUiClient } from '@optivem/driver-core/shop/client/ui/ShopUiClient.js';
 import { ShopApiClient } from '@optivem/driver-core/shop/client/api/ShopApiClient.js';
 import { ErpRealClient } from '@optivem/driver-core/erp/client/ErpRealClient.js';
 import { TaxRealClient } from '@optivem/driver-core/tax/client/TaxRealClient.js';
 import { Closer, setupResultMatchers } from '@optivem/commons/util';
 import { bindTestEach } from '@optivem/optivem-testing';
-import { testConfig } from '@optivem/test-infrastructure';
+import { testConfig, createUniqueSku } from '@optivem/test-infrastructure';
 
 setupResultMatchers();
 
