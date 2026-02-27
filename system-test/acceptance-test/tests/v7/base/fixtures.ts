@@ -67,6 +67,28 @@ export function Channel(
 }
 
 /**
+ * testEach(rows)(name, fn) - mirrors @DataSource / [ChannelInlineData] per-row test generation.
+ * Name template supports $paramName substitution. Each row generates a separate test entry.
+ */
+export function testEach<T extends Record<string, unknown>>(
+    cases: ReadonlyArray<T>
+): (name: string, fn: (args: { scenario: ScenarioDslPort } & T) => Promise<void>) => void {
+    return (name: string, fn: (args: { scenario: ScenarioDslPort } & T) => Promise<void>) => {
+        for (const row of cases) {
+            const testName = name.replaceAll(/\$(\w+)/g, (_, key) => {
+                const value = row[key];
+                if (typeof value === 'string') return value;
+                if (typeof value === 'number') return value.toString();
+                return '';
+            });
+            test(testName, async ({ scenario }) => {
+                await fn({ scenario, ...row } as { scenario: ScenarioDslPort } & T);
+            });
+        }
+    };
+}
+
+/**
  * withChannels(UI, API)(() => { test(...) }) - decorator-style wrapper.
  * Registers a describe block per channel so inner tests are standard test() calls.
  */

@@ -13,15 +13,13 @@ const nonExistentOrderCases = [
 ];
 
 withChannels(ChannelType.API)(() => {
-    for (const { orderNumber, message } of nonExistentOrderCases) {
-        test(`should not cancel non-existent order (orderNumber=${orderNumber})`, async ({ scenario }) => {
-            await scenario
-                .when().cancelOrder()
-                    .withOrderNumber(orderNumber)
-                .then().shouldFail()
-                    .errorMessage(message);
-        });
-    }
+    test.each(nonExistentOrderCases)('should not cancel non-existent order (orderNumber=$orderNumber)', async ({ scenario, orderNumber, message }) => {
+        await scenario
+            .when().cancelOrder()
+                .withOrderNumber(orderNumber)
+            .then().shouldFail()
+                .errorMessage(message);
+    });
 
     test('should not cancel already cancelled order', async ({ scenario }) => {
         await scenario

@@ -8,29 +8,25 @@ import { ChannelType } from '@optivem/dsl-core/system/shop/ChannelType.js';
 const validationError = 'The request contains one or more validation errors';
 
 withChannels(ChannelType.UI, ChannelType.API)(() => {
-    for (const discountRate of ['0.0', '-0.01', '-0.15']) {
-        test(`cannot publish coupon with zero or negative discount (discountRate=${discountRate})`, async ({ scenario }) => {
-            await scenario
-                .when().publishCoupon()
-                    .withCouponCode('INVALID-COUPON')
-                    .withDiscountRate(discountRate)
-                .then().shouldFail()
-                    .errorMessage(validationError)
-                    .fieldErrorMessage('discountRate', 'Discount rate must be greater than 0.00');
-        });
-    }
+    test.each([{ discountRate: '0.0' }, { discountRate: '-0.01' }, { discountRate: '-0.15' }])('cannot publish coupon with zero or negative discount (discountRate=$discountRate)', async ({ scenario, discountRate }) => {
+        await scenario
+            .when().publishCoupon()
+                .withCouponCode('INVALID-COUPON')
+                .withDiscountRate(discountRate)
+            .then().shouldFail()
+                .errorMessage(validationError)
+                .fieldErrorMessage('discountRate', 'Discount rate must be greater than 0.00');
+    });
 
-    for (const discountRate of ['1.01', '2.00']) {
-        test(`cannot publish coupon with discount greater than 100 percent (discountRate=${discountRate})`, async ({ scenario }) => {
-            await scenario
-                .when().publishCoupon()
-                    .withCouponCode('INVALID-COUPON')
-                    .withDiscountRate(discountRate)
-                .then().shouldFail()
-                    .errorMessage(validationError)
-                    .fieldErrorMessage('discountRate', 'Discount rate must be at most 1.00');
-        });
-    }
+    test.each([{ discountRate: '1.01' }, { discountRate: '2.00' }])('cannot publish coupon with discount greater than 100 percent (discountRate=$discountRate)', async ({ scenario, discountRate }) => {
+        await scenario
+            .when().publishCoupon()
+                .withCouponCode('INVALID-COUPON')
+                .withDiscountRate(discountRate)
+            .then().shouldFail()
+                .errorMessage(validationError)
+                .fieldErrorMessage('discountRate', 'Discount rate must be at most 1.00');
+    });
 
     test('cannot publish coupon with duplicate coupon code', async ({ scenario }) => {
         await scenario
@@ -45,16 +41,14 @@ withChannels(ChannelType.UI, ChannelType.API)(() => {
                 .fieldErrorMessage('couponCode', 'Coupon code EXISTING-COUPON already exists');
     });
 
-    for (const usageLimit of ['0', '-1', '-100']) {
-        test(`cannot publish coupon with zero or negative usage limit (usageLimit=${usageLimit})`, async ({ scenario }) => {
-            await scenario
-                .when().publishCoupon()
-                    .withCouponCode('INVALID-LIMIT')
-                    .withDiscountRate(0.15)
-                    .withUsageLimit(usageLimit)
-                .then().shouldFail()
-                    .errorMessage(validationError)
-                    .fieldErrorMessage('usageLimit', 'Usage limit must be positive');
-        });
-    }
+    test.each([{ usageLimit: '0' }, { usageLimit: '-1' }, { usageLimit: '-100' }])('cannot publish coupon with zero or negative usage limit (usageLimit=$usageLimit)', async ({ scenario, usageLimit }) => {
+        await scenario
+            .when().publishCoupon()
+                .withCouponCode('INVALID-LIMIT')
+                .withDiscountRate(0.15)
+                .withUsageLimit(usageLimit)
+            .then().shouldFail()
+                .errorMessage(validationError)
+                .fieldErrorMessage('usageLimit', 'Usage limit must be positive');
+    });
 });
