@@ -16,11 +16,11 @@ test('should place order with correct subtotal price', async ({ shopApiClient, e
     const createProductResult = await erpClient.createProduct({ id: sku, price: '20.00' });
     expect(createProductResult.isSuccess()).toBe(true);
 
-    const placeOrderResult = await shopApiClient.placeOrder({ sku, quantity: '5', country: GherkinDefaults.DEFAULT_COUNTRY });
+    const placeOrderResult = await shopApiClient.orders().placeOrder({ sku, quantity: '5', country: GherkinDefaults.DEFAULT_COUNTRY });
     expect(placeOrderResult.isSuccess()).toBe(true);
 
     const orderNumber = placeOrderResult.getValue().orderNumber;
-    const viewOrderResult = await shopApiClient.viewOrder(orderNumber);
+    const viewOrderResult = await shopApiClient.orders().viewOrder(orderNumber);
     expect(viewOrderResult.isSuccess()).toBe(true);
     expect(decimalToNumber(viewOrderResult.getValue().subtotalPrice)).toBe(100.0);
 });
@@ -32,34 +32,35 @@ const subtotalPriceCases = [
     { unitPrice: '99.99', quantity: '1', subtotalPrice: '99.99' },
 ];
 
-test('should place order with correct subtotal price parameterized', async ({ shopApiClient, erpClient }) => {
-    for (const { unitPrice, quantity, subtotalPrice } of subtotalPriceCases) {
+test.each(subtotalPriceCases)(
+    'should place order with correct subtotal price parameterized (unitPrice=$unitPrice, quantity=$quantity, subtotalPrice=$subtotalPrice)',
+    async ({ shopApiClient, erpClient, unitPrice, quantity, subtotalPrice }) => {
         const sku = createUniqueSku(GherkinDefaults.DEFAULT_SKU);
         const createProductResult = await erpClient.createProduct({ id: sku, price: unitPrice });
         expect(createProductResult.isSuccess()).toBe(true);
 
-        const placeOrderResult = await shopApiClient.placeOrder({ sku, quantity, country: GherkinDefaults.DEFAULT_COUNTRY });
+        const placeOrderResult = await shopApiClient.orders().placeOrder({ sku, quantity, country: GherkinDefaults.DEFAULT_COUNTRY });
         expect(placeOrderResult.isSuccess()).toBe(true);
 
         const orderNumber = placeOrderResult.getValue().orderNumber;
-        const viewOrderResult = await shopApiClient.viewOrder(orderNumber);
+        const viewOrderResult = await shopApiClient.orders().viewOrder(orderNumber);
         expect(viewOrderResult.isSuccess()).toBe(true);
         expect(decimalToNumber(viewOrderResult.getValue().subtotalPrice)).toBe(Number(subtotalPrice));
     }
-});
+);
 
 test('should place order', async ({ shopApiClient, erpClient }) => {
     const sku = createUniqueSku(GherkinDefaults.DEFAULT_SKU);
     const createProductResult = await erpClient.createProduct({ id: sku, price: '20.00' });
     expect(createProductResult.isSuccess()).toBe(true);
 
-    const placeOrderResult = await shopApiClient.placeOrder({ sku, quantity: '5', country: GherkinDefaults.DEFAULT_COUNTRY });
+    const placeOrderResult = await shopApiClient.orders().placeOrder({ sku, quantity: '5', country: GherkinDefaults.DEFAULT_COUNTRY });
     expect(placeOrderResult.isSuccess()).toBe(true);
 
     const orderNumber = placeOrderResult.getValue().orderNumber;
     expect(orderNumber.startsWith('ORD-')).toBe(true);
 
-    const viewOrderResult = await shopApiClient.viewOrder(orderNumber);
+    const viewOrderResult = await shopApiClient.orders().viewOrder(orderNumber);
     expect(viewOrderResult.isSuccess()).toBe(true);
 
     const order = viewOrderResult.getValue();

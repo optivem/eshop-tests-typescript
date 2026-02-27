@@ -19,8 +19,9 @@ const times = [
 
 test.describe('@isolated', () => {
     withChannels(ChannelType.UI, ChannelType.API)(() => {
-        for (const time of times) {
-            test(`should be able to cancel order outside of blackout period 31st Dec between 22:00 and 22:30 (${time})`, async ({ scenario }) => {
+        test.each(times.map((time) => ({ time })))(
+            'should be able to cancel order outside of blackout period 31st Dec between 22:00 and 22:30 ($time)',
+            async ({ scenario, time }) => {
                 await scenario
                     .given().clock()
                         .withTime(time)
@@ -28,7 +29,7 @@ test.describe('@isolated', () => {
                         .withStatus(OrderStatus.PLACED)
                     .when().cancelOrder()
                     .then().shouldSucceed();
-            });
-        }
+            }
+        );
     });
 });

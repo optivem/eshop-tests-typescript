@@ -70,8 +70,9 @@ const subtotalPriceCases = [
     { unitPrice: '99.99', quantity: '1', subtotalPrice: '99.99' },
 ];
 
-test('should place order with correct subtotal price parameterized', async () => {
-    for (const { unitPrice, quantity, subtotalPrice } of subtotalPriceCases) {
+test.each(subtotalPriceCases)(
+    'should place order with correct subtotal price parameterized (unitPrice=$unitPrice, quantity=$quantity, subtotalPrice=$subtotalPrice)',
+    async ({ unitPrice, quantity, subtotalPrice }) => {
         const sku = createUniqueSku(GherkinDefaults.DEFAULT_SKU);
         await createProductViaErp(sku, unitPrice);
 
@@ -89,7 +90,7 @@ test('should place order with correct subtotal price parameterized', async () =>
         expect(viewOrderResult.status).toBe(200);
         expect(Number(viewOrderResult.body.subtotalPrice)).toBe(Number(subtotalPrice));
     }
-});
+);
 
 test('should place order', async () => {
     const sku = createUniqueSku(GherkinDefaults.DEFAULT_SKU);

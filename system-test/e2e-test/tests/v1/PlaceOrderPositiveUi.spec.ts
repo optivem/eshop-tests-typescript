@@ -23,8 +23,9 @@ const subtotalPriceCases = [
     { unitPrice: '99.99', quantity: '1', subtotalPrice: '99.99' },
 ];
 
-test('should place order with correct subtotal price parameterized', async ({ shopUiDriver, erpDriver }) => {
-    for (const { unitPrice, quantity, subtotalPrice } of subtotalPriceCases) {
+test.each(subtotalPriceCases)(
+    'should place order with correct subtotal price parameterized (unitPrice=$unitPrice, quantity=$quantity, subtotalPrice=$subtotalPrice)',
+    async ({ shopUiDriver, erpDriver, unitPrice, quantity, subtotalPrice }) => {
         const sku = createUniqueSku(GherkinDefaults.DEFAULT_SKU);
         expect(await erpDriver.returnsProduct({ sku, price: unitPrice })).toBeSuccess();
 
@@ -36,7 +37,7 @@ test('should place order with correct subtotal price parameterized', async ({ sh
         expect(viewOrderResult).toBeSuccess();
         expect(viewOrderResult.getValue().subtotalPrice).toEqualDecimal(subtotalPrice);
     }
-});
+);
 
 test('should place order', async ({ shopUiDriver, erpDriver }) => {
     const sku = createUniqueSku(GherkinDefaults.DEFAULT_SKU);

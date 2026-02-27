@@ -45,52 +45,44 @@ test('should reject order with zero quantity', async ({ shopUiDriver }) => {
 	expect(result).toHaveFieldError('Quantity must be positive');
 });
 
-test('should reject order with empty SKU', async ({ shopUiDriver }) => {
-	for (const sku of emptyArgumentsProvider) {
-		const result = await shopUiDriver.placeOrder({
-			sku,
-			quantity: GherkinDefaults.DEFAULT_QUANTITY,
-			country: GherkinDefaults.DEFAULT_COUNTRY,
-		});
-		expect(result).toHaveErrorMessage(validationError);
-		expect(result).toHaveFieldError('SKU must not be empty');
-	}
+test.each(emptyArgumentsProvider.map((sku) => ({ sku })))('should reject order with empty SKU (sku=$sku)', async ({ shopUiDriver, sku }) => {
+	const result = await shopUiDriver.placeOrder({
+		sku,
+		quantity: GherkinDefaults.DEFAULT_QUANTITY,
+		country: GherkinDefaults.DEFAULT_COUNTRY,
+	});
+	expect(result).toHaveErrorMessage(validationError);
+	expect(result).toHaveFieldError('SKU must not be empty');
 });
 
-test('should reject order with empty quantity', async ({ shopUiDriver }) => {
-	for (const emptyQuantity of emptyArgumentsProvider) {
-		const result = await shopUiDriver.placeOrder({
-			sku: createUniqueSku(GherkinDefaults.DEFAULT_SKU),
-			quantity: emptyQuantity,
-			country: GherkinDefaults.DEFAULT_COUNTRY,
-		});
-		expect(result).toHaveErrorMessage(validationError);
-		expect(result).toHaveFieldError('Quantity must not be empty');
-	}
+test.each(emptyArgumentsProvider.map((emptyQuantity) => ({ emptyQuantity })))('should reject order with empty quantity (quantity=$emptyQuantity)', async ({ shopUiDriver, emptyQuantity }) => {
+	const result = await shopUiDriver.placeOrder({
+		sku: createUniqueSku(GherkinDefaults.DEFAULT_SKU),
+		quantity: emptyQuantity,
+		country: GherkinDefaults.DEFAULT_COUNTRY,
+	});
+	expect(result).toHaveErrorMessage(validationError);
+	expect(result).toHaveFieldError('Quantity must not be empty');
 });
 
-test('should reject order with non-integer quantity', async ({ shopUiDriver }) => {
-	for (const nonIntegerQuantity of ['3.5', 'lala']) {
-		const result = await shopUiDriver.placeOrder({
-			sku: createUniqueSku(GherkinDefaults.DEFAULT_SKU),
-			quantity: nonIntegerQuantity,
-			country: GherkinDefaults.DEFAULT_COUNTRY,
-		});
-		expect(result).toHaveErrorMessage(validationError);
-		expect(result).toHaveFieldError('Quantity must be an integer');
-	}
+test.each([{ nonIntegerQuantity: '3.5' }, { nonIntegerQuantity: 'lala' }])('should reject order with non-integer quantity (quantity=$nonIntegerQuantity)', async ({ shopUiDriver, nonIntegerQuantity }) => {
+	const result = await shopUiDriver.placeOrder({
+		sku: createUniqueSku(GherkinDefaults.DEFAULT_SKU),
+		quantity: nonIntegerQuantity,
+		country: GherkinDefaults.DEFAULT_COUNTRY,
+	});
+	expect(result).toHaveErrorMessage(validationError);
+	expect(result).toHaveFieldError('Quantity must be an integer');
 });
 
-test('should reject order with empty country', async ({ shopUiDriver }) => {
-	for (const emptyCountry of emptyArgumentsProvider) {
-		const result = await shopUiDriver.placeOrder({
-			sku: createUniqueSku(GherkinDefaults.DEFAULT_SKU),
-			quantity: GherkinDefaults.DEFAULT_QUANTITY,
-			country: emptyCountry,
-		});
-		expect(result).toHaveErrorMessage(validationError);
-		expect(result).toHaveFieldError('Country must not be empty');
-	}
+test.each(emptyArgumentsProvider.map((emptyCountry) => ({ emptyCountry })))('should reject order with empty country (country=$emptyCountry)', async ({ shopUiDriver, emptyCountry }) => {
+	const result = await shopUiDriver.placeOrder({
+		sku: createUniqueSku(GherkinDefaults.DEFAULT_SKU),
+		quantity: GherkinDefaults.DEFAULT_QUANTITY,
+		country: emptyCountry,
+	});
+	expect(result).toHaveErrorMessage(validationError);
+	expect(result).toHaveFieldError('Country must not be empty');
 });
 
 test('should reject order with invalid country', async ({ shopUiDriver, erpDriver }) => {

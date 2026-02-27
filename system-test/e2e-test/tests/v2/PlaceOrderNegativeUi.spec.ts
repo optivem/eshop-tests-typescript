@@ -72,72 +72,64 @@ test('should reject order with zero quantity', async ({ shopUiClient }) => {
     assertValidationError(result, 'quantity', 'Quantity must be positive');
 });
 
-test('should reject order with empty SKU', async ({ shopUiClient }) => {
-    for (const sku of emptyArgumentsProvider) {
-        await shopUiClient.close();
-        const homePage = await shopUiClient.openHomePage();
-        const newOrderPage = await homePage.clickNewOrder();
+test.each(emptyArgumentsProvider.map((sku) => ({ sku })))('should reject order with empty SKU (sku=$sku)', async ({ shopUiClient, sku }) => {
+    await shopUiClient.close();
+    const homePage = await shopUiClient.openHomePage();
+    const newOrderPage = await homePage.clickNewOrder();
 
-        await newOrderPage.inputSku(sku);
-        await newOrderPage.inputQuantity(GherkinDefaults.DEFAULT_QUANTITY);
-        await newOrderPage.inputCountry(GherkinDefaults.DEFAULT_COUNTRY);
-        await newOrderPage.inputCouponCode(null);
-        await newOrderPage.clickPlaceOrder();
+    await newOrderPage.inputSku(sku);
+    await newOrderPage.inputQuantity(GherkinDefaults.DEFAULT_QUANTITY);
+    await newOrderPage.inputCountry(GherkinDefaults.DEFAULT_COUNTRY);
+    await newOrderPage.inputCouponCode(null);
+    await newOrderPage.clickPlaceOrder();
 
-        const result = await newOrderPage.getResult();
-        assertValidationError(result, 'sku', 'SKU must not be empty');
-    }
+    const result = await newOrderPage.getResult();
+    assertValidationError(result, 'sku', 'SKU must not be empty');
 });
 
-test('should reject order with empty quantity', async ({ shopUiClient }) => {
-    for (const emptyQuantity of emptyArgumentsProvider) {
-        await shopUiClient.close();
-        const homePage = await shopUiClient.openHomePage();
-        const newOrderPage = await homePage.clickNewOrder();
+test.each(emptyArgumentsProvider.map((emptyQuantity) => ({ emptyQuantity })))('should reject order with empty quantity (quantity=$emptyQuantity)', async ({ shopUiClient, emptyQuantity }) => {
+    await shopUiClient.close();
+    const homePage = await shopUiClient.openHomePage();
+    const newOrderPage = await homePage.clickNewOrder();
 
-        await newOrderPage.inputSku(createUniqueSku(GherkinDefaults.DEFAULT_SKU));
-        await newOrderPage.inputQuantity(emptyQuantity);
-        await newOrderPage.inputCountry(GherkinDefaults.DEFAULT_COUNTRY);
-        await newOrderPage.inputCouponCode(null);
-        await newOrderPage.clickPlaceOrder();
+    await newOrderPage.inputSku(createUniqueSku(GherkinDefaults.DEFAULT_SKU));
+    await newOrderPage.inputQuantity(emptyQuantity);
+    await newOrderPage.inputCountry(GherkinDefaults.DEFAULT_COUNTRY);
+    await newOrderPage.inputCouponCode(null);
+    await newOrderPage.clickPlaceOrder();
 
-        const result = await newOrderPage.getResult();
-        assertValidationError(result, 'quantity', 'Quantity must not be empty');
-    }
+    const result = await newOrderPage.getResult();
+    assertValidationError(result, 'quantity', 'Quantity must not be empty');
 });
 
-test('should reject order with non-integer quantity', async ({ shopUiClient }) => {
-    for (const nonIntegerQuantity of ['3.5', 'lala']) {
-        await shopUiClient.close();
-        const homePage = await shopUiClient.openHomePage();
-        const newOrderPage = await homePage.clickNewOrder();
+test.each([{ nonIntegerQuantity: '3.5' }, { nonIntegerQuantity: 'lala' }])('should reject order with non-integer quantity (quantity=$nonIntegerQuantity)', async ({ shopUiClient, nonIntegerQuantity }) => {
+    await shopUiClient.close();
+    const homePage = await shopUiClient.openHomePage();
+    const newOrderPage = await homePage.clickNewOrder();
 
-        await newOrderPage.inputSku(createUniqueSku(GherkinDefaults.DEFAULT_SKU));
-        await newOrderPage.inputQuantity(nonIntegerQuantity);
-        await newOrderPage.inputCountry(GherkinDefaults.DEFAULT_COUNTRY);
-        await newOrderPage.inputCouponCode(null);
-        await newOrderPage.clickPlaceOrder();
+    await newOrderPage.inputSku(createUniqueSku(GherkinDefaults.DEFAULT_SKU));
+    await newOrderPage.inputQuantity(nonIntegerQuantity);
+    await newOrderPage.inputCountry(GherkinDefaults.DEFAULT_COUNTRY);
+    await newOrderPage.inputCouponCode(null);
+    await newOrderPage.clickPlaceOrder();
 
-        const result = await newOrderPage.getResult();
-        assertValidationError(result, 'quantity', 'Quantity must be an integer');
-    }
+    const result = await newOrderPage.getResult();
+    assertValidationError(result, 'quantity', 'Quantity must be an integer');
 });
 
-test('should reject order with empty country', async ({ shopUiClient }) => {
-    for (const emptyCountry of emptyArgumentsProvider) {
-        await shopUiClient.close();
-        const homePage = await shopUiClient.openHomePage();
-        const newOrderPage = await homePage.clickNewOrder();
+test.each(emptyArgumentsProvider.map((emptyCountry) => ({ emptyCountry })))('should reject order with empty country (country=$emptyCountry)', async ({ shopUiClient, emptyCountry }) => {
+    await shopUiClient.close();
+    const homePage = await shopUiClient.openHomePage();
+    const newOrderPage = await homePage.clickNewOrder();
 
-        await newOrderPage.inputSku(createUniqueSku(GherkinDefaults.DEFAULT_SKU));
-        await newOrderPage.inputQuantity(GherkinDefaults.DEFAULT_QUANTITY);
-        await newOrderPage.inputCountry(emptyCountry);
-        await newOrderPage.inputCouponCode(null);
-        await newOrderPage.clickPlaceOrder();
+    await newOrderPage.inputSku(createUniqueSku(GherkinDefaults.DEFAULT_SKU));
+    await newOrderPage.inputQuantity(GherkinDefaults.DEFAULT_QUANTITY);
+    await newOrderPage.inputCountry(emptyCountry);
+    await newOrderPage.inputCouponCode(null);
+    await newOrderPage.clickPlaceOrder();
 
-        const result = await newOrderPage.getResult();
-        assertValidationError(result, 'country', 'Country must not be empty');
-    }
+    const result = await newOrderPage.getResult();
+    assertValidationError(result, 'country', 'Country must not be empty');
 });
 
 test('should reject order with invalid country', async ({ shopUiClient, erpClient }) => {

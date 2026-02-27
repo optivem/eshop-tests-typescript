@@ -38,6 +38,13 @@ export interface V4ChannelFixtures {
     taxDriver: ReturnType<typeof createTaxApiDriver>;
 }
 
+export function createShopDriverForChannel(channel: string): ShopDriver {
+    const externalSystemMode = getExternalSystemMode(undefined);
+    return channel === ChannelType.UI
+        ? createShopUiDriver(externalSystemMode)
+        : createShopApiDriver(externalSystemMode);
+}
+
 /**
  * Run the same shop driver test for each channel (UI/API). Sets ChannelContext and creates shopDriver per channel.
  */
@@ -50,10 +57,7 @@ export function channelShopDriverTest(
         test(`[${channel} Channel] ${testName}`, async ({ erpDriver, taxDriver }) => {
             try {
                 ChannelContext.set(channel);
-                const shopDriver =
-                    channel === ChannelType.UI
-                        ? createShopUiDriver(getExternalSystemMode())
-                        : createShopApiDriver(getExternalSystemMode());
+                const shopDriver = createShopDriverForChannel(channel);
                 try {
                     await testFn({ shopDriver, erpDriver, taxDriver });
                 } finally {

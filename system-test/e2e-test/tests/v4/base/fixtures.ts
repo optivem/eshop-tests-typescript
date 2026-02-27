@@ -6,7 +6,7 @@ import { randomUUID } from 'node:crypto';
 import { test as base } from '@playwright/test';
 import type { ShopDriver } from '@optivem/driver-core/shop/driver/ShopDriver.js';
 import { ChannelType } from '@optivem/dsl-core/system/shop/ChannelType.js';
-import { ChannelContext } from '@optivem/optivem-testing';
+import { ChannelContext, withChannels as sharedWithChannels } from '@optivem/optivem-testing';
 import { Closer, setupResultMatchers } from '@optivem/commons/util';
 import {
     createShopUiDriver,
@@ -18,7 +18,7 @@ import {
 
 setupResultMatchers();
 
-export const test = base.extend<{
+const testBase = base.extend<{
     erpDriver: ReturnType<typeof createErpDriver>;
     taxDriver: ReturnType<typeof createTaxApiDriver>;
 }>({
@@ -34,12 +34,76 @@ export const test = base.extend<{
     },
 });
 
+const testEach = <TCase extends Record<string, unknown>>(
+    cases: ReadonlyArray<TCase>
+): ((name: string, fn: (args: { erpDriver: ReturnType<typeof createErpDriver>; taxDriver: ReturnType<typeof createTaxApiDriver> } & TCase) => Promise<void>) => void) => {
+    return (name: string, fn: (args: { erpDriver: ReturnType<typeof createErpDriver>; taxDriver: ReturnType<typeof createTaxApiDriver> } & TCase) => Promise<void>): void => {
+        cases.forEach((row) => {
+            const testName = name.replaceAll(/\$(\w+)/g, (_, key) => {
+                const value = row[key as keyof TCase];
+                if (typeof value === 'string') return value;
+                if (typeof value === 'number') return value.toString();
+                return '';
+            });
+
+            testBase(testName, async ({ erpDriver, taxDriver }) => {
+                await fn({ erpDriver, taxDriver, ...row } as { erpDriver: ReturnType<typeof createErpDriver>; taxDriver: ReturnType<typeof createTaxApiDriver> } & TCase);
+            });
+        });
+    };
+};
+
+export const test = testBase as typeof testBase & { each: typeof testEach };
+test.each = testEach;
+
 export { expect } from '@playwright/test';
 
 export interface V4ChannelFixtures {
     shopDriver: ShopDriver;
     erpDriver: ReturnType<typeof createErpDriver>;
     taxDriver: ReturnType<typeof createTaxApiDriver>;
+}
+
+export function createShopDriverForChannel(channel: string): ShopDriver {
+    const externalSystemMode = getExternalSystemMode(undefined);
+    return channel === ChannelType.UI
+        ? createShopUiDriver(externalSystemMode)
+        : createShopApiDriver(externalSystemMode);
+}
+
+export async function withChannelShopDriver<T>(
+    testFn: (shopDriver: ShopDriver) => Promise<T>,
+    channel?: string
+): Promise<T> {
+    const resolvedChannel = channel ?? ChannelContext.get();
+    if (resolvedChannel == null || resolvedChannel === '') {
+        throw new Error('Channel is not set. Use withChannels(...) or pass channel explicitly to withChannelShopDriver.');
+    }
+
+    const manageContext = channel != null && channel !== '';
+    const shopDriver = createShopDriverForChannel(resolvedChannel);
+    try {
+        if (manageContext) {
+            ChannelContext.set(resolvedChannel);
+        }
+        return await testFn(shopDriver);
+    } finally {
+        await Closer.close(shopDriver);
+        if (manageContext) {
+            ChannelContext.clear();
+        }
+    }
+}
+
+export function withChannels(...channelTypes: string[]): (block: () => void) => void {
+    return sharedWithChannels(
+        {
+            describe: (name, callback) => test.describe(name, callback),
+            beforeEach: (callback) => test.beforeEach(callback),
+            afterEach: (callback) => test.afterEach(callback),
+        },
+        ...channelTypes
+    );
 }
 
 export function createUniqueSku(baseSku: string): string {
@@ -62,10 +126,7 @@ export function channelShopDriverTest(
         test(`[${channel} Channel] ${testName}`, async ({ erpDriver, taxDriver }) => {
             try {
                 ChannelContext.set(channel);
-                const shopDriver =
-                    channel === ChannelType.UI
-                        ? createShopUiDriver(getExternalSystemMode())
-                        : createShopApiDriver(getExternalSystemMode());
+                const shopDriver = createShopDriverForChannel(channel);
                 try {
                     await testFn({ shopDriver, erpDriver, taxDriver });
                 } finally {
