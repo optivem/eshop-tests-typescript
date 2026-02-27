@@ -2,9 +2,9 @@
  * V4 e2e fixtures: channel-based shop driver + external drivers (ERP/Tax).
  * Mirrors reference V4 driver-level style (no ScenarioDsl).
  */
-import { randomUUID } from 'node:crypto';
 import { test as base } from '@playwright/test';
 import type { ShopDriver } from '@optivem/driver-core/shop/driver/ShopDriver.js';
+import { createUniqueSku } from '@optivem/optivem-testing';
 import { Closer, setupResultMatchers } from '@optivem/commons/util';
 import { bindTestEach } from '@optivem/optivem-testing';
 import {
@@ -57,7 +57,4 @@ export const test: typeof testBase & { each: TestEach } = Object.assign(testBase
 
 export { expect } from '@playwright/test';
 
-export function createUniqueSku(baseSku: string): string {
-    const suffix = randomUUID().replace(/-/g, '').slice(0, 8);
-    return `${baseSku}-${suffix}`;
-}
+export { createUniqueSku };

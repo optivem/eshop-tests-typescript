@@ -1,11 +1,9 @@
 import { test as base } from '@playwright/test';
 import type { ShopDriver } from '@optivem/driver-core/shop/driver/ShopDriver.js';
-import { ChannelType } from '@optivem/dsl-core/system/shop/ChannelType.js';
-import { ChannelContext } from '@optivem/optivem-testing';
 import { Closer } from '@optivem/commons/util';
 import {
-    createShopUiDriver,
-    createShopApiDriver,
+    channelShopDriverTest as sharedChannelShopDriverTest,
+    createShopDriverForChannel,
     createErpDriver,
     createTaxApiDriver,
     getExternalSystemMode,
@@ -37,13 +35,7 @@ export interface V4ChannelFixtures {
     erpDriver: ReturnType<typeof createErpDriver>;
     taxDriver: ReturnType<typeof createTaxApiDriver>;
 }
-
-export function createShopDriverForChannel(channel: string): ShopDriver {
-    const externalSystemMode = getExternalSystemMode(undefined);
-    return channel === ChannelType.UI
-        ? createShopUiDriver(externalSystemMode)
-        : createShopApiDriver(externalSystemMode);
-}
+export { createShopDriverForChannel };
 
 /**
  * Run the same shop driver test for each channel (UI/API). Sets ChannelContext and creates shopDriver per channel.
@@ -53,19 +45,11 @@ export function channelShopDriverTest(
     testName: string,
     testFn: (fixtures: V4ChannelFixtures) => Promise<void>
 ): void {
-    for (const channel of channelTypes) {
-        test(`[${channel} Channel] ${testName}`, async ({ erpDriver, taxDriver }) => {
-            try {
-                ChannelContext.set(channel);
-                const shopDriver = createShopDriverForChannel(channel);
-                try {
-                    await testFn({ shopDriver, erpDriver, taxDriver });
-                } finally {
-                    await Closer.close(shopDriver);
-                }
-            } finally {
-                ChannelContext.clear();
-            }
-        });
-    }
+    sharedChannelShopDriverTest(
+        (name, run) => test(name, run),
+        channelTypes,
+        testName,
+        testFn,
+        { respectChannelEnv: false }
+    );
 }

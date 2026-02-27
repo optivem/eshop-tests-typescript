@@ -2,9 +2,9 @@
  * V1 e2e fixtures: raw-driver style (Shop/ERP/Tax), no ScenarioDsl.
  * Parity with Java/.NET v1 BaseE2eTest: fixed REAL external system mode.
  */
-import { randomUUID } from 'node:crypto';
 import { test as base } from '@playwright/test';
 import type { ShopDriver } from '@optivem/driver-core/shop/driver/ShopDriver.js';
+import { createUniqueSku } from '@optivem/optivem-testing';
 import { Closer, setupResultMatchers } from '@optivem/commons/util';
 import {
     createShopUiDriver,
@@ -76,7 +76,4 @@ test.each = testEach;
 
 export { expect } from '@playwright/test';
 
-export function createUniqueSku(baseSku: string): string {
-    const suffix = randomUUID().replace(/-/g, '').slice(0, 8);
-    return `${baseSku}-${suffix}`;
-}
+export { createUniqueSku };

@@ -1,5 +1,5 @@
-import { randomUUID } from 'node:crypto';
 import { test as base } from '@playwright/test';
+import { createUniqueSku } from '@optivem/optivem-testing';
 import { ShopUiClient } from '@optivem/driver-core/shop/client/ui/ShopUiClient.js';
 import { ShopApiClient } from '@optivem/driver-core/shop/client/api/ShopApiClient.js';
 import { ErpRealClient } from '@optivem/driver-core/erp/client/ErpRealClient.js';
@@ -50,7 +50,4 @@ export const test: typeof testBase & { each: TestEach } = Object.assign(testBase
 
 export { expect } from '@playwright/test';
 
-export function createUniqueSku(baseSku: string): string {
-    const suffix = randomUUID().replace(/-/g, '').slice(0, 8);
-    return `${baseSku}-${suffix}`;
-}
+export { createUniqueSku };

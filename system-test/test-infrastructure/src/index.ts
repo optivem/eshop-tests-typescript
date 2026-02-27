@@ -26,6 +26,12 @@ export {
     createErpDriver,
     createTaxApiDriver,
 } from './driver/createDrivers.js';
+export {
+    createShopDriverForChannel,
+    withChannelShopDriver,
+    channelShopDriverTest,
+} from './driver/channelShopDriver.js';
+export type { ExternalDriversFixtures, V4ChannelFixtures } from './driver/channelShopDriver.js';
 export { shopChannelTest, shopChannelTestEach, channelTest } from './shopChannelTest.js';
 export type { ShopFixtures } from './shopChannelTest.js';
 export { SystemDslFactory } from './system/SystemDslFactory.js';
