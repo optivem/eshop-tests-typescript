@@ -1,5 +1,5 @@
 {
-  "name": "modern-acceptance-testing-monorepo",
+  "name": "eshop-tests-monorepo",
   "version": "1.0.0",
   "private": true,
   "type": "module",
