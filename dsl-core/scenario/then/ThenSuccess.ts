@@ -1,5 +1,5 @@
 import type { ResponseVerification } from '@optivem/dsl-common/dsl';
-import type { SystemDsl } from '../../system/SystemDsl.js';
+import type { AppDsl } from '../../app/AppDsl.js';
 import type { ThenClause } from './Then.js';
 import { ThenSuccessOrderVerifier } from './ThenOrder.js';
 import { ThenSuccessCouponVerifier } from './ThenCoupon.js';
@@ -19,7 +19,7 @@ export class ThenSuccessVerifier<
 > implements PromiseLike<void> {
 
     constructor(
-        private readonly app: SystemDsl,
+        private readonly app: AppDsl,
         private readonly thenClause: ThenClause<TSuccessResponse, TSuccessVerification>
     ) {}
 

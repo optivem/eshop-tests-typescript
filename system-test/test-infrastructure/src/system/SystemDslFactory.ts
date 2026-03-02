@@ -1,12 +1,12 @@
 import type { ExternalSystemMode } from '@optivem/dsl-common/dsl';
-import { SystemConfiguration } from '@optivem/dsl-core/system/SystemConfiguration.js';
-import { SystemDsl } from '@optivem/dsl-core/system/SystemDsl.js';
+import { AppConfiguration } from '@optivem/dsl-core/app/AppConfiguration.js';
+import { AppDsl } from '@optivem/dsl-core/app/AppDsl.js';
 import { getConfiguration } from '../driver/configurationLoaderRegistry.js';
 
 export class SystemDslFactory {
-    static create(externalSystemMode: ExternalSystemMode): SystemDsl {
+    static create(externalSystemMode: ExternalSystemMode): AppDsl {
         const configuration = getConfiguration(externalSystemMode);
-        const systemConfiguration = new SystemConfiguration(
+        const appConfiguration = new AppConfiguration(
             configuration.shopUiBaseUrl,
             configuration.shopApiBaseUrl,
             configuration.erpBaseUrl,
@@ -14,6 +14,6 @@ export class SystemDslFactory {
             configuration.clockBaseUrl,
             configuration.externalSystemMode
         );
-        return new SystemDsl(systemConfiguration);
+        return new AppDsl(appConfiguration);
     }
 }

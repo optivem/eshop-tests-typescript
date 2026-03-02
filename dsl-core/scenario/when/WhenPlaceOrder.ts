@@ -1,12 +1,12 @@
 import { Converter } from '@optivem/commons/util';
 import type { Optional } from '@optivem/commons/util';
-import type { SystemDsl } from '../../system/SystemDsl.js';
+import type { AppDsl } from '../../app/AppDsl.js';
 import { ExecutionResult } from '../ExecutionResult.js';
 import { ExecutionResultBuilder } from '../ExecutionResultBuilder.js';
 import { GherkinDefaults } from '../GherkinDefaults.js';
 import { BaseWhenBuilder } from './BaseWhenStep.js';
 import type { PlaceOrderResponse } from '@optivem/driver-port/shop/dtos/index.js';
-import type { PlaceOrderVerification } from '../../system/shop/usecases/PlaceOrderVerification.js';
+import type { PlaceOrderVerification } from '../../app/shop/usecases/PlaceOrderVerification.js';
 
 export class PlaceOrderBuilder extends BaseWhenBuilder<PlaceOrderResponse, PlaceOrderVerification> {
     private orderNumberValue: Optional<string>;
@@ -15,7 +15,7 @@ export class PlaceOrderBuilder extends BaseWhenBuilder<PlaceOrderResponse, Place
     private countryValue: Optional<string>;
     private couponCodeValue: Optional<string>;
 
-    constructor(app: SystemDsl, setup?: () => Promise<void>) {
+    constructor(app: AppDsl, setup?: () => Promise<void>) {
         super(app, setup);
         this.withOrderNumber(GherkinDefaults.DEFAULT_ORDER_NUMBER);
         this.withSku(GherkinDefaults.DEFAULT_SKU);
@@ -55,7 +55,7 @@ export class PlaceOrderBuilder extends BaseWhenBuilder<PlaceOrderResponse, Place
     }
 
     protected override async execute(
-        app: SystemDsl
+        app: AppDsl
     ): Promise<ExecutionResult<PlaceOrderResponse, PlaceOrderVerification>> {
         const result = await app
             .shop()

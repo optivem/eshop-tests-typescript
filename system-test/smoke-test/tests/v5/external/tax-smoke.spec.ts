@@ -1,5 +1,5 @@
 /**
- * V5 smoke test: SystemDsl Tax.
+ * V5 smoke test: AppDsl Tax.
  */
 import '../../../../setup-config.js';
 import { test } from '../fixtures.js';

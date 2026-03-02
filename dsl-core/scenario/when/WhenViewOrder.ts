@@ -1,16 +1,16 @@
 import type { Optional } from '@optivem/commons/util';
-import type { SystemDsl } from '../../system/SystemDsl.js';
+import type { AppDsl } from '../../app/AppDsl.js';
 import { ExecutionResult } from '../ExecutionResult.js';
 import { ExecutionResultBuilder } from '../ExecutionResultBuilder.js';
 import { GherkinDefaults } from '../GherkinDefaults.js';
 import { BaseWhenBuilder } from './BaseWhenStep.js';
 import type { ViewOrderResponse } from '@optivem/driver-port/shop/dtos/index.js';
-import type { ViewOrderVerification } from '../../system/shop/usecases/ViewOrderVerification.js';
+import type { ViewOrderVerification } from '../../app/shop/usecases/ViewOrderVerification.js';
 
 export class ViewOrderBuilder extends BaseWhenBuilder<ViewOrderResponse, ViewOrderVerification> {
     private orderNumberValue: Optional<string>;
 
-    constructor(app: SystemDsl, setup?: () => Promise<void>) {
+    constructor(app: AppDsl, setup?: () => Promise<void>) {
         super(app, setup);
         this.withOrderNumber(GherkinDefaults.DEFAULT_ORDER_NUMBER);
     }
@@ -21,7 +21,7 @@ export class ViewOrderBuilder extends BaseWhenBuilder<ViewOrderResponse, ViewOrd
     }
 
     protected override async execute(
-        app: SystemDsl
+        app: AppDsl
     ): Promise<ExecutionResult<ViewOrderResponse, ViewOrderVerification>> {
         const result = await app
             .shop()

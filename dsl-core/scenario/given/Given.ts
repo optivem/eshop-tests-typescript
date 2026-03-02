@@ -1,4 +1,4 @@
-import type { SystemDsl } from '../../system/SystemDsl.js';
+import type { AppDsl } from '../../app/AppDsl.js';
 import { WhenClause } from '../when/When.js';
 import { GivenProductBuilder } from './GivenProduct.js';
 import { GivenOrderBuilder } from './GivenOrder.js';
@@ -10,14 +10,14 @@ import { GivenCouponBuilder } from './GivenCoupon.js';
  * Given clause for Gherkin scenarios (app, products, orders, clock, countries, coupons).
  */
 export class GivenClause {
-    private readonly app: SystemDsl;
+    private readonly app: AppDsl;
     private readonly products: GivenProductBuilder[];
     private readonly orders: GivenOrderBuilder[];
     private clockBuilder: GivenClockBuilder;
     private readonly countries: GivenCountryBuilder[];
     private readonly coupons: GivenCouponBuilder[];
 
-    constructor(app: SystemDsl) {
+    constructor(app: AppDsl) {
         this.app = app;
         this.products = [];
         this.orders = [];

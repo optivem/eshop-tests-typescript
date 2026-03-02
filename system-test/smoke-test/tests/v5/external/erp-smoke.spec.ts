@@ -1,5 +1,5 @@
 /**
- * V5 smoke test: SystemDsl ERP.
+ * V5 smoke test: AppDsl ERP.
  */
 import '../../../../setup-config.js';
 import { test } from '../fixtures.js';

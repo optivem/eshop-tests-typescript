@@ -1,5 +1,5 @@
 /**
- * V6 smoke test: SystemDsl ERP (BaseSystemDslTest).
+ * V6 smoke test: AppDsl ERP (BaseSystemDslTest).
  */
 import '../../../../setup-config.js';
 import { test } from '../fixtures.js';

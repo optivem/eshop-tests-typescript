@@ -5,10 +5,10 @@ process.env.EXTERNAL_SYSTEM_MODE = process.env.EXTERNAL_SYSTEM_MODE ?? 'STUB';
 
 import { bindChannels, bindTestEach } from '@optivem/optivem-testing';
 import { ScenarioDsl } from '@optivem/dsl-core/scenario/ScenarioDsl.js';
-import type { SystemDsl } from '@optivem/dsl-core/system/SystemDsl.js';
+import type { AppDsl } from '@optivem/dsl-core/app/AppDsl.js';
 import { withApp, withScenario } from '@optivem/test-infrastructure';
 
-const _test = withScenario(withApp(), (app: SystemDsl) => new ScenarioDsl(app));
+const _test = withScenario(withApp(), (app: AppDsl) => new ScenarioDsl(app));
 type TestEach = ReturnType<typeof bindTestEach>;
 const test: typeof _test & { each: TestEach } = Object.assign(_test, { each: bindTestEach(_test) });
 

@@ -1,12 +1,12 @@
 import { bindChannels, bindTestEach } from '@optivem/optivem-testing';
 import { ScenarioDsl } from '@optivem/dsl-core/scenario/ScenarioDsl.js';
-import type { SystemDsl } from '@optivem/dsl-core/system/SystemDsl.js';
+import type { AppDsl } from '@optivem/dsl-core/app/AppDsl.js';
 import { withApp, withScenario } from '@optivem/test-infrastructure';
 
 /**
- * V6 base fixtures: app (SystemDsl) and scenario (ScenarioDsl). Shop uses scenario; external uses app.
+ * V6 base fixtures: app (AppDsl) and scenario (ScenarioDsl). Shop uses scenario; external uses app.
  */
-const _test = withScenario(withApp(), (app: SystemDsl) => new ScenarioDsl(app));
+const _test = withScenario(withApp(), (app: AppDsl) => new ScenarioDsl(app));
 const test = Object.assign(_test, { each: bindTestEach(_test) });
 
 const { forChannels } = bindChannels(test);

@@ -1,7 +1,7 @@
 import type { ExternalSystemMode } from '@optivem/dsl-common/dsl';
 
 /**
- * Shape of loaded test configuration. Consumers can build their own SystemConfiguration from this.
+ * Shape of loaded test configuration. Consumers can build their own AppConfiguration from this.
  */
 export interface LoadedConfiguration {
     shopUiBaseUrl: string;

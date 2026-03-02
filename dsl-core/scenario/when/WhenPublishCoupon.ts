@@ -1,7 +1,7 @@
 import { VoidVerification } from '@optivem/dsl-common/dsl';
 import { Converter } from '@optivem/commons/util';
 import type { Optional } from '@optivem/commons/util';
-import type { SystemDsl } from '../../system/SystemDsl.js';
+import type { AppDsl } from '../../app/AppDsl.js';
 import { ExecutionResult } from '../ExecutionResult.js';
 import { ExecutionResultBuilder } from '../ExecutionResultBuilder.js';
 import { GherkinDefaults } from '../GherkinDefaults.js';
@@ -14,7 +14,7 @@ export class PublishCouponBuilder extends BaseWhenBuilder<void, VoidVerification
     private validToValue: Optional<string>;
     private usageLimitValue: Optional<string>;
 
-    constructor(app: SystemDsl, setup?: () => Promise<void>) {
+    constructor(app: AppDsl, setup?: () => Promise<void>) {
         super(app, setup);
         this.withCouponCode(GherkinDefaults.DEFAULT_COUPON_CODE);
         this.withDiscountRate(GherkinDefaults.DEFAULT_DISCOUNT_RATE);
@@ -50,7 +50,7 @@ export class PublishCouponBuilder extends BaseWhenBuilder<void, VoidVerification
     }
 
     protected override async execute(
-        app: SystemDsl
+        app: AppDsl
     ): Promise<ExecutionResult<void, VoidVerification>> {
         const result = await app
             .shop()

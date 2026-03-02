@@ -1,4 +1,4 @@
-import type { SystemDsl } from '../../system/SystemDsl.js';
+import type { AppDsl } from '../../app/AppDsl.js';
 import type { GivenClause } from './Given.js';
 import type { WhenClause } from '../when/When.js';
 
@@ -13,5 +13,5 @@ export abstract class BaseGivenBuilder {
         return this.givenClause.when();
     }
 
-    abstract execute(app: SystemDsl): Promise<void>;
+    abstract execute(app: AppDsl): Promise<void>;
 }

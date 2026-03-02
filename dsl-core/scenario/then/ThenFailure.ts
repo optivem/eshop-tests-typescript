@@ -1,6 +1,6 @@
 import type { ResponseVerification } from '@optivem/dsl-common/dsl';
-import type { SystemDsl } from '../../system/SystemDsl.js';
-import type { SystemErrorFailureVerification } from '../../system/shop/usecases/base/SystemErrorFailureVerification.js';
+import type { AppDsl } from '../../app/AppDsl.js';
+import type { SystemErrorFailureVerification } from '../../app/shop/usecases/base/SystemErrorFailureVerification.js';
 import type { ThenClause } from './Then.js';
 import { ThenFailureOrderVerifier } from './ThenOrder.js';
 import { ThenFailureCouponVerifier } from './ThenCoupon.js';
@@ -13,7 +13,7 @@ class ThenFailureAnd<
     TSuccessVerification extends ResponseVerification<TSuccessResponse>
 > {
     constructor(
-        private readonly app: SystemDsl,
+        private readonly app: AppDsl,
         private readonly thenClause: ThenClause<TSuccessResponse, TSuccessVerification>,
         private readonly failureAssertions: Array<(v: SystemErrorFailureVerification) => void>
     ) {}
@@ -67,7 +67,7 @@ export class ThenFailureVerifier<
     private readonly assertions: Array<(v: SystemErrorFailureVerification) => void> = [];
 
     constructor(
-        private readonly app: SystemDsl,
+        private readonly app: AppDsl,
         private readonly thenClause: ThenClause<TSuccessResponse, TSuccessVerification>
     ) {}
 

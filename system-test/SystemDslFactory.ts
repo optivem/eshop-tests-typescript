@@ -1,11 +1,11 @@
 import type { ExternalSystemMode } from '@optivem/dsl-common/dsl';
-import { SystemDsl } from '../dsl-core/system/SystemDsl.js';
+import { AppDsl } from '../dsl-core/app/AppDsl.js';
 import { SystemConfigurationLoader } from './SystemConfigurationLoader.js';
 
 export class SystemDslFactory {
-  static create(externalSystemMode: ExternalSystemMode): SystemDsl {
+  static create(externalSystemMode: ExternalSystemMode): AppDsl {
     const configuration = SystemConfigurationLoader.load(externalSystemMode);
-    return new SystemDsl(configuration);
+    return new AppDsl(configuration);
   }
 }
 

@@ -1,8 +1,8 @@
 import type { ResponseVerification } from '@optivem/dsl-common/dsl';
-import type { SystemDsl } from '../../system/SystemDsl.js';
+import type { AppDsl } from '../../app/AppDsl.js';
 import type { ExecutionResult } from '../ExecutionResult.js';
-import type { ViewOrderVerification } from '../../system/shop/usecases/ViewOrderVerification.js';
-import type { PlaceOrderVerification } from '../../system/shop/usecases/PlaceOrderVerification.js';
+import type { ViewOrderVerification } from '../../app/shop/usecases/ViewOrderVerification.js';
+import type { PlaceOrderVerification } from '../../app/shop/usecases/PlaceOrderVerification.js';
 import { OrderStatus } from '@optivem/driver-port/shop/dtos/OrderStatus.js';
 import { GherkinDefaults } from '../GherkinDefaults.js';
 import type { ThenClause } from './Then.js';
@@ -197,11 +197,11 @@ export class ThenFailureOrderVerifier<
     TSuccessResponse,
     TSuccessVerification extends ResponseVerification<TSuccessResponse>
 > extends BaseThenOrderVerifier<TSuccessResponse, TSuccessVerification> {
-    private readonly failureAssertions: Array<(v: import('../../system/shop/usecases/base/SystemErrorFailureVerification.js').SystemErrorFailureVerification) => void>;
+    private readonly failureAssertions: Array<(v: import('../../app/shop/usecases/base/SystemErrorFailureVerification.js').SystemErrorFailureVerification) => void>;
 
     constructor(
         thenClause: ThenClause<TSuccessResponse, TSuccessVerification>,
-        failureAssertions: Array<(v: import('../../system/shop/usecases/base/SystemErrorFailureVerification.js').SystemErrorFailureVerification) => void>,
+        failureAssertions: Array<(v: import('../../app/shop/usecases/base/SystemErrorFailureVerification.js').SystemErrorFailureVerification) => void>,
         orderNumberFactory: () => Promise<string>
     ) {
         super(thenClause, orderNumberFactory);

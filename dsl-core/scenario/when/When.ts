@@ -1,4 +1,4 @@
-import type { SystemDsl } from '../../system/SystemDsl.js';
+import type { AppDsl } from '../../app/AppDsl.js';
 import { GherkinDefaults } from '../GherkinDefaults.js';
 import { GoToShopBuilder } from './WhenGoToShop.js';
 import { PlaceOrderBuilder } from './WhenPlaceOrder.js';
@@ -9,7 +9,7 @@ import { BrowseCouponsBuilder } from './WhenBrowseCoupons.js';
 
 export class WhenClause {
     constructor(
-        private readonly app: SystemDsl,
+        private readonly app: AppDsl,
         private hasProduct: boolean = false,
         private hasTaxRate: boolean = false,
         private readonly givenSetup?: () => Promise<void>

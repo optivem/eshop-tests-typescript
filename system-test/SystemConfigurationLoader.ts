@@ -1,10 +1,10 @@
 import type { ExternalSystemMode } from '@optivem/dsl-common/dsl';
-import { SystemConfiguration } from '../dsl-core/system/SystemConfiguration.js';
+import { AppConfiguration } from '../dsl-core/app/AppConfiguration.js';
 import { testConfig } from './test.config.js';
 
 export class SystemConfigurationLoader {
-  static load(externalSystemMode: ExternalSystemMode): SystemConfiguration {
-    return new SystemConfiguration(
+  static load(externalSystemMode: ExternalSystemMode): AppConfiguration {
+    return new AppConfiguration(
       testConfig.urls.shopUi,
       testConfig.urls.shopApi,
       testConfig.urls.erpApi,

@@ -1,4 +1,4 @@
-import type { SystemDsl } from '../system/SystemDsl.js';
+import type { AppDsl } from '../app/AppDsl.js';
 import type { ScenarioDslPort } from '@optivem/dsl-port/scenario/ScenarioDslPort.js';
 import { GivenClause } from './given/Given.js';
 import { WhenClause } from './when/When.js';
@@ -6,7 +6,7 @@ import { WhenClause } from './when/When.js';
 export class ScenarioDsl implements ScenarioDslPort {
     private executed = false;
 
-    constructor(private readonly app: SystemDsl) {}
+    constructor(private readonly app: AppDsl) {}
 
     given(): GivenClause {
         this.ensureNotExecuted();

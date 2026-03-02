@@ -1,5 +1,5 @@
 /**
- * V5 e2e fixtures: app (SystemDsl).
+ * V5 e2e fixtures: app (AppDsl).
  * Mirrors reference V5 BaseE2eTest (BaseSystemDslTest with REAL mode).
  */
 process.env.EXTERNAL_SYSTEM_MODE = process.env.EXTERNAL_SYSTEM_MODE ?? 'REAL';

@@ -1,5 +1,5 @@
 import '../../../setup-config.js';
-import { ChannelType } from '@optivem/dsl-core/system/shop/ChannelType.js';
+import { ChannelType } from '@optivem/dsl-core/app/shop/ChannelType.js';
 import { GherkinDefaults } from '@optivem/dsl-core/scenario/GherkinDefaults.js';
 import { emptyArgumentsProvider } from '../shared/argumentProviders.js';
 import { createUniqueSku, expect, test, withChannelShopDriver, forChannels } from './base/fixtures.js';

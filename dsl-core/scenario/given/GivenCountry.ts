@@ -1,6 +1,6 @@
 import { Converter } from '@optivem/commons/util';
 import type { Optional } from '@optivem/commons/util';
-import type { SystemDsl } from '../../system/SystemDsl.js';
+import type { AppDsl } from '../../app/AppDsl.js';
 import { GherkinDefaults } from '../GherkinDefaults.js';
 import { BaseGivenBuilder } from './BaseGivenStep.js';
 import type { GivenClause } from './Given.js';
@@ -27,7 +27,7 @@ export class GivenCountryBuilder extends BaseGivenBuilder {
         return this;
     }
 
-    async execute(app: SystemDsl): Promise<void> {
+    async execute(app: AppDsl): Promise<void> {
         await app
             .tax()
             .returnsTaxRate()
