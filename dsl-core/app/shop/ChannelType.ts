@@ -1,8 +1,4 @@
-export const ChannelType = {
-    UI: 'UI',
-    API: 'API'
-} as const;
-
-export type ChannelTypeValue = typeof ChannelType[keyof typeof ChannelType];
+export { ChannelType } from '@optivem/channel/ChannelType.js';
+export type { ChannelTypeValue } from '@optivem/channel/ChannelType.js';
 
 

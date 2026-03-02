@@ -7,6 +7,7 @@
   "exports": { "./*": "./dist/*" },
   "dependencies": {
     "@optivem/commons": "file:../common",
+    "@optivem/channel": "file:../channel",
     "@optivem/driver-port": "file:../driver-port",
     "@optivem/driver-adapter": "file:../driver-adapter",
     "@optivem/dsl-port": "file:../dsl-port",
