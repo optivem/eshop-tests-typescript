@@ -1,4 +1,4 @@
-import { JsonHttpClient } from '@optivem/driver-common/http';
+import { JsonHttpClient } from '@optivem/driver-common/client/http';
 import type { ProblemDetailResponse } from './dtos/errors/ProblemDetailResponse.js';
 import { HealthController } from './controllers/HealthController.js';
 import { OrderController } from './controllers/OrderController.js';

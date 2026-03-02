@@ -1,5 +1,5 @@
 import { BasePage } from './BasePage.js';
-import type { PageClient } from '@optivem/driver-common/playwright';
+import type { PageClient } from '@optivem/driver-common/client/playwright';
 import { Decimal } from '@optivem/commons/util';
 import type { Optional } from '@optivem/commons/util';
 import type { OrderStatus } from '../../../commons/dtos/OrderStatus.js';

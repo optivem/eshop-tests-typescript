@@ -6,17 +6,17 @@
   "scripts": { "clean": "rimraf dist", "build": "rimraf dist && tsc -p tsconfig.build.json" },
   "exports": {
     "./*": "./dist/*",
-    "./http": {
-      "types": "./dist/http/index.d.ts",
-      "default": "./dist/http/index.js"
+    "./client/http": {
+      "types": "./dist/client/http/index.d.ts",
+      "default": "./dist/client/http/index.js"
     },
-    "./playwright": {
-      "types": "./dist/playwright/index.d.ts",
-      "default": "./dist/playwright/index.js"
+    "./client/playwright": {
+      "types": "./dist/client/playwright/index.d.ts",
+      "default": "./dist/client/playwright/index.js"
     },
-    "./wiremock": {
-      "types": "./dist/wiremock/index.d.ts",
-      "default": "./dist/wiremock/index.js"
+    "./client/wiremock": {
+      "types": "./dist/client/wiremock/index.d.ts",
+      "default": "./dist/client/wiremock/index.js"
     }
   },
   "dependencies": {

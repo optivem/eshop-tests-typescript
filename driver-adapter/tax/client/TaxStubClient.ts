@@ -1,6 +1,6 @@
 import { Result } from '@optivem/commons/util';
-import { HttpStatus } from '@optivem/driver-common/http';
-import { JsonWireMockClient } from '@optivem/driver-common/wiremock';
+import { HttpStatus } from '@optivem/driver-common/client/http';
+import { JsonWireMockClient } from '@optivem/driver-common/client/wiremock';
 import { BaseTaxClient } from './BaseTaxClient.js';
 import type { ExtCountryDetailsResponse } from './dtos/ExtCountryDetailsResponse.js';
 import { from as toExtTaxErrorResponse } from './dtos/error/ExtTaxErrorResponse.js';

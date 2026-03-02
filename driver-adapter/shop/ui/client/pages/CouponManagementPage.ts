@@ -1,5 +1,5 @@
 import { BasePage } from './BasePage.js';
-import type { PageClient } from '@optivem/driver-common/playwright';
+import type { PageClient } from '@optivem/driver-common/client/playwright';
 import { Integer } from '@optivem/commons/util';
 import type { Optional } from '@optivem/commons/util';
 import type { CouponDto } from '../../../commons/dtos/BrowseCouponsResponse.js';
