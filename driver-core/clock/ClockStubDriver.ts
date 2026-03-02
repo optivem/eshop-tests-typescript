@@ -1,17 +1,18 @@
-import { Result } from '@optivem/commons/util';
-import { ClockRealClient } from '../client/ClockRealClient.js';
-import type { ClockDriver } from '@optivem/driver-api/clock/ClockDriver.js';
+import { ClockStubClient } from './client/ClockStubClient.js';
 import type { GetTimeResponse } from '@optivem/driver-api/clock/dtos/GetTimeResponse.js';
 import type { ReturnsTimeRequest } from '@optivem/driver-api/clock/dtos/ReturnsTimeRequest.js';
 import type { ClockErrorResponse } from '@optivem/driver-api/clock/dtos/error/ClockErrorResponse.js';
+import { ExtGetTimeResponse } from './client/dtos/ExtGetTimeResponse.js';
+import { Result } from '@optivem/commons/util';
+import type { ClockDriver } from '@optivem/driver-api/clock/ClockDriver.js';
 import { from as fromGetTimeResponse } from './GetTimeResponseMapper.js';
 import { from as fromClockErrorResponse } from './ClockErrorResponseMapper.js';
 
-export class ClockRealDriver implements ClockDriver {
-    private readonly client: ClockRealClient;
+export class ClockStubDriver implements ClockDriver {
+    private readonly client: ClockStubClient;
 
-    constructor() {
-        this.client = new ClockRealClient();
+    constructor(baseUrl: string) {
+        this.client = new ClockStubClient(baseUrl);
     }
 
     close(): void {
@@ -26,8 +27,8 @@ export class ClockRealDriver implements ClockDriver {
         return this.client.getTime().then((r) => r.map(fromGetTimeResponse).mapError(fromClockErrorResponse));
     }
 
-    async returnsTime(_request: ReturnsTimeRequest): Promise<Result<void, ClockErrorResponse>> {
-        // No-op for real driver - cannot configure system clock
-        return Result.success<void, ClockErrorResponse>();
+    async returnsTime(request: ReturnsTimeRequest): Promise<Result<void, ClockErrorResponse>> {
+        const extResponse: ExtGetTimeResponse = { time: request.time ?? '' };
+        return this.client.configureGetTime(extResponse).then((r) => r.mapError(fromClockErrorResponse));
     }
 }

@@ -1,9 +1,9 @@
 import { ExternalSystemMode } from '@optivem/dsl-common/dsl';
-import { ShopUiDriver } from '@optivem/driver-core/shop/driver/ui/ShopUiDriver.js';
-import { ShopApiDriver } from '@optivem/driver-core/shop/driver/api/ShopApiDriver.js';
-import { ErpRealDriver } from '@optivem/driver-core/erp/driver/ErpRealDriver.js';
+import { ShopUiDriver } from '@optivem/driver-core/shop/ui/ShopUiDriver.js';
+import { ShopApiDriver } from '@optivem/driver-core/shop/api/ShopApiDriver.js';
+import { ErpRealDriver } from '@optivem/driver-core/erp/ErpRealDriver.js';
 import type { TaxDriver } from '@optivem/driver-api/tax/TaxDriver.js';
-import { TaxRealDriver } from '@optivem/driver-core/tax/driver/TaxRealDriver.js';
+import { TaxRealDriver } from '@optivem/driver-core/tax/TaxRealDriver.js';
 import { getConfiguration } from './configurationLoaderRegistry.js';
 
 export function createShopUiDriver(externalSystemMode?: ExternalSystemMode): ShopUiDriver {

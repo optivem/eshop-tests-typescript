@@ -1,17 +1,17 @@
 import type { Optional, Result } from '@optivem/commons/util';
 import { Integer } from '@optivem/commons/util';
 import type { ShopDriver } from '../ShopDriver.js';
-import type { SystemError } from '../../commons/dtos/errors/SystemError.js';
-import { ShopUiClient } from '../../client/ui/ShopUiClient.js';
-import { HomePage } from '../../client/ui/pages/HomePage.js';
-import { NewOrderPage } from '../../client/ui/pages/NewOrderPage.js';
-import { OrderHistoryPage } from '../../client/ui/pages/OrderHistoryPage.js';
-import { OrderDetailsPage } from '../../client/ui/pages/OrderDetailsPage.js';
-import { CouponManagementPage } from '../../client/ui/pages/CouponManagementPage.js';
-import { failure, failureWithError, success, successVoid } from '../../commons/SystemResults.js';
-import type { PlaceOrderRequest, PlaceOrderResponse, ViewOrderResponse } from '../../commons/dtos/index.js';
-import { OrderStatus } from '../../commons/dtos/OrderStatus.js';
-import type { PublishCouponRequest, BrowseCouponsResponse } from '../../commons/dtos/index.js';
+import type { SystemError } from '../commons/dtos/errors/SystemError.js';
+import { ShopUiClient } from './client/ShopUiClient.js';
+import { HomePage } from './client/pages/HomePage.js';
+import { NewOrderPage } from './client/pages/NewOrderPage.js';
+import { OrderHistoryPage } from './client/pages/OrderHistoryPage.js';
+import { OrderDetailsPage } from './client/pages/OrderDetailsPage.js';
+import { CouponManagementPage } from './client/pages/CouponManagementPage.js';
+import { failure, failureWithError, success, successVoid } from '../commons/SystemResults.js';
+import type { PlaceOrderRequest, PlaceOrderResponse, ViewOrderResponse } from '../commons/dtos/index.js';
+import { OrderStatus } from '../commons/dtos/OrderStatus.js';
+import type { PublishCouponRequest, BrowseCouponsResponse } from '../commons/dtos/index.js';
 
 export class ShopUiDriver implements ShopDriver {
     private readonly client: ShopUiClient;

@@ -1,6 +1,6 @@
 import { test as base } from '@playwright/test';
-import { ShopUiClient } from '@optivem/driver-core/shop/client/ui/ShopUiClient.js';
-import { ShopApiClient } from '@optivem/driver-core/shop/client/api/ShopApiClient.js';
+import { ShopUiClient } from '@optivem/driver-core/shop/ui/client/ShopUiClient.js';
+import { ShopApiClient } from '@optivem/driver-core/shop/api/client/ShopApiClient.js';
 import { ErpRealClient } from '@optivem/driver-core/erp/client/ErpRealClient.js';
 import { TaxRealClient } from '@optivem/driver-core/tax/client/TaxRealClient.js';
 import { Closer, setupResultMatchers } from '@optivem/commons/util';

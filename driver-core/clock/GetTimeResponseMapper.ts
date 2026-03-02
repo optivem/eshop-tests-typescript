@@ -1,5 +1,5 @@
 import type { GetTimeResponse } from '@optivem/driver-api/clock/dtos/GetTimeResponse.js';
-import type { ExtGetTimeResponse } from '../client/dtos/ExtGetTimeResponse.js';
+import type { ExtGetTimeResponse } from './client/dtos/ExtGetTimeResponse.js';
 
 export function from(response: ExtGetTimeResponse): GetTimeResponse {
     return {

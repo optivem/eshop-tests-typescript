@@ -1,5 +1,5 @@
 import { Result } from '@optivem/commons/util';
-import type { BaseErpClient } from '../client/BaseErpClient.js';
+import type { BaseErpClient } from './client/BaseErpClient.js';
 import type { ErpDriver } from '@optivem/driver-api/erp/ErpDriver.js';
 import type { ErpErrorResponse } from '@optivem/driver-api/erp/dtos/error/ErpErrorResponse.js';
 import type { GetProductRequest } from '@optivem/driver-api/erp/dtos/GetProductRequest.js';
