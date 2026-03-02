@@ -1,10 +1,10 @@
 import type { Optional } from '@optivem/commons/util';
 import { Result } from '@optivem/commons/util';
 import type { BaseTaxClient } from './client/BaseTaxClient.js';
-import type { TaxDriver } from '@optivem/driver-api/tax/TaxDriver.js';
-import type { GetTaxResponse } from '@optivem/driver-api/tax/dtos/GetTaxResponse.js';
-import type { ReturnsTaxRateRequest } from '@optivem/driver-api/tax/dtos/ReturnsTaxRateRequest.js';
-import type { TaxErrorResponse } from '@optivem/driver-api/tax/dtos/error/TaxErrorResponse.js';
+import type { TaxDriver } from '@optivem/driver-port/tax/TaxDriver.js';
+import type { GetTaxResponse } from '@optivem/driver-port/tax/dtos/GetTaxResponse.js';
+import type { ReturnsTaxRateRequest } from '@optivem/driver-port/tax/dtos/ReturnsTaxRateRequest.js';
+import type { TaxErrorResponse } from '@optivem/driver-port/tax/dtos/error/TaxErrorResponse.js';
 import { from as fromGetTaxResponse } from './GetTaxResponseMapper.js';
 import { from as fromTaxErrorResponse } from './TaxErrorResponseMapper.js';
 

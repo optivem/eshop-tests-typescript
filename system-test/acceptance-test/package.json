@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@optivem/commons": "file:../../common",
-    "@optivem/dsl-api": "file:../../dsl-api",
+    "@optivem/dsl-port": "file:../../dsl-port",
     "@optivem/dsl-common": "file:../../dsl-common",
     "@optivem/dsl-core": "file:../../dsl-core",
     "@optivem/optivem-testing": "1.0.12",

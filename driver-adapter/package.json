@@ -1,5 +1,5 @@
 {
-  "name": "@optivem/driver-core",
+  "name": "@optivem/driver-adapter",
   "version": "0.0.1",
   "type": "module",
   "private": true,
@@ -7,7 +7,7 @@
   "exports": { "./*": "./dist/*" },
   "dependencies": {
     "@optivem/commons": "file:../common",
-    "@optivem/driver-api": "file:../driver-api",
+    "@optivem/driver-port": "file:../driver-port",
     "@optivem/driver-common": "file:../driver-common"
   },
   "devDependencies": {

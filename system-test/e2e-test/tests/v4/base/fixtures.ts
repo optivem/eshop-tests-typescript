@@ -3,7 +3,7 @@
  * Mirrors reference V4 driver-level style (no ScenarioDsl).
  */
 import { test as base } from '@playwright/test';
-import type { ShopDriver } from '@optivem/driver-core/shop/ShopDriver.js';
+import type { ShopDriver } from '@optivem/driver-adapter/shop/ShopDriver.js';
 import { bindTestEach, forChannels as sharedForChannels } from '@optivem/optivem-testing';
 import { Closer, setupResultMatchers } from '@optivem/commons/util';
 import {

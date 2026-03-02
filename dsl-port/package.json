@@ -1,12 +1,12 @@
 {
-  "name": "@optivem/dsl-api",
+  "name": "@optivem/dsl-port",
   "version": "0.0.1",
   "type": "module",
   "private": true,
   "scripts": { "clean": "rimraf dist", "build": "rimraf dist && tsc -p tsconfig.build.json" },
   "exports": { "./*": "./dist/*" },
   "dependencies": {
-    "@optivem/driver-api": "file:../driver-api"
+    "@optivem/driver-port": "file:../driver-port"
   },
   "devDependencies": {
     "rimraf": "^6.0.1",

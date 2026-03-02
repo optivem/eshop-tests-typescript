@@ -1,4 +1,4 @@
-import { OrderStatus } from '@optivem/driver-api/shop/dtos/OrderStatus.js';
+import { OrderStatus } from '@optivem/driver-port/shop/dtos/OrderStatus.js';
 
 /**
  * Default values for Gherkin test builders.

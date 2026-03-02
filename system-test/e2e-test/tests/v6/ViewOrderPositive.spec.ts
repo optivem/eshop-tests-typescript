@@ -1,7 +1,7 @@
 import '../../../setup-config.js';
 import { test, forChannels } from './base/fixtures.js';
 import { ChannelType } from '@optivem/dsl-core/system/shop/ChannelType.js';
-import { OrderStatus } from '@optivem/driver-api/shop/dtos/OrderStatus.js';
+import { OrderStatus } from '@optivem/driver-port/shop/dtos/OrderStatus.js';
 import { GherkinDefaults } from '../../../../dsl-core/scenario/GherkinDefaults.js';
 
 forChannels(ChannelType.UI, ChannelType.API)(() => {

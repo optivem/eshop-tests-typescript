@@ -1,4 +1,4 @@
-import type { ShopDriver } from '@optivem/driver-core/shop/ShopDriver.js';
+import type { ShopDriver } from '@optivem/driver-adapter/shop/ShopDriver.js';
 import { ChannelType } from '@optivem/dsl-core/system/shop/ChannelType.js';
 import { ChannelContext } from '@optivem/optivem-testing';
 import { Closer } from '@optivem/commons/util';

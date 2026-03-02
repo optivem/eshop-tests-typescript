@@ -50,12 +50,12 @@ Test projects get DSL **only** via TestInfrastructure (no direct reference to Ds
 | Package | dependencies |
 |---------|----------------|
 | **commons** | (none internal) |
-| **driver-api** | (none internal) |
-| **driver-core** | @optivem/common, @optivem/driver-api |
-| **dsl-api** | @optivem/driver-api |
-| **dsl-core** | @optivem/common, @optivem/driver-api, @optivem/driver-core, @optivem/dsl-api, @optivem/optivem-testing |
-| **test-infrastructure** | @optivem/common, @optivem/driver-api, @optivem/driver-core, @optivem/dsl-core, @optivem/optivem-testing |
-| **system-test** | @optivem/common, @optivem/driver-api, @optivem/driver-core, @optivem/dsl-api, @optivem/dsl-core, @optivem/optivem-testing, @optivem/test-infrastructure |
+| **driver-port** | (none internal) |
+| **driver-adapter** | @optivem/common, @optivem/driver-port |
+| **dsl-port** | @optivem/driver-port |
+| **dsl-core** | @optivem/common, @optivem/driver-port, @optivem/driver-adapter, @optivem/dsl-port, @optivem/optivem-testing |
+| **test-infrastructure** | @optivem/common, @optivem/driver-port, @optivem/driver-adapter, @optivem/dsl-core, @optivem/optivem-testing |
+| **system-test** | @optivem/common, @optivem/driver-port, @optivem/driver-adapter, @optivem/dsl-port, @optivem/dsl-core, @optivem/optivem-testing, @optivem/test-infrastructure |
 
 ---
 
@@ -64,7 +64,7 @@ Test projects get DSL **only** via TestInfrastructure (no direct reference to Ds
 | Aspect | Java | .NET | TypeScript |
 |--------|------|------|------------|
 | **Test project depends on** | test-infrastructure only | TestInfrastructure (+ Commons) | test-infrastructure **and** dsl |
-| **Who depends on dsl** | Unclear (test-infrastructure uses it but doesn't declare `:dsl`) | TestInfrastructure | test-infrastructure and system-test (via dsl-core / dsl-api) |
+| **Who depends on dsl** | Unclear (test-infrastructure uses it but doesn't declare `:dsl`) | TestInfrastructure | test-infrastructure and system-test (via dsl-core / dsl-port) |
 | **test-infrastructure depends on dsl?** | No (only commons, core) | **Yes** (Dsl.System, Dsl.Gherkin) | **Yes** (depends on dsl-core) |
 
-Current TypeScript setup uses split packages (`dsl-api`, `dsl-core`) and no longer has a standalone `core` workspace. It is broadly aligned with .NET in that `test-infrastructure` consumes DSL; `system-test` still keeps direct DSL dependencies for convenience.
+Current TypeScript setup uses split packages (`dsl-port`, `dsl-core`) and no longer has a standalone `core` workspace. It is broadly aligned with .NET in that `test-infrastructure` consumes DSL; `system-test` still keeps direct DSL dependencies for convenience.

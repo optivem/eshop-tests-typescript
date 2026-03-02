@@ -1,4 +1,4 @@
-import type { OrderStatus } from '@optivem/driver-api/shop/dtos/OrderStatus.js';
+import type { OrderStatus } from '@optivem/driver-port/shop/dtos/OrderStatus.js';
 
 export type StringInput = string | null | undefined;
 export type NumberLikeInput = number | string;

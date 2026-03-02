@@ -7,9 +7,9 @@
   "exports": { "./*": "./dist/*" },
   "dependencies": {
     "@optivem/commons": "file:../common",
-    "@optivem/driver-api": "file:../driver-api",
-    "@optivem/driver-core": "file:../driver-core",
-    "@optivem/dsl-api": "file:../dsl-api",
+    "@optivem/driver-port": "file:../driver-port",
+    "@optivem/driver-adapter": "file:../driver-adapter",
+    "@optivem/dsl-port": "file:../dsl-port",
     "@optivem/dsl-common": "file:../dsl-common",
     "@optivem/optivem-testing": "1.0.12"
   },

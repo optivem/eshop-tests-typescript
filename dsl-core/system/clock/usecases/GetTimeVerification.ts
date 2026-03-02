@@ -1,6 +1,6 @@
 import { ResponseVerification, UseCaseContext } from '@optivem/dsl-common/dsl';
 import { Converter } from '@optivem/commons/util';
-import { GetTimeResponse } from '@optivem/driver-api/clock/dtos/GetTimeResponse.js';
+import { GetTimeResponse } from '@optivem/driver-port/clock/dtos/GetTimeResponse.js';
 import { expect } from '@playwright/test';
 
 export class GetTimeVerification extends ResponseVerification<GetTimeResponse> {

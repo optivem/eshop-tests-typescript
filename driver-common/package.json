@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "@optivem/commons": "file:../common",
-    "@optivem/driver-api": "file:../driver-api",
+    "@optivem/driver-port": "file:../driver-port",
     "axios": "^1.7.9"
   },
   "peerDependencies": {

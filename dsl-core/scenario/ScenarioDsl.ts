@@ -1,5 +1,5 @@
 import type { SystemDsl } from '../system/SystemDsl.js';
-import type { ScenarioDslPort } from '@optivem/dsl-api/scenario/ScenarioDslPort.js';
+import type { ScenarioDslPort } from '@optivem/dsl-port/scenario/ScenarioDslPort.js';
 import { GivenClause } from './given/Given.js';
 import { WhenClause } from './when/When.js';
 

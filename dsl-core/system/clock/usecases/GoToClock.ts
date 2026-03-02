@@ -1,4 +1,4 @@
-import type { ClockDriver } from '@optivem/driver-api/clock/ClockDriver.js';
+import type { ClockDriver } from '@optivem/driver-port/clock/ClockDriver.js';
 import { BaseClockCommand } from './base/BaseClockCommand.js';
 import { ClockUseCaseResult } from './base/ClockUseCaseResult.js';
 import { VoidVerification } from '@optivem/dsl-common/dsl';

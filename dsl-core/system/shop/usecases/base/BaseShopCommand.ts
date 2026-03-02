@@ -1,4 +1,4 @@
-import { ShopDriver } from '@optivem/driver-core/shop/ShopDriver.js';
+import { ShopDriver } from '@optivem/driver-adapter/shop/ShopDriver.js';
 import { BaseUseCase, UseCaseContext } from '@optivem/dsl-common/dsl';
 import type { SystemError } from '../../commons/dtos/errors/SystemError.js';
 import { SystemErrorFailureVerification } from './SystemErrorFailureVerification.js';

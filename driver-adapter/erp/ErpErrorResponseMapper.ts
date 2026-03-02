@@ -1,4 +1,4 @@
-import type { ErpErrorResponse } from '@optivem/driver-api/erp/dtos/error/ErpErrorResponse.js';
+import type { ErpErrorResponse } from '@optivem/driver-port/erp/dtos/error/ErpErrorResponse.js';
 import type { ExtErpErrorResponse } from './client/dtos/error/ExtErpErrorResponse.js';
 
 export function from(ext: ExtErpErrorResponse): ErpErrorResponse {
