@@ -5,8 +5,8 @@ import type { ClockErrorResponse } from '@optivem/driver-port/clock/dtos/error/C
 import { ExtGetTimeResponse } from './client/dtos/ExtGetTimeResponse.js';
 import { Result } from '@optivem/commons';
 import type { ClockDriver } from '@optivem/driver-port/clock/ClockDriver.js';
-import { from as fromGetTimeResponse } from './GetTimeResponseMapper.js';
-import { from as fromClockErrorResponse } from './ClockErrorResponseMapper.js';
+import { from as fromGetTimeResponse } from './mappers/GetTimeResponseMapper.js';
+import { from as fromClockErrorResponse } from './mappers/ClockErrorResponseMapper.js';
 
 export class ClockStubDriver implements ClockDriver {
     private readonly client: ClockStubClient;

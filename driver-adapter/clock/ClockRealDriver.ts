@@ -4,8 +4,8 @@ import type { ClockDriver } from '@optivem/driver-port/clock/ClockDriver.js';
 import type { GetTimeResponse } from '@optivem/driver-port/clock/dtos/GetTimeResponse.js';
 import type { ReturnsTimeRequest } from '@optivem/driver-port/clock/dtos/ReturnsTimeRequest.js';
 import type { ClockErrorResponse } from '@optivem/driver-port/clock/dtos/error/ClockErrorResponse.js';
-import { from as fromGetTimeResponse } from './GetTimeResponseMapper.js';
-import { from as fromClockErrorResponse } from './ClockErrorResponseMapper.js';
+import { from as fromGetTimeResponse } from './mappers/GetTimeResponseMapper.js';
+import { from as fromClockErrorResponse } from './mappers/ClockErrorResponseMapper.js';
 
 export class ClockRealDriver implements ClockDriver {
     private readonly client: ClockRealClient;
