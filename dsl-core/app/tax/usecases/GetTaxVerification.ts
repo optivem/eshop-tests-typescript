@@ -1,5 +1,5 @@
 import { ResponseVerification, UseCaseContext } from '@optivem/dsl-common/dsl';
-import { Converter, Decimal } from '@optivem/commons/util';
+import { Converter, Decimal } from '@optivem/commons';
 import type { GetTaxResponse } from '@optivem/driver-port/tax/dtos/GetTaxResponse.js';
 import { expect } from '@playwright/test';
 

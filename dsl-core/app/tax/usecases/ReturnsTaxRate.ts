@@ -1,6 +1,6 @@
 import { VoidVerification, UseCaseContext } from '@optivem/dsl-common/dsl';
-import { Converter } from '@optivem/commons/util';
-import type { Optional } from '@optivem/commons/util';
+import { Converter } from '@optivem/commons';
+import type { Optional } from '@optivem/commons';
 import type { TaxDriver } from '@optivem/driver-port/tax/TaxDriver.js';
 import type { ReturnsTaxRateRequest } from '@optivem/driver-port/tax/dtos/ReturnsTaxRateRequest.js';
 import { BaseTaxCommand } from './base/BaseTaxCommand.js';

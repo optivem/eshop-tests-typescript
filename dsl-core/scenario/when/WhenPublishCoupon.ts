@@ -1,6 +1,6 @@
 import { VoidVerification } from '@optivem/dsl-common/dsl';
-import { Converter } from '@optivem/commons/util';
-import type { Optional } from '@optivem/commons/util';
+import { Converter } from '@optivem/commons';
+import type { Optional } from '@optivem/commons';
 import type { AppDsl } from '../../app/AppDsl.js';
 import { ExecutionResult } from '../ExecutionResult.js';
 import { ExecutionResultBuilder } from '../ExecutionResultBuilder.js';

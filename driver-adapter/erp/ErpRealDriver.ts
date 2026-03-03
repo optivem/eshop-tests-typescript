@@ -1,4 +1,4 @@
-import { Result } from '@optivem/commons/util';
+import { Result } from '@optivem/commons';
 import { ErpRealClient } from './client/ErpRealClient.js';
 import type { ExtCreateProductRequest } from './client/dtos/ExtCreateProductRequest.js';
 import type { ErpErrorResponse } from '@optivem/driver-port/erp/dtos/error/ErpErrorResponse.js';

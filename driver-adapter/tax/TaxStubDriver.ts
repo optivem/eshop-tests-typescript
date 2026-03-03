@@ -1,4 +1,4 @@
-import { Result, Converter } from '@optivem/commons/util';
+import { Result, Converter } from '@optivem/commons';
 import { TaxStubClient } from './client/TaxStubClient.js';
 import type { ExtCountryDetailsResponse } from './client/dtos/ExtCountryDetailsResponse.js';
 import type { ReturnsTaxRateRequest } from '@optivem/driver-port/tax/dtos/ReturnsTaxRateRequest.js';

@@ -1,4 +1,4 @@
-import type { Optional } from '@optivem/commons/util';
+import type { Optional } from '@optivem/commons';
 import type { AppDsl } from '../../app/AppDsl.js';
 import { GherkinDefaults } from '../GherkinDefaults.js';
 import { BaseGivenBuilder } from './BaseGivenStep.js';

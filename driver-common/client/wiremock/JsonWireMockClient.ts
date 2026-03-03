@@ -1,5 +1,5 @@
-import { Result } from '@optivem/commons/util';
-import type { Optional } from '@optivem/commons/util';
+import { Result } from '@optivem/commons';
+import type { Optional } from '@optivem/commons';
 
 const CONTENT_TYPE = 'Content-Type';
 const APPLICATION_JSON = 'application/json';

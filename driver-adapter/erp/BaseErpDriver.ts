@@ -1,4 +1,4 @@
-import { Result } from '@optivem/commons/util';
+import { Result } from '@optivem/commons';
 import type { BaseErpClient } from './client/BaseErpClient.js';
 import type { ErpDriver } from '@optivem/driver-port/erp/ErpDriver.js';
 import type { ErpErrorResponse } from '@optivem/driver-port/erp/dtos/error/ErpErrorResponse.js';

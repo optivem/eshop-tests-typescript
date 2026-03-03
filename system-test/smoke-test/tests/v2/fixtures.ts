@@ -3,8 +3,8 @@ import { ShopUiClient } from '@optivem/driver-adapter/shop/ui/client/ShopUiClien
 import { ShopApiClient } from '@optivem/driver-adapter/shop/api/client/ShopApiClient.js';
 import { ErpRealClient } from '@optivem/driver-adapter/erp/client/ErpRealClient.js';
 import { TaxRealClient } from '@optivem/driver-adapter/tax/client/TaxRealClient.js';
-import { Closer } from '@optivem/commons/util';
-import { setupResultMatchers } from '@optivem/commons/util';
+import { Closer } from '@optivem/commons';
+import { setupResultMatchers } from '@optivem/commons';
 import { testConfig } from '@optivem/test-infrastructure';
 
 setupResultMatchers();

@@ -1,4 +1,4 @@
-import type { Decimal } from '@optivem/commons/util';
+import type { Decimal } from '@optivem/commons';
 
 export interface ExtProductDetailsResponse {
     id: string;

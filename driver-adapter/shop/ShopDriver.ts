@@ -1,6 +1,6 @@
-import type { Result } from '@optivem/commons/util';
-import type { AsyncCloseable } from '@optivem/commons/util';
-import type { Optional } from '@optivem/commons/util';
+import type { Result } from '@optivem/commons';
+import type { AsyncCloseable } from '@optivem/commons';
+import type { Optional } from '@optivem/commons';
 import type { SystemError } from '@optivem/driver-port/shop/dtos/errors/SystemError.js';
 import type { PlaceOrderRequest } from '@optivem/driver-port/shop/dtos/PlaceOrderRequest.js';
 import type { PlaceOrderResponse } from '@optivem/driver-port/shop/dtos/PlaceOrderResponse.js';

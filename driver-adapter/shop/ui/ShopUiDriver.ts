@@ -1,5 +1,5 @@
-import type { Optional, Result } from '@optivem/commons/util';
-import { Integer } from '@optivem/commons/util';
+import type { Optional, Result } from '@optivem/commons';
+import { Integer } from '@optivem/commons';
 import type { ShopDriver } from '../ShopDriver.js';
 import type { SystemError } from '../commons/dtos/errors/SystemError.js';
 import { ShopUiClient } from './client/ShopUiClient.js';
@@ -145,7 +145,7 @@ export class ShopUiDriver implements ShopDriver {
         await page.inputValidTo(request.validTo);
         await page.inputUsageLimit(request.usageLimit);
         await page.clickPublishCoupon();
-        return page.getResult().then((result: import('@optivem/commons/util').Result<string, SystemError>) => result.mapVoid());
+        return page.getResult().then((result: import('@optivem/commons').Result<string, SystemError>) => result.mapVoid());
     }
 
     async browseCoupons(): Promise<Result<BrowseCouponsResponse, SystemError>> {

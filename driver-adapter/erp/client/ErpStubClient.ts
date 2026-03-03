@@ -1,4 +1,4 @@
-import { Result } from '@optivem/commons/util';
+import { Result } from '@optivem/commons';
 import { HttpStatus } from '@optivem/driver-common/client/http';
 import { JsonWireMockClient } from '@optivem/driver-common/client/wiremock';
 import { BaseErpClient } from './BaseErpClient.js';

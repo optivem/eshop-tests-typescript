@@ -1,5 +1,5 @@
 import { UseCaseContext } from '@optivem/dsl-common/dsl';
-import type { Optional } from '@optivem/commons/util';
+import type { Optional } from '@optivem/commons';
 import type { ErpDriver } from '@optivem/driver-port/erp/ErpDriver.js';
 import type { GetProductRequest } from '@optivem/driver-port/erp/dtos/GetProductRequest.js';
 import type { GetProductResponse } from '@optivem/driver-port/erp/dtos/GetProductResponse.js';

@@ -1,4 +1,4 @@
-import type { Optional } from '@optivem/commons/util';
+import type { Optional } from '@optivem/commons';
 
 export interface ReturnsTimeRequest {
 	time?: Optional<string>;

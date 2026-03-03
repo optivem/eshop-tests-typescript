@@ -1,6 +1,6 @@
 import { Page, Locator } from '@playwright/test';
-import type { Optional } from '@optivem/commons/util';
-import { Decimal } from '@optivem/commons/util';
+import type { Optional } from '@optivem/commons';
+import { Decimal } from '@optivem/commons';
 
 /**
  * High-level wrapper for Playwright Page.

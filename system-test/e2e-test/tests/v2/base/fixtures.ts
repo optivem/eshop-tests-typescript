@@ -3,7 +3,7 @@ import { ShopUiClient } from '@optivem/driver-adapter/shop/ui/client/ShopUiClien
 import { ShopApiClient } from '@optivem/driver-adapter/shop/api/client/ShopApiClient.js';
 import { ErpRealClient } from '@optivem/driver-adapter/erp/client/ErpRealClient.js';
 import { TaxRealClient } from '@optivem/driver-adapter/tax/client/TaxRealClient.js';
-import { Closer, setupResultMatchers } from '@optivem/commons/util';
+import { Closer, setupResultMatchers } from '@optivem/commons';
 import { bindTestEach } from '@optivem/optivem-testing';
 import { testConfig, createUniqueSku } from '@optivem/test-infrastructure';
 

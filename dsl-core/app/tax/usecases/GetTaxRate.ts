@@ -1,5 +1,5 @@
 import { UseCaseContext } from '@optivem/dsl-common/dsl';
-import type { Optional } from '@optivem/commons/util';
+import type { Optional } from '@optivem/commons';
 import type { TaxDriver } from '@optivem/driver-port/tax/TaxDriver.js';
 import type { GetTaxResponse } from '@optivem/driver-port/tax/dtos/GetTaxResponse.js';
 import { BaseTaxCommand } from './base/BaseTaxCommand.js';

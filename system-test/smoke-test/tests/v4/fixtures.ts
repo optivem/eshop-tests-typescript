@@ -1,6 +1,6 @@
 import { test as base } from '@playwright/test';
 import type { ShopDriver } from '@optivem/driver-adapter/shop/ShopDriver.js';
-import { Closer } from '@optivem/commons/util';
+import { Closer } from '@optivem/commons';
 import {
     channelShopDriverTest as sharedChannelShopDriverTest,
     createShopDriverForChannel,
@@ -8,7 +8,7 @@ import {
     createTaxApiDriver,
     getExternalSystemMode,
 } from '@optivem/test-infrastructure';
-import { setupResultMatchers } from '@optivem/commons/util';
+import { setupResultMatchers } from '@optivem/commons';
 
 setupResultMatchers();
 

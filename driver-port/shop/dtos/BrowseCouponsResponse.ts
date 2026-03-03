@@ -1,4 +1,4 @@
-import type { Integer } from '@optivem/commons/util';
+import type { Integer } from '@optivem/commons';
 
 export interface CouponDto {
 	code: string;

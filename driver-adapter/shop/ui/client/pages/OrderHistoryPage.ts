@@ -1,4 +1,4 @@
-import type { Optional } from '@optivem/commons/util';
+import type { Optional } from '@optivem/commons';
 import { BasePage } from './BasePage.js';
 import type { PageClient } from '@optivem/driver-common/client/playwright';
 import { OrderDetailsPage } from './OrderDetailsPage.js';
