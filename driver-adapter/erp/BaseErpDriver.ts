@@ -5,8 +5,8 @@ import type { ErpErrorResponse } from '@optivem/driver-port/erp/dtos/error/ErpEr
 import type { GetProductRequest } from '@optivem/driver-port/erp/dtos/GetProductRequest.js';
 import type { GetProductResponse } from '@optivem/driver-port/erp/dtos/GetProductResponse.js';
 import type { ReturnsProductRequest } from '@optivem/driver-port/erp/dtos/ReturnsProductRequest.js';
-import { from as fromGetProductResponse } from './GetProductResponseMapper.js';
-import { from as fromErpErrorResponse } from './ErpErrorResponseMapper.js';
+import { from as fromGetProductResponse } from './mappers/GetProductResponseMapper.js';
+import { from as fromErpErrorResponse } from './mappers/ErpErrorResponseMapper.js';
 
 export abstract class BaseErpDriver<TClient extends BaseErpClient> implements ErpDriver {
     protected readonly client: TClient;

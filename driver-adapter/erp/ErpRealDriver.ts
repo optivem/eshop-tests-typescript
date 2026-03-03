@@ -3,7 +3,7 @@ import { ErpRealClient } from './client/ErpRealClient.js';
 import type { ExtCreateProductRequest } from './client/dtos/ExtCreateProductRequest.js';
 import type { ErpErrorResponse } from '@optivem/driver-port/erp/dtos/error/ErpErrorResponse.js';
 import type { ReturnsProductRequest } from '@optivem/driver-port/erp/dtos/ReturnsProductRequest.js';
-import { from as fromErpErrorResponse } from './ErpErrorResponseMapper.js';
+import { from as fromErpErrorResponse } from './mappers/ErpErrorResponseMapper.js';
 import { BaseErpDriver } from './BaseErpDriver.js';
 
 export class ErpRealDriver extends BaseErpDriver<ErpRealClient> {

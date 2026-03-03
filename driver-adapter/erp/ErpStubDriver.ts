@@ -3,7 +3,7 @@ import { ErpStubClient } from './client/ErpStubClient.js';
 import type { ExtProductDetailsResponse } from './client/dtos/ExtProductDetailsResponse.js';
 import type { ErpErrorResponse } from '@optivem/driver-port/erp/dtos/error/ErpErrorResponse.js';
 import type { ReturnsProductRequest } from '@optivem/driver-port/erp/dtos/ReturnsProductRequest.js';
-import { from as fromErpErrorResponse } from './ErpErrorResponseMapper.js';
+import { from as fromErpErrorResponse } from './mappers/ErpErrorResponseMapper.js';
 import { BaseErpDriver } from './BaseErpDriver.js';
 
 export class ErpStubDriver extends BaseErpDriver<ErpStubClient> {

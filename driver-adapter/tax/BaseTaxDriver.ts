@@ -5,8 +5,8 @@ import type { TaxDriver } from '@optivem/driver-port/tax/TaxDriver.js';
 import type { GetTaxResponse } from '@optivem/driver-port/tax/dtos/GetTaxResponse.js';
 import type { ReturnsTaxRateRequest } from '@optivem/driver-port/tax/dtos/ReturnsTaxRateRequest.js';
 import type { TaxErrorResponse } from '@optivem/driver-port/tax/dtos/error/TaxErrorResponse.js';
-import { from as fromGetTaxResponse } from './GetTaxResponseMapper.js';
-import { from as fromTaxErrorResponse } from './TaxErrorResponseMapper.js';
+import { from as fromGetTaxResponse } from './mappers/GetTaxResponseMapper.js';
+import { from as fromTaxErrorResponse } from './mappers/TaxErrorResponseMapper.js';
 
 export abstract class BaseTaxDriver<TClient extends BaseTaxClient> implements TaxDriver {
     protected readonly client: TClient;

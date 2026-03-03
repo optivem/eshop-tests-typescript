@@ -3,7 +3,7 @@ import { TaxStubClient } from './client/TaxStubClient.js';
 import type { ExtCountryDetailsResponse } from './client/dtos/ExtCountryDetailsResponse.js';
 import type { ReturnsTaxRateRequest } from '@optivem/driver-port/tax/dtos/ReturnsTaxRateRequest.js';
 import type { TaxErrorResponse } from '@optivem/driver-port/tax/dtos/error/TaxErrorResponse.js';
-import { from as fromTaxErrorResponse } from './TaxErrorResponseMapper.js';
+import { from as fromTaxErrorResponse } from './mappers/TaxErrorResponseMapper.js';
 import { BaseTaxDriver } from './BaseTaxDriver.js';
 
 export class TaxStubDriver extends BaseTaxDriver<TaxStubClient> {
