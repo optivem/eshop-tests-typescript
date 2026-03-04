@@ -5,9 +5,21 @@ export type NumberLikeInput = number | string;
 export type NullableNumberLikeInput = number | string | null | undefined;
 
 export interface ScenarioDslPort {
+    assume(): AssumeStagePort;
     given(): GivenClausePort;
     when(): WhenClausePort;
     markAsExecuted(): void;
+}
+
+export interface AssumeStagePort {
+    shop(): ShouldPort;
+    erp(): ShouldPort;
+    tax(): ShouldPort;
+    clock(): ShouldPort;
+}
+
+export interface ShouldPort {
+    shouldBeRunning(): Promise<AssumeStagePort>;
 }
 
 export interface GivenClausePort {
