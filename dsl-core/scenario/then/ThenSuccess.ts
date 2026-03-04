@@ -1,8 +1,8 @@
 import type { ResponseVerification } from '@optivem/dsl-common/dsl';
 import type { AppDsl } from '../../app/AppDsl.js';
 import type { ThenClause } from './Then.js';
-import { ThenSuccessOrderVerifier } from './ThenOrder.js';
-import { ThenSuccessCouponVerifier } from './ThenCoupon.js';
+import { ThenSuccessOrderVerifier } from './ThenSuccessOrder.js';
+import { ThenSuccessCouponVerifier } from './ThenSuccessCoupon.js';
 
 /**
  * Deferred success verifier.  Awaiting it runs shouldSucceed().
