@@ -1,4 +1,4 @@
-import type { ExternalSystemMode } from '@optivem/dsl-common/dsl';
+import type { ExternalSystemMode } from '@optivem/dsl-port/ExternalSystemMode.js';
 import { getConfiguration, getDefaultExternalSystemMode } from '../driver/configurationLoaderRegistry.js';
 
 export interface LegacyTestConfig {

@@ -3,7 +3,7 @@
  * Runs only for STUB external system mode.
  */
 import '../../../../setup-config.js';
-import { ExternalSystemMode } from '@optivem/dsl-common/dsl';
+import { ExternalSystemMode } from '@optivem/dsl-port/ExternalSystemMode.js';
 import { test } from '../base/fixtures.js';
 import { getExternalSystemMode } from '@optivem/test-infrastructure';
 
@@ -22,3 +22,4 @@ test.describe('Clock Stub Contract Tests', () => {
 			.hasTime('2024-01-02T09:00:00Z');
 	});
 });
+

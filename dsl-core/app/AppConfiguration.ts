@@ -1,4 +1,4 @@
-import { ExternalSystemMode } from '@optivem/dsl-common/dsl';
+import { ExternalSystemMode } from '@optivem/dsl-port/ExternalSystemMode.js';
 
 export class AppConfiguration {
     constructor(
@@ -34,3 +34,4 @@ export class AppConfiguration {
         return this.externalSystemMode;
     }
 }
+

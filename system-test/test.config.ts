@@ -1,4 +1,4 @@
-import { ExternalSystemMode } from '@optivem/dsl-common/dsl';
+import { ExternalSystemMode } from '@optivem/dsl-port/ExternalSystemMode.js';
 
 export interface TestConfig {
   urls: {
@@ -33,5 +33,6 @@ export const testConfig: TestConfig = {
     clockApi: process.env.CLOCK_API_BASE_URL || (isStub() ? 'http://localhost:9002/clock' : 'http://localhost:9001/clock'),
   },
 };
+
 
 

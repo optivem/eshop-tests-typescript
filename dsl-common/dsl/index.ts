@@ -1,4 +1,3 @@
-export { ExternalSystemMode } from './ExternalSystemMode.js';
 export { UseCaseContext } from './UseCaseContext.js';
 export { UseCase } from './UseCase.js';
 export { BaseUseCase } from './BaseUseCase.js';

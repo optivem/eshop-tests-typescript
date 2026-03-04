@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 import type { Optional } from '@optivem/commons';
-import { ExternalSystemMode } from './ExternalSystemMode.js';
+import { ExternalSystemMode } from '@optivem/dsl-port/ExternalSystemMode.js';
 
 export class UseCaseContext {
     private readonly externalSystemMode: ExternalSystemMode;

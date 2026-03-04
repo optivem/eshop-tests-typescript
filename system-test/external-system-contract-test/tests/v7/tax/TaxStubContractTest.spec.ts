@@ -4,7 +4,7 @@
  * Skipped when EXTERNAL_SYSTEM_MODE is not STUB.
  */
 import '../../../../setup-config.js';
-import { ExternalSystemMode } from '@optivem/dsl-common/dsl';
+import { ExternalSystemMode } from '@optivem/dsl-port/ExternalSystemMode.js';
 import { test } from '../base/fixtures.js';
 import { getExternalSystemMode } from '@optivem/test-infrastructure';
 
@@ -22,3 +22,4 @@ test.describe('Tax Stub Contract Tests', () => {
             .hasTaxRate(0.23);
     });
 });
+

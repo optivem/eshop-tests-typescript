@@ -1,7 +1,7 @@
 // Force UTC timezone for consistent test behavior across environments
 process.env.TZ = 'UTC';
 
-import type { ExternalSystemMode } from '@optivem/dsl-common/dsl';
+import type { ExternalSystemMode } from '@optivem/dsl-port/ExternalSystemMode.js';
 import type { LoadedConfiguration } from '@optivem/test-infrastructure';
 import { setConfigurationLoader } from '@optivem/test-infrastructure';
 import { testConfig } from './test.config.js';
@@ -14,3 +14,4 @@ setConfigurationLoader((mode: ExternalSystemMode): LoadedConfiguration => ({
     clockBaseUrl: testConfig.urls.clockApi,
     externalSystemMode: mode,
 }));
+

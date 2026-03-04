@@ -1,4 +1,5 @@
-import { UseCaseContext, ExternalSystemMode } from '@optivem/dsl-common/dsl';
+import { UseCaseContext } from '@optivem/dsl-common/dsl';
+import { ExternalSystemMode } from '@optivem/dsl-port/ExternalSystemMode.js';
 import type { ErpDriver } from '@optivem/driver-port/erp/ErpDriver.js';
 import { ErpRealDriver } from '@optivem/driver-adapter/erp/ErpRealDriver.js';
 import { ErpStubDriver } from '@optivem/driver-adapter/erp/ErpStubDriver.js';

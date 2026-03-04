@@ -1,4 +1,5 @@
-import { UseCaseContext, ExternalSystemMode } from '@optivem/dsl-common/dsl';
+import { UseCaseContext } from '@optivem/dsl-common/dsl';
+import { ExternalSystemMode } from '@optivem/dsl-port/ExternalSystemMode.js';
 import { Closer } from '@optivem/commons';
 import type { TaxDriver } from '@optivem/driver-port/tax/TaxDriver.js';
 import { TaxRealDriver } from '@optivem/driver-adapter/tax/TaxRealDriver.js';

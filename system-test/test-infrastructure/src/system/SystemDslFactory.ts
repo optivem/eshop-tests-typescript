@@ -1,4 +1,4 @@
-import type { ExternalSystemMode } from '@optivem/dsl-common/dsl';
+import type { ExternalSystemMode } from '@optivem/dsl-port/ExternalSystemMode.js';
 import { AppConfiguration } from '@optivem/dsl-core/app/AppConfiguration.js';
 import { AppDsl } from '@optivem/dsl-core/app/AppDsl.js';
 import { getConfiguration } from '../driver/configurationLoaderRegistry.js';

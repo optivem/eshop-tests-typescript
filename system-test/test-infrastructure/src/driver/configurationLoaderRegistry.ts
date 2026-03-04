@@ -1,4 +1,4 @@
-import { ExternalSystemMode } from '@optivem/dsl-common/dsl';
+import { ExternalSystemMode } from '@optivem/dsl-port/ExternalSystemMode.js';
 import type { LoadedConfiguration } from '../configuration/LoadedConfiguration.js';
 
 let configurationLoader: ((mode: ExternalSystemMode) => LoadedConfiguration) | null = null;
@@ -20,3 +20,4 @@ export function getConfiguration(mode?: ExternalSystemMode): LoadedConfiguration
     }
     return configurationLoader(resolved);
 }
+

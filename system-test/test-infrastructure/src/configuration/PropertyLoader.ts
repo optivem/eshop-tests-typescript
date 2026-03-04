@@ -1,4 +1,4 @@
-import { ExternalSystemMode } from '@optivem/dsl-common/dsl';
+import { ExternalSystemMode } from '@optivem/dsl-port/ExternalSystemMode.js';
 import { Environment } from './Environment.js';
 
 /**
@@ -36,3 +36,4 @@ export function getExternalSystemMode(fixed: ExternalSystemMode | null | undefin
     if (key === 'REAL') return ExternalSystemMode.REAL;
     throw new Error(`Invalid EXTERNAL_SYSTEM_MODE: ${value}. Allowed: stub, real`);
 }
+

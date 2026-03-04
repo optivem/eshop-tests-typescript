@@ -1,4 +1,4 @@
-import type { ExternalSystemMode } from '@optivem/dsl-common/dsl';
+import type { ExternalSystemMode } from '@optivem/dsl-port/ExternalSystemMode.js';
 
 /**
  * Shape of loaded test configuration. Consumers can build their own AppConfiguration from this.
@@ -11,3 +11,4 @@ export interface LoadedConfiguration {
     clockBaseUrl: string;
     externalSystemMode: ExternalSystemMode;
 }
+

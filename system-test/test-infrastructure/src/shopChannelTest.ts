@@ -1,4 +1,4 @@
-import type { ExternalSystemMode } from '@optivem/dsl-common/dsl';
+import type { ExternalSystemMode } from '@optivem/dsl-port/ExternalSystemMode.js';
 import {
     createShopApiDriver,
     createShopUiDriver,
@@ -104,3 +104,4 @@ export function shopChannelTestEach<T>(
         });
     });
 }
+

@@ -1,4 +1,4 @@
-import type { ExternalSystemMode } from '@optivem/dsl-common/dsl';
+import type { ExternalSystemMode } from '@optivem/dsl-port/ExternalSystemMode.js';
 import type { LoadedConfiguration } from './LoadedConfiguration.js';
 import { Environment } from './Environment.js';
 import { getTestConfig } from './test-configs.js';
@@ -12,3 +12,4 @@ export function load(
 ): LoadedConfiguration {
     return getTestConfig(environment, externalSystemMode);
 }
+
