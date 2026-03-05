@@ -1,4 +1,4 @@
-import { UseCaseContext } from '@optivem/dsl-common/dsl';
+import { UseCaseContext } from '@optivem/dsl-core/shared';
 import { Closer } from '@optivem/commons';
 import { ChannelContext } from '@optivem/optivem-testing';
 import { ChannelType } from './ChannelType.js';
@@ -60,6 +60,8 @@ export class ShopDsl {
         return new BrowseCoupons(this.driver, this.context);
     }
 }
+
+
 
 
 

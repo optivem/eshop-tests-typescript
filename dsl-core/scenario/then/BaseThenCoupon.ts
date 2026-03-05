@@ -1,4 +1,4 @@
-import type { ResponseVerification } from '@optivem/dsl-common/dsl';
+import type { ResponseVerification } from '@optivem/dsl-core/shared';
 import type { ExecutionResult } from '../ExecutionResult.js';
 import type { BrowseCouponsVerification } from '../../app/shop/usecases/BrowseCouponsVerification.js';
 import type { ThenClause } from './Then.js';
@@ -74,3 +74,5 @@ export abstract class BaseThenCouponVerifier<
         }
     }
 }
+
+

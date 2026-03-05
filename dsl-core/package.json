@@ -4,14 +4,19 @@
   "type": "module",
   "private": true,
   "scripts": { "clean": "rimraf dist", "build": "rimraf dist && tsc -p tsconfig.build.json" },
-  "exports": { "./*": "./dist/*" },
+  "exports": {
+    "./shared": {
+      "types": "./dist/shared/index.d.ts",
+      "default": "./dist/shared/index.js"
+    },
+    "./*": "./dist/*"
+  },
   "dependencies": {
     "@optivem/commons": "file:../common",
     "@optivem/channel": "file:../channel",
     "@optivem/driver-port": "file:../driver-port",
     "@optivem/driver-adapter": "file:../driver-adapter",
     "@optivem/dsl-port": "file:../dsl-port",
-    "@optivem/dsl-common": "file:../dsl-common",
     "@optivem/optivem-testing": "1.0.12"
   },
   "devDependencies": {

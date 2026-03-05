@@ -1,4 +1,4 @@
-import { VoidVerification } from '@optivem/dsl-common/dsl';
+import { VoidVerification } from '@optivem/dsl-core/shared';
 import type { AppDsl } from '../../app/AppDsl.js';
 import { ExecutionResult } from '../ExecutionResult.js';
 import { ExecutionResultBuilder } from '../ExecutionResultBuilder.js';
@@ -17,3 +17,5 @@ export class GoToShopBuilder extends BaseWhenBuilder<void, VoidVerification> {
         return new ExecutionResultBuilder(result).build();
     }
 }
+
+

@@ -1,4 +1,4 @@
-import type { ResponseVerification } from '@optivem/dsl-common/dsl';
+import type { ResponseVerification } from '@optivem/dsl-core/shared';
 import type { AppDsl } from '../../app/AppDsl.js';
 import type { ExecutionResult } from '../ExecutionResult.js';
 import { ThenClause } from '../then/Then.js';
@@ -18,3 +18,5 @@ export abstract class BaseWhenBuilder<
 
     protected abstract execute(app: AppDsl): Promise<ExecutionResult<TSuccessResponse, TSuccessVerification>>;
 }
+
+

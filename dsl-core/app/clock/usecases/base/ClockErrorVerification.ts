@@ -1,4 +1,4 @@
-import { ResponseVerification, UseCaseContext } from '@optivem/dsl-common/dsl';
+import { ResponseVerification, UseCaseContext } from '@optivem/dsl-core/shared';
 import { ClockErrorResponse } from '@optivem/driver-port/clock/dtos/error/ClockErrorResponse.js';
 
 export class ClockErrorVerification extends ResponseVerification<ClockErrorResponse> {
@@ -6,3 +6,5 @@ export class ClockErrorVerification extends ResponseVerification<ClockErrorRespo
         super(error, context);
     }
 }
+
+

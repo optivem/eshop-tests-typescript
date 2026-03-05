@@ -1,4 +1,4 @@
-import { BaseUseCase, UseCaseContext } from '@optivem/dsl-common/dsl';
+import { BaseUseCase, UseCaseContext } from '@optivem/dsl-core/shared';
 import type { TaxDriver } from '@optivem/driver-port/tax/TaxDriver.js';
 import type { TaxErrorResponse } from '@optivem/driver-port/tax/dtos/error/TaxErrorResponse.js';
 import { TaxErrorVerification } from './TaxErrorVerification.js';
@@ -14,3 +14,5 @@ export abstract class BaseTaxCommand<TResponse, TVerification> extends BaseUseCa
         super(driver, context);
     }
 }
+
+

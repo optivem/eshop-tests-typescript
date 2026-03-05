@@ -2,7 +2,7 @@ import type { Optional } from '@optivem/commons';
 import { ShopDriver } from '@optivem/driver-adapter/shop/ShopDriver.js';
 import { BaseShopCommand } from './base/BaseShopCommand.js';
 import { ShopUseCaseResult } from './base/ShopUseCaseResult.js';
-import { UseCaseContext } from '@optivem/dsl-common/dsl';
+import { UseCaseContext } from '@optivem/dsl-core/shared';
 import type { ViewOrderResponse } from '../commons/dtos/index.js';
 import { ViewOrderVerification } from './ViewOrderVerification.js';
 
@@ -24,6 +24,8 @@ export class ViewOrder extends BaseShopCommand<ViewOrderResponse, ViewOrderVerif
         return new ShopUseCaseResult(result, this.context, (response, ctx) => new ViewOrderVerification(response, ctx));
     }
 }
+
+
 
 
 

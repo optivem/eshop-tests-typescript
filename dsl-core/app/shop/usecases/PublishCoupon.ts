@@ -1,8 +1,8 @@
 import { ShopDriver } from '@optivem/driver-adapter/shop/ShopDriver.js';
 import { BaseShopCommand } from './base/BaseShopCommand.js';
 import { ShopUseCaseResult } from './base/ShopUseCaseResult.js';
-import { UseCaseContext } from '@optivem/dsl-common/dsl';
-import { VoidVerification } from '@optivem/dsl-common/dsl';
+import { UseCaseContext } from '@optivem/dsl-core/shared';
+import { VoidVerification } from '@optivem/dsl-core/shared';
 import type { Optional } from '@optivem/commons';
 import type { PublishCouponRequest } from '../commons/dtos/index.js';
 
@@ -58,6 +58,8 @@ export class PublishCoupon extends BaseShopCommand<void, VoidVerification> {
         return new ShopUseCaseResult(result, this.context, (_r, ctx) => new VoidVerification(undefined, ctx));
     }
 }
+
+
 
 
 

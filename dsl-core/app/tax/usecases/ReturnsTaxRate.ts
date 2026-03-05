@@ -1,4 +1,4 @@
-import { VoidVerification, UseCaseContext } from '@optivem/dsl-common/dsl';
+import { VoidVerification, UseCaseContext } from '@optivem/dsl-core/shared';
 import { Converter } from '@optivem/commons';
 import type { Optional } from '@optivem/commons';
 import type { TaxDriver } from '@optivem/driver-port/tax/TaxDriver.js';
@@ -34,3 +34,5 @@ export class ReturnsTaxRate extends BaseTaxCommand<void, VoidVerification> {
         return new TaxUseCaseResult(result, this.context, (response, ctx) => new VoidVerification(response, ctx));
     }
 }
+
+

@@ -1,4 +1,4 @@
-import { VoidVerification } from '@optivem/dsl-common/dsl';
+import { VoidVerification } from '@optivem/dsl-core/shared';
 import { Converter } from '@optivem/commons';
 import type { Optional } from '@optivem/commons';
 import type { AppDsl } from '../../app/AppDsl.js';
@@ -67,3 +67,5 @@ export class PublishCouponBuilder extends BaseWhenBuilder<void, VoidVerification
             .build();
     }
 }
+
+

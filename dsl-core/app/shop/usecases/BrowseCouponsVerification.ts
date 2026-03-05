@@ -1,4 +1,4 @@
-import { ResponseVerification, UseCaseContext } from '@optivem/dsl-common/dsl';
+import { ResponseVerification, UseCaseContext } from '@optivem/dsl-core/shared';
 import { Converter } from '@optivem/commons';
 import type { BrowseCouponsResponse, CouponDto } from '../commons/dtos/index.js';
 import { expect } from '@playwright/test';
@@ -75,5 +75,7 @@ export class BrowseCouponsVerification extends ResponseVerification<BrowseCoupon
         return coupon!;
     }
 }
+
+
 
 

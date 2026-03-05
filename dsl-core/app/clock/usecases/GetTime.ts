@@ -3,7 +3,7 @@ import type { GetTimeResponse } from '@optivem/driver-port/clock/dtos/GetTimeRes
 import { BaseClockCommand } from './base/BaseClockCommand.js';
 import { ClockUseCaseResult } from './base/ClockUseCaseResult.js';
 import { GetTimeVerification } from './GetTimeVerification.js';
-import { UseCaseContext } from '@optivem/dsl-common/dsl';
+import { UseCaseContext } from '@optivem/dsl-core/shared';
 
 export class GetTime extends BaseClockCommand<GetTimeResponse, GetTimeVerification> {
     constructor(driver: ClockDriver, context: UseCaseContext) {
@@ -19,3 +19,5 @@ export class GetTime extends BaseClockCommand<GetTimeResponse, GetTimeVerificati
         );
     }
 }
+
+

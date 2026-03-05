@@ -1,7 +1,7 @@
 import { ShopDriver } from '@optivem/driver-adapter/shop/ShopDriver.js';
 import { BaseShopCommand } from './base/BaseShopCommand.js';
 import { ShopUseCaseResult } from './base/ShopUseCaseResult.js';
-import { UseCaseContext } from '@optivem/dsl-common/dsl';
+import { UseCaseContext } from '@optivem/dsl-core/shared';
 import type { Optional } from '@optivem/commons';
 import type { PlaceOrderRequest, PlaceOrderResponse } from '../commons/dtos/index.js';
 import { systemErrorToString } from '../commons/dtos/errors/SystemError.js';
@@ -62,6 +62,8 @@ export class PlaceOrder extends BaseShopCommand<PlaceOrderResponse, PlaceOrderVe
         return new ShopUseCaseResult(result, this.context, (response, ctx) => new PlaceOrderVerification(response, ctx));
     }
 }
+
+
 
 
 

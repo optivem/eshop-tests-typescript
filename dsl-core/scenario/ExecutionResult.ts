@@ -1,4 +1,4 @@
-import type { ResponseVerification } from '@optivem/dsl-common/dsl';
+import type { ResponseVerification } from '@optivem/dsl-core/shared';
 import type { Optional } from '@optivem/commons';
 import type { ShopUseCaseResult } from '../app/shop/usecases/base/ShopUseCaseResult.js';
 import { ExecutionResultContext } from './ExecutionResultContext.js';
@@ -28,3 +28,5 @@ export class ExecutionResult<
         return this.context;
     }
 }
+
+

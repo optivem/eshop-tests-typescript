@@ -1,5 +1,5 @@
 import type { Result } from '@optivem/commons';
-import { UseCaseResult, UseCaseContext, ResponseVerification } from '@optivem/dsl-common/dsl';
+import { UseCaseResult, UseCaseContext, ResponseVerification } from '@optivem/dsl-core/shared';
 import type { SystemError } from '../../commons/dtos/errors/SystemError.js';
 import { SystemErrorFailureVerification } from './SystemErrorFailureVerification.js';
 
@@ -15,5 +15,7 @@ export class ShopUseCaseResult<
         super(result, context, verificationFactory, (error, ctx) => new SystemErrorFailureVerification(error, ctx));
     }
 }
+
+
 
 

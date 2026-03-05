@@ -1,4 +1,4 @@
-import type { ResponseVerification } from '@optivem/dsl-common/dsl';
+import type { ResponseVerification } from '@optivem/dsl-core/shared';
 import type { AppDsl } from '../../app/AppDsl.js';
 import type { ThenClause } from './Then.js';
 import { ThenSuccessOrderVerifier } from './ThenSuccessOrder.js';
@@ -77,3 +77,5 @@ export class ThenSuccessVerifier<
         result.getResult().shouldSucceed();
     }
 }
+
+

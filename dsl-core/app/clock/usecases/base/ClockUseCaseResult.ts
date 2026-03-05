@@ -1,5 +1,5 @@
 import { Result } from '@optivem/commons';
-import { UseCaseResult, UseCaseContext, ResponseVerification } from '@optivem/dsl-common/dsl';
+import { UseCaseResult, UseCaseContext, ResponseVerification } from '@optivem/dsl-core/shared';
 import { ClockErrorResponse } from '@optivem/driver-port/clock/dtos/error/ClockErrorResponse.js';
 import { ClockErrorVerification } from './ClockErrorVerification.js';
 
@@ -15,3 +15,5 @@ export class ClockUseCaseResult<
         super(result, context, verificationFactory, (error, ctx) => new ClockErrorVerification(error, ctx));
     }
 }
+
+

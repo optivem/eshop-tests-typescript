@@ -1,4 +1,4 @@
-import { ResponseVerification, UseCaseContext } from '@optivem/dsl-common/dsl';
+import { ResponseVerification, UseCaseContext } from '@optivem/dsl-core/shared';
 import { ErpErrorResponse } from '@optivem/driver-port/erp/dtos/error/ErpErrorResponse.js';
 import { expect } from '@playwright/test';
 
@@ -17,3 +17,5 @@ export class ErpErrorVerification extends ResponseVerification<ErpErrorResponse>
         return this;
     }
 }
+
+

@@ -1,4 +1,4 @@
-import type { ResponseVerification } from '@optivem/dsl-common/dsl';
+import type { ResponseVerification } from '@optivem/dsl-core/shared';
 import type { ExecutionResult } from '../ExecutionResult.js';
 import type { SystemErrorFailureVerification } from '../../app/shop/usecases/base/SystemErrorFailureVerification.js';
 import { BaseThenCouponVerifier } from './BaseThenCoupon.js';
@@ -29,3 +29,5 @@ export class ThenFailureCouponVerifier<
         }
     }
 }
+
+

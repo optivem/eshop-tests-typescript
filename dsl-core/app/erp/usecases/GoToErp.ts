@@ -1,4 +1,4 @@
-import { VoidVerification, UseCaseContext } from '@optivem/dsl-common/dsl';
+import { VoidVerification, UseCaseContext } from '@optivem/dsl-core/shared';
 import type { ErpDriver } from '@optivem/driver-port/erp/ErpDriver.js';
 import { BaseErpCommand } from './base/BaseErpCommand.js';
 import { ErpUseCaseResult } from './base/ErpUseCaseResult.js';
@@ -17,5 +17,7 @@ export class GoToErp extends BaseErpCommand<void, VoidVerification> {
         );
     }
 }
+
+
 
 

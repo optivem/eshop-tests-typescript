@@ -1,5 +1,5 @@
 import { Result } from '@optivem/commons';
-import { UseCaseResult, UseCaseContext, ResponseVerification } from '@optivem/dsl-common/dsl';
+import { UseCaseResult, UseCaseContext, ResponseVerification } from '@optivem/dsl-core/shared';
 import type { TaxErrorResponse } from '@optivem/driver-port/tax/dtos/error/TaxErrorResponse.js';
 import { TaxErrorVerification } from './TaxErrorVerification.js';
 
@@ -15,3 +15,5 @@ export class TaxUseCaseResult<
         super(result, context, verificationFactory, (error, ctx) => new TaxErrorVerification(error, ctx));
     }
 }
+
+

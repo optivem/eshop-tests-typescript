@@ -1,4 +1,4 @@
-import { UseCaseContext } from '@optivem/dsl-common/dsl';
+import { UseCaseContext } from '@optivem/dsl-core/shared';
 import type { Optional } from '@optivem/commons';
 import type { ErpDriver } from '@optivem/driver-port/erp/ErpDriver.js';
 import type { GetProductRequest } from '@optivem/driver-port/erp/dtos/GetProductRequest.js';
@@ -30,3 +30,5 @@ export class GetProduct extends BaseErpCommand<GetProductResponse, GetProductVer
         );
     }
 }
+
+

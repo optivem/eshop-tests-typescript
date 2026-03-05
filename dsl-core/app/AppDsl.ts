@@ -1,4 +1,4 @@
-import { UseCaseContext } from '@optivem/dsl-common/dsl';
+import { UseCaseContext } from '@optivem/dsl-core/shared';
 import { Closer } from '@optivem/commons';
 import type { AppConfiguration } from './AppConfiguration.js';
 import { ShopDsl } from './shop/ShopDsl.js';
@@ -81,3 +81,5 @@ export class AppDsl {
         return instance !== undefined ? instance : supplier();
     }
 }
+
+

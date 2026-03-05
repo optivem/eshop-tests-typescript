@@ -1,5 +1,5 @@
 import type { Optional } from '@optivem/commons';
-import { VoidVerification } from '@optivem/dsl-common/dsl';
+import { VoidVerification } from '@optivem/dsl-core/shared';
 import type { AppDsl } from '../../app/AppDsl.js';
 import { ExecutionResult } from '../ExecutionResult.js';
 import { ExecutionResultBuilder } from '../ExecutionResultBuilder.js';
@@ -33,3 +33,5 @@ export class CancelOrderBuilder extends BaseWhenBuilder<void, VoidVerification> 
             .build();
     }
 }
+
+

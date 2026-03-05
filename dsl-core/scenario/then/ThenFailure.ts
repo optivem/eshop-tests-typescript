@@ -1,4 +1,4 @@
-import type { ResponseVerification } from '@optivem/dsl-common/dsl';
+import type { ResponseVerification } from '@optivem/dsl-core/shared';
 import type { AppDsl } from '../../app/AppDsl.js';
 import type { SystemErrorFailureVerification } from '../../app/shop/usecases/base/SystemErrorFailureVerification.js';
 import type { ThenClause } from './Then.js';
@@ -57,3 +57,5 @@ export class ThenFailureVerifier<
         }
     }
 }
+
+

@@ -1,4 +1,4 @@
-import { ResponseVerification, UseCaseContext } from '@optivem/dsl-common/dsl';
+import { ResponseVerification, UseCaseContext } from '@optivem/dsl-core/shared';
 import type { TaxErrorResponse } from '@optivem/driver-port/tax/dtos/error/TaxErrorResponse.js';
 import { expect } from '@playwright/test';
 
@@ -17,3 +17,5 @@ export class TaxErrorVerification extends ResponseVerification<TaxErrorResponse>
         return this;
     }
 }
+
+

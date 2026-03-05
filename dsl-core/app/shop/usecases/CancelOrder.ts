@@ -1,8 +1,8 @@
 import { ShopDriver } from '@optivem/driver-adapter/shop/ShopDriver.js';
 import { BaseShopCommand } from './base/BaseShopCommand.js';
 import { ShopUseCaseResult } from './base/ShopUseCaseResult.js';
-import { UseCaseContext } from '@optivem/dsl-common/dsl';
-import { VoidVerification } from '@optivem/dsl-common/dsl';
+import { UseCaseContext } from '@optivem/dsl-core/shared';
+import { VoidVerification } from '@optivem/dsl-core/shared';
 import type { Optional } from '@optivem/commons';
 
 export class CancelOrder extends BaseShopCommand<void, VoidVerification> {
@@ -23,5 +23,7 @@ export class CancelOrder extends BaseShopCommand<void, VoidVerification> {
         return new ShopUseCaseResult(result, this.context, (_response, ctx) => new VoidVerification(undefined, ctx));
     }
 }
+
+
 
 

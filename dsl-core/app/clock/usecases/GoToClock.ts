@@ -1,8 +1,8 @@
 import type { ClockDriver } from '@optivem/driver-port/clock/ClockDriver.js';
 import { BaseClockCommand } from './base/BaseClockCommand.js';
 import { ClockUseCaseResult } from './base/ClockUseCaseResult.js';
-import { VoidVerification } from '@optivem/dsl-common/dsl';
-import { UseCaseContext } from '@optivem/dsl-common/dsl';
+import { VoidVerification } from '@optivem/dsl-core/shared';
+import { UseCaseContext } from '@optivem/dsl-core/shared';
 
 export class GoToClock extends BaseClockCommand<void, VoidVerification> {
     constructor(driver: ClockDriver, context: UseCaseContext) {
@@ -18,3 +18,5 @@ export class GoToClock extends BaseClockCommand<void, VoidVerification> {
         );
     }
 }
+
+

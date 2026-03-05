@@ -1,4 +1,4 @@
-import type { ResponseVerification } from '@optivem/dsl-common/dsl';
+import type { ResponseVerification } from '@optivem/dsl-core/shared';
 import type { Optional } from '@optivem/commons';
 import type { ShopUseCaseResult } from '../app/shop/usecases/base/ShopUseCaseResult.js';
 import { ExecutionResult } from './ExecutionResult.js';
@@ -26,3 +26,5 @@ export class ExecutionResultBuilder<
         return new ExecutionResult(this.result, this.orderNumberValue, this.couponCodeValue);
     }
 }
+
+

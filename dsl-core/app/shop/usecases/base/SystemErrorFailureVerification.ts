@@ -1,4 +1,4 @@
-import { ResponseVerification, UseCaseContext } from '@optivem/dsl-common/dsl';
+import { ResponseVerification, UseCaseContext } from '@optivem/dsl-core/shared';
 import type { SystemError } from '../../commons/dtos/errors/SystemError.js';
 import { expect } from '@playwright/test';
 
@@ -37,3 +37,5 @@ export class SystemErrorFailureVerification extends ResponseVerification<SystemE
         return this;
     }
 }
+
+

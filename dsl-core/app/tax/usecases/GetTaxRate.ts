@@ -1,4 +1,4 @@
-import { UseCaseContext } from '@optivem/dsl-common/dsl';
+import { UseCaseContext } from '@optivem/dsl-core/shared';
 import type { Optional } from '@optivem/commons';
 import type { TaxDriver } from '@optivem/driver-port/tax/TaxDriver.js';
 import type { GetTaxResponse } from '@optivem/driver-port/tax/dtos/GetTaxResponse.js';
@@ -24,3 +24,5 @@ export class GetTaxRate extends BaseTaxCommand<GetTaxResponse, GetTaxVerificatio
         return new TaxUseCaseResult(result, this.context, (response, ctx) => new GetTaxVerification(response, ctx));
     }
 }
+
+

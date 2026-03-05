@@ -1,5 +1,5 @@
 import { Result } from '@optivem/commons';
-import { UseCaseResult, UseCaseContext, ResponseVerification } from '@optivem/dsl-common/dsl';
+import { UseCaseResult, UseCaseContext, ResponseVerification } from '@optivem/dsl-core/shared';
 import type { ErpErrorResponse } from '@optivem/driver-port/erp/dtos/error/ErpErrorResponse.js';
 import { ErpErrorVerification } from './ErpErrorVerification.js';
 
@@ -15,5 +15,7 @@ export class ErpUseCaseResult<
         super(result, context, verificationFactory, (error, ctx) => new ErpErrorVerification(error, ctx));
     }
 }
+
+
 
 

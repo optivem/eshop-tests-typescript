@@ -1,4 +1,4 @@
-import type { ResponseVerification } from '@optivem/dsl-common/dsl';
+import type { ResponseVerification } from '@optivem/dsl-core/shared';
 import type { ExecutionResult } from '../ExecutionResult.js';
 import type { ViewOrderVerification } from '../../app/shop/usecases/ViewOrderVerification.js';
 import { OrderStatus } from '@optivem/driver-port/shop/dtos/OrderStatus.js';
@@ -172,3 +172,5 @@ export abstract class BaseThenOrderVerifier<
         }
     }
 }
+
+

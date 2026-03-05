@@ -1,4 +1,4 @@
-import { VoidVerification, UseCaseContext } from '@optivem/dsl-common/dsl';
+import { VoidVerification, UseCaseContext } from '@optivem/dsl-core/shared';
 import { Converter } from '@optivem/commons';
 import type { Optional } from '@optivem/commons';
 import type { ErpDriver } from '@optivem/driver-port/erp/ErpDriver.js';
@@ -39,3 +39,5 @@ export class ReturnsProduct extends BaseErpCommand<void, VoidVerification> {
         );
     }
 }
+
+
