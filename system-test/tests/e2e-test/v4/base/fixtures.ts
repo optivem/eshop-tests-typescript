@@ -14,7 +14,7 @@ import {
     getExternalSystemMode,
     withChannelShopDriver,
     createUniqueSku,
-} from '@optivem/test-infrastructure';
+} from '../../../../src/index.js';
 
 setupResultMatchers();
 

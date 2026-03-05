@@ -4,7 +4,7 @@
  */
 import '../../../../setup-config.js';
 import { test } from '@playwright/test';
-import { testConfig } from '@optivem/test-infrastructure';
+import { testConfig } from '../../../../src/index.js';
 
 test.describe('V1 Shop UI Smoke Tests', () => {
     test('should be able to go to shop', async ({ page }) => {

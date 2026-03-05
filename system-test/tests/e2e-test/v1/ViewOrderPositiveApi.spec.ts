@@ -1,7 +1,7 @@
 import '../../../setup-config.js';
 import { GherkinDefaults } from '@optivem/dsl-core/scenario/GherkinDefaults.js';
 import { test, expect, createUniqueSku } from './base/fixtures.js';
-import { testConfig } from '@optivem/test-infrastructure';
+import { testConfig } from '../../../src/index.js';
 
 const shopApiBaseUrl = testConfig.urls.shopApi;
 const erpApiBaseUrl = testConfig.urls.erpApi;

@@ -7,7 +7,7 @@ import {
     createErpDriver,
     createTaxApiDriver,
     getExternalSystemMode,
-} from '@optivem/test-infrastructure';
+} from '../../../src/index.js';
 import { setupResultMatchers } from '@optivem/commons';
 
 setupResultMatchers();

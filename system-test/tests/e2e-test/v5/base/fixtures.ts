@@ -5,7 +5,7 @@
 process.env.EXTERNAL_SYSTEM_MODE = process.env.EXTERNAL_SYSTEM_MODE ?? 'REAL';
 
 import { bindChannels, bindTestEach } from '@optivem/optivem-testing';
-import { withApp } from '@optivem/test-infrastructure';
+import { withApp } from '../../../../src/index.js';
 
 const _test = withApp();
 const test = Object.assign(_test, { each: bindTestEach(_test) });

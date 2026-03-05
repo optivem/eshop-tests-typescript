@@ -11,7 +11,7 @@ import {
     createErpDriver,
     createTaxApiDriver,
     createUniqueSku,
-} from '@optivem/test-infrastructure';
+} from '../../../../src/index.js';
 
 const FIXED_EXTERNAL_SYSTEM_MODE = 'REAL';
 

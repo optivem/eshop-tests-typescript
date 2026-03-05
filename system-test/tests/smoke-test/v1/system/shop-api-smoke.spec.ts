@@ -4,7 +4,7 @@
  */
 import '../../../../setup-config.js';
 import { test } from '@playwright/test';
-import { testConfig } from '@optivem/test-infrastructure';
+import { testConfig } from '../../../../src/index.js';
 
 const HEALTH_ENDPOINT = '/health';
 

@@ -1,7 +1,7 @@
 import { bindChannels, bindTestEach } from '@optivem/optivem-testing';
 import { ScenarioDsl } from '@optivem/dsl-core/scenario/ScenarioDsl.js';
 import type { AppDsl } from '@optivem/dsl-core/app/AppDsl.js';
-import { withApp, withScenario } from '@optivem/test-infrastructure';
+import { withApp, withScenario } from '../../../src/index.js';
 
 /**
  * V6 base fixtures: app (AppDsl) and scenario (ScenarioDsl). Shop uses scenario; external uses app.

@@ -5,7 +5,7 @@ import { ErpRealClient } from '@optivem/driver-adapter/erp/client/ErpRealClient.
 import { TaxRealClient } from '@optivem/driver-adapter/tax/client/TaxRealClient.js';
 import { Closer, setupResultMatchers } from '@optivem/commons';
 import { bindTestEach } from '@optivem/optivem-testing';
-import { testConfig, createUniqueSku } from '@optivem/test-infrastructure';
+import { testConfig, createUniqueSku } from '../../../../src/index.js';
 
 setupResultMatchers();
 
