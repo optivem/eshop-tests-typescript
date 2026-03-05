@@ -107,50 +107,185 @@ jobs:
         run: npx playwright install --with-deps chromium
         working-directory: system-test
 
-      - name: Run Acceptance Tests - API Channel
-        run: npx cross-env ENVIRONMENT=acceptance EXTERNAL_SYSTEM_MODE=STUB CHANNEL=API npm test -- --grep-invert "@isolated"
-        working-directory: system-test/acceptance-test
+      # === v1 ===
+      - name: v1 - Smoke
+        run: npx playwright test --project=smoke-test tests/smoke-test/v1
+        working-directory: system-test
+        env:
+          ENVIRONMENT: acceptance
+          EXTERNAL_SYSTEM_MODE: REAL
 
-      - name: Run Acceptance Tests - UI Channel
-        run: npx cross-env ENVIRONMENT=acceptance EXTERNAL_SYSTEM_MODE=STUB CHANNEL=UI npm test -- --grep-invert "@isolated"
-        working-directory: system-test/acceptance-test
+      - name: v1 - E2E
+        run: npx playwright test --project=e2e-test tests/e2e-test/v1
+        working-directory: system-test
+        env:
+          ENVIRONMENT: acceptance
 
-      - name: Run Acceptance Tests (Isolated) - API Channel
-        run: npx cross-env ENVIRONMENT=acceptance EXTERNAL_SYSTEM_MODE=STUB CHANNEL=API npm test -- --grep "@isolated" --workers=1
-        working-directory: system-test/acceptance-test
+      # === v2 ===
+      - name: v2 - Smoke
+        run: npx playwright test --project=smoke-test tests/smoke-test/v2
+        working-directory: system-test
+        env:
+          ENVIRONMENT: acceptance
+          EXTERNAL_SYSTEM_MODE: REAL
 
-      - name: Run Acceptance Tests (Isolated) - UI Channel
-        run: npx cross-env ENVIRONMENT=acceptance EXTERNAL_SYSTEM_MODE=STUB CHANNEL=UI npm test -- --grep "@isolated" --workers=1
-        working-directory: system-test/acceptance-test
+      - name: v2 - E2E
+        run: npx playwright test --project=e2e-test tests/e2e-test/v2
+        working-directory: system-test
+        env:
+          ENVIRONMENT: acceptance
 
-      - name: Run External System Contract Tests (Stubbed External Systems)
-        run: npx cross-env ENVIRONMENT=acceptance EXTERNAL_SYSTEM_MODE=STUB npm test
-        working-directory: system-test/external-system-contract-test
+      # === v3 ===
+      - name: v3 - Smoke
+        run: npx playwright test --project=smoke-test tests/smoke-test/v3
+        working-directory: system-test
+        env:
+          ENVIRONMENT: acceptance
+          EXTERNAL_SYSTEM_MODE: REAL
 
-      - name: Run External System Contract Tests (Real External Systems)
-        run: npx cross-env ENVIRONMENT=acceptance EXTERNAL_SYSTEM_MODE=REAL npm test
-        working-directory: system-test/external-system-contract-test
+      - name: v3 - E2E
+        run: npx playwright test --project=e2e-test tests/e2e-test/v3
+        working-directory: system-test
+        env:
+          ENVIRONMENT: acceptance
 
-      - name: Run E2E Tests - No Channel
-        run: |
-          foreach ($v in @('v1', 'v2', 'v3')) {
-            npx cross-env ENVIRONMENT=acceptance EXTERNAL_SYSTEM_MODE=REAL npm test -- "tests/$v"
-          }
-        shell: pwsh
-        working-directory: system-test/e2e-test
+      # === v4 ===
+      - name: v4 - Smoke
+        run: npx playwright test --project=smoke-test tests/smoke-test/v4
+        working-directory: system-test
+        env:
+          ENVIRONMENT: acceptance
+          EXTERNAL_SYSTEM_MODE: REAL
 
-      - name: Run E2E Tests - API Channel
-        run: |
-          foreach ($v in @('v4', 'v5', 'v6', 'v7')) {
-            npx cross-env ENVIRONMENT=acceptance EXTERNAL_SYSTEM_MODE=REAL CHANNEL=API npm test -- "tests/$v"
-          }
-        shell: pwsh
-        working-directory: system-test/e2e-test
+      - name: v4 - E2E - API Channel
+        run: npx playwright test --project=e2e-test tests/e2e-test/v4
+        working-directory: system-test
+        env:
+          ENVIRONMENT: acceptance
+          CHANNEL: API
 
-      - name: Run E2E Tests - UI Channel
-        run: |
-          foreach ($v in @('v4', 'v5', 'v6', 'v7')) {
-            npx cross-env ENVIRONMENT=acceptance EXTERNAL_SYSTEM_MODE=REAL CHANNEL=UI npm test -- "tests/$v"
-          }
-        shell: pwsh
-        working-directory: system-test/e2e-test
+      - name: v4 - E2E - UI Channel
+        run: npx playwright test --project=e2e-test tests/e2e-test/v4
+        working-directory: system-test
+        env:
+          ENVIRONMENT: acceptance
+          CHANNEL: UI
+
+      # === v5 ===
+      - name: v5 - Smoke
+        run: npx playwright test --project=smoke-test tests/smoke-test/v5
+        working-directory: system-test
+        env:
+          ENVIRONMENT: acceptance
+          EXTERNAL_SYSTEM_MODE: REAL
+
+      - name: v5 - E2E - API Channel
+        run: npx playwright test --project=e2e-test tests/e2e-test/v5
+        working-directory: system-test
+        env:
+          ENVIRONMENT: acceptance
+          CHANNEL: API
+
+      - name: v5 - E2E - UI Channel
+        run: npx playwright test --project=e2e-test tests/e2e-test/v5
+        working-directory: system-test
+        env:
+          ENVIRONMENT: acceptance
+          CHANNEL: UI
+
+      # === v6 ===
+      - name: v6 - Smoke
+        run: npx playwright test --project=smoke-test tests/smoke-test/v6
+        working-directory: system-test
+        env:
+          ENVIRONMENT: acceptance
+          EXTERNAL_SYSTEM_MODE: REAL
+
+      - name: v6 - E2E - API Channel
+        run: npx playwright test --project=e2e-test tests/e2e-test/v6
+        working-directory: system-test
+        env:
+          ENVIRONMENT: acceptance
+          CHANNEL: API
+
+      - name: v6 - E2E - UI Channel
+        run: npx playwright test --project=e2e-test tests/e2e-test/v6
+        working-directory: system-test
+        env:
+          ENVIRONMENT: acceptance
+          CHANNEL: UI
+
+      # === v7 ===
+      - name: v7 - Smoke (Stub)
+        run: npx playwright test --project=smoke-test tests/smoke-test/v7
+        working-directory: system-test
+        env:
+          ENVIRONMENT: acceptance
+          EXTERNAL_SYSTEM_MODE: STUB
+
+      - name: v7 - Smoke (Real)
+        run: npx playwright test --project=smoke-test tests/smoke-test/v7
+        working-directory: system-test
+        env:
+          ENVIRONMENT: acceptance
+          EXTERNAL_SYSTEM_MODE: REAL
+
+      - name: v7 - Acceptance - API Channel
+        run: npx playwright test --project=acceptance-test --grep-invert "@isolated"
+        working-directory: system-test
+        env:
+          ENVIRONMENT: acceptance
+          EXTERNAL_SYSTEM_MODE: STUB
+          CHANNEL: API
+
+      - name: v7 - Acceptance - UI Channel
+        run: npx playwright test --project=acceptance-test --grep-invert "@isolated"
+        working-directory: system-test
+        env:
+          ENVIRONMENT: acceptance
+          EXTERNAL_SYSTEM_MODE: STUB
+          CHANNEL: UI
+
+      - name: v7 - Acceptance (Isolated) - API Channel
+        run: npx playwright test --project=acceptance-test --grep "@isolated" --workers=1
+        working-directory: system-test
+        env:
+          ENVIRONMENT: acceptance
+          EXTERNAL_SYSTEM_MODE: STUB
+          CHANNEL: API
+
+      - name: v7 - Acceptance (Isolated) - UI Channel
+        run: npx playwright test --project=acceptance-test --grep "@isolated" --workers=1
+        working-directory: system-test
+        env:
+          ENVIRONMENT: acceptance
+          EXTERNAL_SYSTEM_MODE: STUB
+          CHANNEL: UI
+
+      - name: v7 - Contract (Stub)
+        run: npx playwright test --project=external-system-contract-test --workers=1
+        working-directory: system-test
+        env:
+          ENVIRONMENT: acceptance
+          EXTERNAL_SYSTEM_MODE: STUB
+
+      - name: v7 - Contract (Real)
+        run: npx playwright test --project=external-system-contract-test --workers=1
+        working-directory: system-test
+        env:
+          ENVIRONMENT: acceptance
+          EXTERNAL_SYSTEM_MODE: REAL
+
+      - name: v7 - E2E - API Channel
+        run: npx playwright test --project=e2e-test tests/e2e-test/v7
+        working-directory: system-test
+        env:
+          ENVIRONMENT: acceptance
+          CHANNEL: API
+
+      - name: v7 - E2E - UI Channel
+        run: npx playwright test --project=e2e-test tests/e2e-test/v7
+        working-directory: system-test
+        env:
+          ENVIRONMENT: acceptance
+          CHANNEL: UI
