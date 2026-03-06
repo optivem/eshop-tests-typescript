@@ -14,22 +14,26 @@ export default defineConfig({
   projects: [
     {
       name: 'acceptance-test',
-      testDir: './tests/acceptance-test',
+      testDir: './tests',
+      testMatch: '**/acceptance/**/*.spec.ts',
       use: { ...devices['Desktop Chrome'] },
     },
     {
       name: 'smoke-test',
-      testDir: './tests/smoke-test',
+      testDir: './tests',
+      testMatch: '**/smoke/**/*.spec.ts',
       use: { ...devices['Desktop Chrome'] },
     },
     {
       name: 'e2e-test',
-      testDir: './tests/e2e-test',
+      testDir: './tests',
+      testMatch: '**/e2e/**/*.spec.ts',
       use: { ...devices['Desktop Chrome'] },
     },
     {
       name: 'external-system-contract-test',
-      testDir: './tests/external-system-contract-test',
+      testDir: './tests',
+      testMatch: '**/contract/**/*.spec.ts',
       use: { ...devices['Desktop Chrome'] },
     },
   ],
