@@ -12,7 +12,7 @@ $Config = @{
         }
     )
 
-    Tests = @(
+    Suites = @(
 
         # === v1: Raw ===
         @{  Id = "v1-smoke";

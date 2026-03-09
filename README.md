@@ -75,7 +75,23 @@ You can open these URLs in your browser:
 
 ### Run Tests
 ```powershell
-.\run.ps1 test
+.\Run-SystemTests.ps1
+```
+
+### Run a Specific Suite
+
+Run only a specific test suite by ID:
+
+```powershell
+.\Run-SystemTests.ps1 -Suite v7-acceptance-api
+```
+
+### Run a Single Test
+
+Run only one test method within a suite:
+
+```powershell
+.\Run-SystemTests.ps1 -Suite v7-acceptance-api -Test canSubmitReviewOnDeliveredOrder
 ```
 
 ### View Logs
