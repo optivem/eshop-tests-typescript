@@ -3,6 +3,8 @@
 
 $Config = @{
 
+    TestFilter = "--grep '<test>'"
+
     BuildCommands = @(
         @{  Name = "Clean Install";
             Command = "npm ci"
