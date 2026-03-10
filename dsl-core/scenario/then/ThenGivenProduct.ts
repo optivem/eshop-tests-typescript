@@ -1,5 +1,5 @@
 import type { ThenGivenClockPort, ThenGivenProductPort, ThenGivenCountryPort } from '@optivem/dsl-port/scenario/ScenarioDslPort.js';
-import type { GetProductVerification } from '../../app/erp/usecases/GetProductVerification.js';
+import type { GetProductVerification } from '../../app/external/erp/usecases/GetProductVerification.js';
 import type { AppDsl } from '../../app/AppDsl.js';
 
 export class ThenGivenProduct implements ThenGivenProductPort {

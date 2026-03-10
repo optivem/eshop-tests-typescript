@@ -2,9 +2,9 @@ import { UseCaseContext } from '@optivem/dsl-core/shared';
 import { Closer } from '@optivem/commons';
 import type { AppConfiguration } from './AppConfiguration.js';
 import { ShopDsl } from './shop/ShopDsl.js';
-import { ErpDsl } from './erp/ErpDsl.js';
-import { TaxDsl } from './tax/TaxDsl.js';
-import { ClockDsl } from './clock/ClockDsl.js';
+import { ErpDsl } from './external/erp/ErpDsl.js';
+import { TaxDsl } from './external/tax/TaxDsl.js';
+import { ClockDsl } from './external/clock/ClockDsl.js';
 
 export class AppDsl {
     private readonly context: UseCaseContext;
