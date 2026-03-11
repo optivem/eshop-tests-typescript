@@ -91,7 +91,7 @@ Run only a specific test suite by ID:
 Run only one test method within a suite:
 
 ```powershell
-.\Run-SystemTests.ps1 -Suite v7-acceptance-api -Test canSubmitReviewOnDeliveredOrder
+.\Run-SystemTests.ps1 -Suite v7-acceptance-api -Test canPlaceOrder
 ```
 
 ### View Logs
