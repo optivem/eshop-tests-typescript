@@ -17,12 +17,14 @@ import { test, forChannels } from './base/fixtures.js';
 import { ChannelType } from '@optivem/dsl-core/app/shop/ChannelType.js';
 
 forChannels(ChannelType.UI, ChannelType.API)(() => {
-    test('can submit review on delivered order', async ({ scenario }) => {
+    test('can place order', async ({ scenario }) => {
         await scenario
-            .given().order()
-                .withStatus('DELIVERED')
-            .when().submitReview()
-                .withRating('5')
+            .given().product()
+                .withSku('SKU-001')
+                .withUnitPrice('10.00')
+            .when().placeOrder()
+                .withSku('SKU-001')
+                .withQuantity('2')
             .then().shouldSucceed();
     });
 });
