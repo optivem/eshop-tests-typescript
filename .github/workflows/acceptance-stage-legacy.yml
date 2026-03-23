@@ -279,20 +279,6 @@ jobs:
           CHANNEL: UI
 
       # === mod11 ===
-      - name: mod11 - E2E - API Channel
-        run: npx playwright test --project=e2e-test tests/legacy/mod11/e2e
-        working-directory: system-test
-        env:
-          ENVIRONMENT: acceptance
-          CHANNEL: API
-
-      - name: mod11 - E2E - UI Channel
-        run: npx playwright test --project=e2e-test tests/legacy/mod11/e2e
-        working-directory: system-test
-        env:
-          ENVIRONMENT: acceptance
-          CHANNEL: UI
-
       - name: mod11 - Contract (Stub)
         run: npx playwright test --project=external-system-contract-test tests/legacy/mod11/contract --workers=1
         working-directory: system-test
@@ -306,3 +292,17 @@ jobs:
         env:
           ENVIRONMENT: acceptance
           EXTERNAL_SYSTEM_MODE: REAL
+
+      - name: mod11 - E2E - API Channel
+        run: npx playwright test --project=e2e-test tests/legacy/mod11/e2e
+        working-directory: system-test
+        env:
+          ENVIRONMENT: acceptance
+          CHANNEL: API
+
+      - name: mod11 - E2E - UI Channel
+        run: npx playwright test --project=e2e-test tests/legacy/mod11/e2e
+        working-directory: system-test
+        env:
+          ENVIRONMENT: acceptance
+          CHANNEL: UI

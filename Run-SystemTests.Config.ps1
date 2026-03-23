@@ -211,22 +211,6 @@ $Config = @{
             ) },
 
         # === mod11: Contract ===
-        @{  Id = "mod11-e2e-api";
-            Name = "mod11 (contract) - E2E (real) - API";
-            Command = "`$env:CHANNEL='API'; npx playwright test --project=e2e-test tests/legacy/mod11/e2e";
-            Path = "system-test";
-            TestReportPath = "system-test/playwright-report/index.html";
-            TestInstallCommands = @(
-                "npx playwright install chromium"
-            ) },
-        @{  Id = "mod11-e2e-ui";
-            Name = "mod11 (contract) - E2E (real) - UI";
-            Command = "`$env:CHANNEL='UI'; npx playwright test --project=e2e-test tests/legacy/mod11/e2e";
-            Path = "system-test";
-            TestReportPath = "system-test/playwright-report/index.html";
-            TestInstallCommands = @(
-                "npx playwright install chromium"
-            ) },
         @{  Id = "mod11-contract-stub";
             Name = "mod11 (contract) - Contract (stub)";
             Command = "`$env:EXTERNAL_SYSTEM_MODE='STUB'; npx playwright test --project=external-system-contract-test tests/legacy/mod11/contract --workers=1";
@@ -238,6 +222,22 @@ $Config = @{
         @{  Id = "mod11-contract-real";
             Name = "mod11 (contract) - Contract (real)";
             Command = "`$env:EXTERNAL_SYSTEM_MODE='REAL'; npx playwright test --project=external-system-contract-test tests/legacy/mod11/contract --workers=1";
+            Path = "system-test";
+            TestReportPath = "system-test/playwright-report/index.html";
+            TestInstallCommands = @(
+                "npx playwright install chromium"
+            ) },
+        @{  Id = "mod11-e2e-api";
+            Name = "mod11 (contract) - E2E (real) - API";
+            Command = "`$env:CHANNEL='API'; npx playwright test --project=e2e-test tests/legacy/mod11/e2e";
+            Path = "system-test";
+            TestReportPath = "system-test/playwright-report/index.html";
+            TestInstallCommands = @(
+                "npx playwright install chromium"
+            ) },
+        @{  Id = "mod11-e2e-ui";
+            Name = "mod11 (contract) - E2E (real) - UI";
+            Command = "`$env:CHANNEL='UI'; npx playwright test --project=e2e-test tests/legacy/mod11/e2e";
             Path = "system-test";
             TestReportPath = "system-test/playwright-report/index.html";
             TestInstallCommands = @(
