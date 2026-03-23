@@ -245,6 +245,22 @@ $Config = @{
             ) },
 
         # === latest ===
+        @{  Id = "smoke-stub";
+            Name = "latest - Smoke (stub)";
+            Command = "`$env:EXTERNAL_SYSTEM_MODE='STUB'; npx playwright test --project=smoke-test tests/latest/smoke";
+            Path = "system-test";
+            TestReportPath = "system-test/playwright-report/index.html";
+            TestInstallCommands = @(
+                "npx playwright install chromium"
+            ) },
+        @{  Id = "smoke-real";
+            Name = "latest - Smoke (real)";
+            Command = "`$env:EXTERNAL_SYSTEM_MODE='REAL'; npx playwright test --project=smoke-test tests/latest/smoke";
+            Path = "system-test";
+            TestReportPath = "system-test/playwright-report/index.html";
+            TestInstallCommands = @(
+                "npx playwright install chromium"
+            ) },
         @{  Id = "acceptance-api";
             Name = "latest - Acceptance (stub) - API";
             Command = "`$env:EXTERNAL_SYSTEM_MODE='STUB'; `$env:CHANNEL='API'; npx playwright test --project=acceptance-test tests/latest/acceptance --grep-invert `"@isolated`"";

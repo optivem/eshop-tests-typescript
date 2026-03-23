@@ -107,6 +107,20 @@ jobs:
         run: npx playwright install --with-deps chromium
         working-directory: system-test
 
+      - name: Smoke (Stub)
+        run: npx playwright test --project=smoke-test tests/latest/smoke
+        working-directory: system-test
+        env:
+          ENVIRONMENT: acceptance
+          EXTERNAL_SYSTEM_MODE: STUB
+
+      - name: Smoke (Real)
+        run: npx playwright test --project=smoke-test tests/latest/smoke
+        working-directory: system-test
+        env:
+          ENVIRONMENT: acceptance
+          EXTERNAL_SYSTEM_MODE: REAL
+
       - name: Acceptance - API Channel
         run: npx playwright test --project=acceptance-test tests/latest/acceptance --grep-invert "@isolated"
         working-directory: system-test
