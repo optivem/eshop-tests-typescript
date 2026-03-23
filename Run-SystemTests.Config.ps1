@@ -292,6 +292,22 @@ $Config = @{
             TestReportPath = "system-test/playwright-report/index.html";
             TestInstallCommands = @(
                 "npx playwright install chromium"
+            ) },
+        @{  Id = "e2e-api";
+            Name = "latest - E2E (real) - API";
+            Command = "`$env:CHANNEL='API'; npx playwright test --project=e2e-test tests/latest/e2e";
+            Path = "system-test";
+            TestReportPath = "system-test/playwright-report/index.html";
+            TestInstallCommands = @(
+                "npx playwright install chromium"
+            ) },
+        @{  Id = "e2e-ui";
+            Name = "latest - E2E (real) - UI";
+            Command = "`$env:CHANNEL='UI'; npx playwright test --project=e2e-test tests/latest/e2e";
+            Path = "system-test";
+            TestReportPath = "system-test/playwright-report/index.html";
+            TestInstallCommands = @(
+                "npx playwright install chromium"
             ) }
     )
 }

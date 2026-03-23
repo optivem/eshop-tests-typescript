@@ -152,3 +152,17 @@ jobs:
         env:
           ENVIRONMENT: acceptance
           EXTERNAL_SYSTEM_MODE: REAL
+
+      - name: E2E - API Channel
+        run: npx playwright test --project=e2e-test tests/latest/e2e
+        working-directory: system-test
+        env:
+          ENVIRONMENT: acceptance
+          CHANNEL: API
+
+      - name: E2E - UI Channel
+        run: npx playwright test --project=e2e-test tests/latest/e2e
+        working-directory: system-test
+        env:
+          ENVIRONMENT: acceptance
+          CHANNEL: UI
