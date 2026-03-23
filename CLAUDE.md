@@ -4,9 +4,9 @@ _Shared instructions (ATDD rules, architecture, git safety) are in the `eshop-te
 
 ## Test Location
 
-- **Acceptance tests** go in `system-test/tests/v7/acceptance/`
-- **Contract tests** go in `system-test/tests/v7/contract/<system>/` (e.g. `erp/`, `tax/`, `clock/`)
-- Do **NOT** use v1–v6 directories. All new tests go in v7.
+- **Acceptance tests** go in `system-test/tests/v8/acceptance/`
+- **Contract tests** go in `system-test/tests/v8/contract/<system>/` (e.g. `erp/`, `tax/`, `clock/`)
+- Do **NOT** use v1–v7 directories for new acceptance/contract tests. All new tests go in v8.
 
 ## Test Pattern
 
