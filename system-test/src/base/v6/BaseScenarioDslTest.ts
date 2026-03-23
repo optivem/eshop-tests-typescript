@@ -1,11 +1,11 @@
 /**
  * Fixture shape for v6 scenario DSL test.
- * Holds app (AppDsl) and scenario (ScenarioDsl). Types unknown to avoid core dependency; implement in system-test.
- * Lifecycle: loadConfiguration(), app = new AppDsl(config), scenario = new ScenarioDsl(app); tearDown close(app).
+ * Holds useCase (UseCaseDsl) and scenario (ScenarioDsl). Types unknown to avoid core dependency; implement in system-test.
+ * Lifecycle: loadConfiguration(), useCase = new UseCaseDsl(config), scenario = new ScenarioDsl(useCase); tearDown close(useCase).
  */
 export interface BaseScenarioDslTestFixture {
-    /** AppDsl instance */
-    app?: unknown;
+    /** UseCaseDsl instance */
+    useCase?: unknown;
     /** ScenarioDsl instance */
     scenario?: unknown;
 }

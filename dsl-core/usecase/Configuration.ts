@@ -1,6 +1,6 @@
 import { ExternalSystemMode } from '@optivem/dsl-port/ExternalSystemMode.js';
 
-export class AppConfiguration {
+export class Configuration {
     constructor(
         private readonly shopUiBaseUrl: string,
         private readonly shopApiBaseUrl: string,

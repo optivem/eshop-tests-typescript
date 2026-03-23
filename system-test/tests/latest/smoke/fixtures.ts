@@ -1,13 +1,13 @@
 import { bindChannels, bindTestEach } from '@optivem/optivem-testing';
 import { ScenarioDsl } from '@optivem/dsl-core/scenario/ScenarioDsl.js';
-import type { AppDsl } from '@optivem/dsl-core/app/AppDsl.js';
+import type { UseCaseDsl } from '@optivem/dsl-core/usecase/UseCaseDsl.js';
 import { withApp, withScenario } from '../../../src/index.js';
 
 /**
- * V7 base fixtures: provides app (AppDsl) and scenario (ScenarioDsl).
- * Lifecycle: create app from configuration, scenario = new ScenarioDsl(app); tearDown close(app).
+ * V7 base fixtures: provides useCase (UseCaseDsl) and scenario (ScenarioDsl).
+ * Lifecycle: create useCase from configuration, scenario = new ScenarioDsl(useCase); tearDown close(useCase).
  */
-const _test = withScenario(withApp(), (app: AppDsl) => new ScenarioDsl(app));
+const _test = withScenario(withApp(), (useCase: UseCaseDsl) => new ScenarioDsl(useCase));
 const test = Object.assign(_test, { each: bindTestEach(_test) });
 
 const { forChannels } = bindChannels(test);

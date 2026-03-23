@@ -3,7 +3,7 @@
  */
 import '../../../../setup-config.js';
 import { test, forChannels } from './base/fixtures.js';
-import { ChannelType } from '@optivem/dsl-core/app/shop/ChannelType.js';
+import { ChannelType } from '@optivem/dsl-core/usecase/shop/ChannelType.js';
 import { OrderStatus } from '@optivem/driver-port/shop/dtos/OrderStatus.js';
 
 const nonExistentOrderCases = [

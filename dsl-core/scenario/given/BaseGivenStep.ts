@@ -1,4 +1,4 @@
-import type { AppDsl } from '../../app/AppDsl.js';
+import type { UseCaseDsl } from '../../usecase/UseCaseDsl.js';
 import type { ThenGivenStagePort } from '@optivem/dsl-port/scenario/ScenarioDslPort.js';
 import type { GivenClause } from './Given.js';
 import type { WhenClause } from '../when/When.js';
@@ -18,5 +18,5 @@ export abstract class BaseGivenBuilder {
         return this.givenClause.then();
     }
 
-    abstract execute(app: AppDsl): Promise<void>;
+    abstract execute(app: UseCaseDsl): Promise<void>;
 }

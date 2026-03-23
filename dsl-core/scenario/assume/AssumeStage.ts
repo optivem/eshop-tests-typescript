@@ -1,8 +1,8 @@
 import type { AssumeRunningPort, AssumeStagePort } from '@optivem/dsl-port/scenario/ScenarioDslPort.js';
-import type { AppDsl } from '../../app/AppDsl.js';
+import type { UseCaseDsl } from '../../usecase/UseCaseDsl.js';
 
 export class AssumeStage implements AssumeStagePort {
-    constructor(private readonly app: AppDsl) {}
+    constructor(private readonly app: UseCaseDsl) {}
 
     shop(): AssumeRunningPort {
         return new AssumeRunningAction(async () => {

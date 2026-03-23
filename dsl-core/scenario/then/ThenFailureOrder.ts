@@ -1,6 +1,6 @@
 import type { ResponseVerification } from '@optivem/dsl-core/shared';
 import type { ExecutionResult } from '../ExecutionResult.js';
-import type { SystemErrorFailureVerification } from '../../app/shop/usecases/base/SystemErrorFailureVerification.js';
+import type { SystemErrorFailureVerification } from '../../usecase/shop/usecases/base/SystemErrorFailureVerification.js';
 import { BaseThenOrderVerifier } from './BaseThenOrder.js';
 import type { ThenClause } from './Then.js';
 

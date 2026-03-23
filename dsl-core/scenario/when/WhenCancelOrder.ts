@@ -1,6 +1,6 @@
 import type { Optional } from '@optivem/commons';
 import { VoidVerification } from '@optivem/dsl-core/shared';
-import type { AppDsl } from '../../app/AppDsl.js';
+import type { UseCaseDsl } from '../../usecase/UseCaseDsl.js';
 import { ExecutionResult } from '../ExecutionResult.js';
 import { ExecutionResultBuilder } from '../ExecutionResultBuilder.js';
 import { GherkinDefaults } from '../GherkinDefaults.js';
@@ -9,7 +9,7 @@ import { BaseWhenBuilder } from './BaseWhenStep.js';
 export class CancelOrderBuilder extends BaseWhenBuilder<void, VoidVerification> {
     private orderNumberValue: Optional<string>;
 
-    constructor(app: AppDsl, setup?: () => Promise<void>) {
+    constructor(app: UseCaseDsl, setup?: () => Promise<void>) {
         super(app, setup);
         this.withOrderNumber(GherkinDefaults.DEFAULT_ORDER_NUMBER);
     }
@@ -20,7 +20,7 @@ export class CancelOrderBuilder extends BaseWhenBuilder<void, VoidVerification> 
     }
 
     protected override async execute(
-        app: AppDsl
+        app: UseCaseDsl
     ): Promise<ExecutionResult<void, VoidVerification>> {
         const result = await app
             .shop()

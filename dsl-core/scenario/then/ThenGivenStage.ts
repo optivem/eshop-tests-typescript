@@ -1,4 +1,4 @@
-import type { AppDsl } from '../../app/AppDsl.js';
+import type { UseCaseDsl } from '../../usecase/UseCaseDsl.js';
 import type {
     ThenGivenStagePort,
     ThenGivenClockPort,
@@ -13,7 +13,7 @@ export class ThenGivenStage implements ThenGivenStagePort {
     private setupExecuted = false;
 
     constructor(
-        private readonly app: AppDsl,
+        private readonly app: UseCaseDsl,
         private readonly givenSetup: () => Promise<void>
     ) {}
 

@@ -1,4 +1,4 @@
-import type { AppDsl } from '../../app/AppDsl.js';
+import type { UseCaseDsl } from '../../usecase/UseCaseDsl.js';
 import type { ThenGivenStagePort } from '@optivem/dsl-port/scenario/ScenarioDslPort.js';
 import { WhenClause } from '../when/When.js';
 import { ThenGivenStage } from '../then/ThenGivenStage.js';
@@ -12,14 +12,14 @@ import { GivenCouponBuilder } from './GivenCoupon.js';
  * Given clause for Gherkin scenarios (app, products, orders, clock, countries, coupons).
  */
 export class GivenClause {
-    private readonly app: AppDsl;
+    private readonly app: UseCaseDsl;
     private readonly products: GivenProductBuilder[];
     private readonly orders: GivenOrderBuilder[];
     private clockBuilder: GivenClockBuilder | null;
     private readonly countries: GivenCountryBuilder[];
     private readonly coupons: GivenCouponBuilder[];
 
-    constructor(app: AppDsl) {
+    constructor(app: UseCaseDsl) {
         this.app = app;
         this.products = [];
         this.orders = [];

@@ -1,6 +1,6 @@
 import type { ResponseVerification } from '@optivem/dsl-core/shared';
-import type { AppDsl } from '../../app/AppDsl.js';
-import type { SystemErrorFailureVerification } from '../../app/shop/usecases/base/SystemErrorFailureVerification.js';
+import type { UseCaseDsl } from '../../usecase/UseCaseDsl.js';
+import type { SystemErrorFailureVerification } from '../../usecase/shop/usecases/base/SystemErrorFailureVerification.js';
 import type { ThenClause } from './Then.js';
 import { ThenFailureAnd } from './ThenFailureAnd.js';
 
@@ -20,7 +20,7 @@ export class ThenFailureVerifier<
     private readonly assertions: Array<(v: SystemErrorFailureVerification) => void> = [];
 
     constructor(
-        private readonly app: AppDsl,
+        private readonly app: UseCaseDsl,
         private readonly thenClause: ThenClause<TSuccessResponse, TSuccessVerification>
     ) {}
 

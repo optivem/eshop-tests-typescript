@@ -1,23 +1,23 @@
 import { UseCaseContext } from '@optivem/dsl-core/shared';
 import { Closer } from '@optivem/commons';
-import type { AppConfiguration } from './AppConfiguration.js';
+import type { Configuration } from './Configuration.js';
 import { ShopDsl } from './shop/ShopDsl.js';
 import { ErpDsl } from './external/erp/ErpDsl.js';
 import { TaxDsl } from './external/tax/TaxDsl.js';
 import { ClockDsl } from './external/clock/ClockDsl.js';
 
-export class AppDsl {
+export class UseCaseDsl {
     private readonly context: UseCaseContext;
-    private readonly configuration: AppConfiguration;
+    private readonly configuration: Configuration;
 
     private shopDsl?: ShopDsl;
     private erpDsl?: ErpDsl;
     private taxDsl?: TaxDsl;
     private clockDsl?: ClockDsl;
 
-    constructor(configuration: AppConfiguration, context: UseCaseContext);
-    constructor(configuration: AppConfiguration);
-    constructor(configuration: AppConfiguration, context?: UseCaseContext) {
+    constructor(configuration: Configuration, context: UseCaseContext);
+    constructor(configuration: Configuration);
+    constructor(configuration: Configuration, context?: UseCaseContext) {
         this.configuration = configuration;
         this.context =
             context !== undefined

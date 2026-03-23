@@ -1,4 +1,4 @@
-/** V7 smoke test: AppDsl ERP. */
+/** V7 smoke test: UseCaseDsl ERP. */
 import '../../../../../setup-config.js';
 import { test } from '../fixtures.js';
 

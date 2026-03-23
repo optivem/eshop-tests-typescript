@@ -1,6 +1,6 @@
 import '../../../../setup-config.js';
 import { test, forChannels } from './base/fixtures.js';
-import { ChannelType } from '@optivem/dsl-core/app/shop/ChannelType.js';
+import { ChannelType } from '@optivem/dsl-core/usecase/shop/ChannelType.js';
 import { OrderStatus } from '@optivem/driver-port/shop/dtos/OrderStatus.js';
 import { GherkinDefaults } from '@optivem/dsl-core/scenario/GherkinDefaults.js';
 
@@ -12,14 +12,14 @@ const subtotalPriceCases = [
 ];
 
 forChannels(ChannelType.UI, ChannelType.API)(() => {
-    test('should place order with correct subtotal price', async ({ app }) => {
-        (await app.erp().returnsProduct()
+    test('should place order with correct subtotal price', async ({ useCase }) => {
+        (await useCase.erp().returnsProduct()
             .sku(GherkinDefaults.DEFAULT_SKU)
             .unitPrice(20.0)
             .execute())
             .shouldSucceed();
 
-        (await app.shop().placeOrder()
+        (await useCase.shop().placeOrder()
             .orderNumber(GherkinDefaults.DEFAULT_ORDER_NUMBER)
             .sku(GherkinDefaults.DEFAULT_SKU)
             .country(GherkinDefaults.DEFAULT_COUNTRY)
@@ -27,7 +27,7 @@ forChannels(ChannelType.UI, ChannelType.API)(() => {
             .execute())
             .shouldSucceed();
 
-        (await app.shop().viewOrder()
+        (await useCase.shop().viewOrder()
             .orderNumber(GherkinDefaults.DEFAULT_ORDER_NUMBER)
             .execute())
             .shouldSucceed()
@@ -36,15 +36,15 @@ forChannels(ChannelType.UI, ChannelType.API)(() => {
 
     test.each(subtotalPriceCases)(
         'should place order with correct subtotal price parameterized (unitPrice=$unitPrice, quantity=$quantity, subtotalPrice=$subtotalPrice)',
-        async ({ app, unitPrice, quantity, subtotalPrice }) => {
+        async ({ useCase, unitPrice, quantity, subtotalPrice }) => {
 
-            (await app.erp().returnsProduct()
+            (await useCase.erp().returnsProduct()
                 .sku(GherkinDefaults.DEFAULT_SKU)
                 .unitPrice(unitPrice)
                 .execute())
                 .shouldSucceed();
 
-            (await app.shop().placeOrder()
+            (await useCase.shop().placeOrder()
                 .orderNumber(GherkinDefaults.DEFAULT_ORDER_NUMBER)
                 .sku(GherkinDefaults.DEFAULT_SKU)
                 .country(GherkinDefaults.DEFAULT_COUNTRY)
@@ -52,7 +52,7 @@ forChannels(ChannelType.UI, ChannelType.API)(() => {
                 .execute())
                 .shouldSucceed();
 
-            (await app.shop().viewOrder()
+            (await useCase.shop().viewOrder()
                 .orderNumber(GherkinDefaults.DEFAULT_ORDER_NUMBER)
                 .execute())
                 .shouldSucceed()
@@ -60,14 +60,14 @@ forChannels(ChannelType.UI, ChannelType.API)(() => {
         }
     );
 
-    test('should place order', async ({ app }) => {
-        (await app.erp().returnsProduct()
+    test('should place order', async ({ useCase }) => {
+        (await useCase.erp().returnsProduct()
             .sku(GherkinDefaults.DEFAULT_SKU)
             .unitPrice(20.0)
             .execute())
             .shouldSucceed();
 
-        (await app.shop().placeOrder()
+        (await useCase.shop().placeOrder()
             .orderNumber(GherkinDefaults.DEFAULT_ORDER_NUMBER)
             .sku(GherkinDefaults.DEFAULT_SKU)
             .country(GherkinDefaults.DEFAULT_COUNTRY)
@@ -77,7 +77,7 @@ forChannels(ChannelType.UI, ChannelType.API)(() => {
             .orderNumber(GherkinDefaults.DEFAULT_ORDER_NUMBER)
             .orderNumberStartsWith('ORD-');
 
-        (await app.shop().viewOrder()
+        (await useCase.shop().viewOrder()
             .orderNumber(GherkinDefaults.DEFAULT_ORDER_NUMBER)
             .execute())
             .shouldSucceed()

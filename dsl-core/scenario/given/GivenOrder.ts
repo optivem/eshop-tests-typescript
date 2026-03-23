@@ -1,6 +1,6 @@
 import { Converter } from '@optivem/commons';
 import type { Optional } from '@optivem/commons';
-import type { AppDsl } from '../../app/AppDsl.js';
+import type { UseCaseDsl } from '../../usecase/UseCaseDsl.js';
 import { OrderStatus } from '@optivem/driver-port/shop/dtos/OrderStatus.js';
 import { GherkinDefaults } from '../GherkinDefaults.js';
 import { BaseGivenBuilder } from './BaseGivenStep.js';
@@ -56,7 +56,7 @@ export class GivenOrderBuilder extends BaseGivenBuilder {
         return this;
     }
 
-    async execute(app: AppDsl): Promise<void> {
+    async execute(app: UseCaseDsl): Promise<void> {
         await app.shop()
             .placeOrder()
             .orderNumber(this.orderNumber)

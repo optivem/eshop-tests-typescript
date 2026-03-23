@@ -1,5 +1,5 @@
 /**
- * V6 smoke test: AppDsl Tax (BaseSystemDslTest).
+ * V6 smoke test: UseCaseDsl Tax (BaseSystemDslTest).
  */
 import '../../../../../setup-config.js';
 import { test } from '../fixtures.js';

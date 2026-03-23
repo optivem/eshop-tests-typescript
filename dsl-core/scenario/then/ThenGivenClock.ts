@@ -1,10 +1,10 @@
 import type { ThenGivenClockPort, ThenGivenProductPort, ThenGivenCountryPort } from '@optivem/dsl-port/scenario/ScenarioDslPort.js';
-import type { GetTimeVerification } from '../../app/external/clock/usecases/GetTimeVerification.js';
-import type { AppDsl } from '../../app/AppDsl.js';
+import type { GetTimeVerification } from '../../usecase/external/clock/usecases/GetTimeVerification.js';
+import type { UseCaseDsl } from '../../usecase/UseCaseDsl.js';
 
 export class ThenGivenClock implements ThenGivenClockPort {
     constructor(
-        private readonly app: AppDsl,
+        private readonly app: UseCaseDsl,
         private readonly verification: GetTimeVerification
     ) {}
 

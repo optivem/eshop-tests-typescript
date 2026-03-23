@@ -14,7 +14,7 @@ Acceptance tests use the ScenarioDSL pattern — **not** raw driver calls.
 
 ```typescript
 import { test, forChannels } from './base/fixtures.js';
-import { ChannelType } from '@optivem/dsl-core/app/shop/ChannelType.js';
+import { ChannelType } from '@optivem/dsl-core/usecase/shop/ChannelType.js';
 
 forChannels(ChannelType.UI, ChannelType.API)(() => {
     test('can place order', async ({ scenario }) => {

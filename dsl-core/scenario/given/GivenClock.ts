@@ -1,5 +1,5 @@
 import type { Optional } from '@optivem/commons';
-import type { AppDsl } from '../../app/AppDsl.js';
+import type { UseCaseDsl } from '../../usecase/UseCaseDsl.js';
 import { GherkinDefaults } from '../GherkinDefaults.js';
 import { BaseGivenBuilder } from './BaseGivenStep.js';
 import type { GivenClause } from './Given.js';
@@ -17,7 +17,7 @@ export class GivenClockBuilder extends BaseGivenBuilder {
         return this;
     }
 
-    async execute(app: AppDsl): Promise<void> {
+    async execute(app: UseCaseDsl): Promise<void> {
         await app
             .clock()
             .returnsTime()

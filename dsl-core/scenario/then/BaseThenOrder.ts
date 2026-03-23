@@ -1,6 +1,6 @@
 import type { ResponseVerification } from '@optivem/dsl-core/shared';
 import type { ExecutionResult } from '../ExecutionResult.js';
-import type { ViewOrderVerification } from '../../app/shop/usecases/ViewOrderVerification.js';
+import type { ViewOrderVerification } from '../../usecase/shop/usecases/ViewOrderVerification.js';
 import { OrderStatus } from '@optivem/driver-port/shop/dtos/OrderStatus.js';
 import { GherkinDefaults } from '../GherkinDefaults.js';
 import type { ThenClause } from './Then.js';

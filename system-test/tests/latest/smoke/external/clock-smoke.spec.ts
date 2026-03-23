@@ -1,4 +1,4 @@
-/** V7 smoke test: AppDsl clock. */
+/** V7 smoke test: UseCaseDsl clock. */
 import '../../../../setup-config.js';
 import { test } from '../fixtures.js';
 

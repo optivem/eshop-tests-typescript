@@ -1,5 +1,5 @@
 import '../../../../setup-config.js';
-import { ChannelType } from '@optivem/dsl-core/app/shop/ChannelType.js';
+import { ChannelType } from '@optivem/dsl-core/usecase/shop/ChannelType.js';
 import { expect, test, withChannelShopDriver, forChannels } from './base/fixtures.js';
 
 const nonExistentOrderCases = [

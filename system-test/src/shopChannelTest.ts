@@ -6,8 +6,8 @@ import {
     createTaxApiDriver
 } from './driver/createDrivers.js';
 import { getDefaultExternalSystemMode } from './driver/configurationLoaderRegistry.js';
-import type { ChannelTypeValue } from '@optivem/dsl-core/app/shop/ChannelType.js';
-import { ChannelType } from '@optivem/dsl-core/app/shop/ChannelType.js';
+import type { ChannelTypeValue } from '@optivem/dsl-core/usecase/shop/ChannelType.js';
+import { ChannelType } from '@optivem/dsl-core/usecase/shop/ChannelType.js';
 import { channelTest } from '@optivem/optivem-testing';
 
 export { channelTest };

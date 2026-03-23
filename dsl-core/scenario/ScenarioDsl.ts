@@ -1,4 +1,4 @@
-import type { AppDsl } from '../app/AppDsl.js';
+import type { UseCaseDsl } from '../usecase/UseCaseDsl.js';
 import type { ScenarioDslPort } from '@optivem/dsl-port/scenario/ScenarioDslPort.js';
 import { AssumeStage } from './assume/AssumeStage.js';
 import { GivenClause } from './given/Given.js';
@@ -7,7 +7,7 @@ import { WhenClause } from './when/When.js';
 export class ScenarioDsl implements ScenarioDslPort {
     private executed = false;
 
-    constructor(private readonly app: AppDsl) {}
+    constructor(private readonly app: UseCaseDsl) {}
 
     assume(): AssumeStage {
         return new AssumeStage(this.app);

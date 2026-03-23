@@ -1,18 +1,18 @@
 import '../../../../setup-config.js';
 import { test, forChannels } from './base/fixtures.js';
-import { ChannelType } from '@optivem/dsl-core/app/shop/ChannelType.js';
+import { ChannelType } from '@optivem/dsl-core/usecase/shop/ChannelType.js';
 import { OrderStatus } from '@optivem/driver-port/shop/dtos/OrderStatus.js';
 import { GherkinDefaults } from '@optivem/dsl-core/scenario/GherkinDefaults.js';
 
 forChannels(ChannelType.UI, ChannelType.API)(() => {
-    test('should view placed order', async ({ app }) => {
-        (await app.erp().returnsProduct()
+    test('should view placed order', async ({ useCase }) => {
+        (await useCase.erp().returnsProduct()
             .sku(GherkinDefaults.DEFAULT_SKU)
             .unitPrice(25.0)
             .execute())
             .shouldSucceed();
 
-        (await app.shop().placeOrder()
+        (await useCase.shop().placeOrder()
             .orderNumber(GherkinDefaults.DEFAULT_ORDER_NUMBER)
             .sku(GherkinDefaults.DEFAULT_SKU)
             .country(GherkinDefaults.DEFAULT_COUNTRY)
@@ -20,7 +20,7 @@ forChannels(ChannelType.UI, ChannelType.API)(() => {
             .execute())
             .shouldSucceed();
 
-        (await app.shop().viewOrder()
+        (await useCase.shop().viewOrder()
             .orderNumber(GherkinDefaults.DEFAULT_ORDER_NUMBER)
             .execute())
             .shouldSucceed()

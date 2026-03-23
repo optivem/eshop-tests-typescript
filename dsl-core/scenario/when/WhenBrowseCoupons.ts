@@ -1,17 +1,17 @@
-import type { AppDsl } from '../../app/AppDsl.js';
+import type { UseCaseDsl } from '../../usecase/UseCaseDsl.js';
 import { ExecutionResult } from '../ExecutionResult.js';
 import { ExecutionResultBuilder } from '../ExecutionResultBuilder.js';
 import { BaseWhenBuilder } from './BaseWhenStep.js';
 import type { BrowseCouponsResponse } from '@optivem/driver-port/shop/dtos/index.js';
-import type { BrowseCouponsVerification } from '../../app/shop/usecases/BrowseCouponsVerification.js';
+import type { BrowseCouponsVerification } from '../../usecase/shop/usecases/BrowseCouponsVerification.js';
 
 export class BrowseCouponsBuilder extends BaseWhenBuilder<BrowseCouponsResponse, BrowseCouponsVerification> {
-    constructor(app: AppDsl) {
+    constructor(app: UseCaseDsl) {
         super(app);
     }
 
     protected override async execute(
-        app: AppDsl
+        app: UseCaseDsl
     ): Promise<ExecutionResult<BrowseCouponsResponse, BrowseCouponsVerification>> {
         const result = await app
             .shop()

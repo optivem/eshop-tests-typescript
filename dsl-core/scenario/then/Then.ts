@@ -1,5 +1,5 @@
 import type { ResponseVerification } from '@optivem/dsl-core/shared';
-import type { AppDsl } from '../../app/AppDsl.js';
+import type { UseCaseDsl } from '../../usecase/UseCaseDsl.js';
 import type { ExecutionResult } from '../ExecutionResult.js';
 import { ThenSuccessVerifier } from './ThenSuccess.js';
 import { ThenFailureVerifier } from './ThenFailure.js';
@@ -17,7 +17,7 @@ export class ThenClause<
     private _executed = false;
 
     constructor(
-        readonly app: AppDsl,
+        readonly app: UseCaseDsl,
         private readonly lazyExecute: () => Promise<ExecutionResult<TSuccessResponse, TSuccessVerification>>
     ) {}
 

@@ -1,4 +1,4 @@
-/** V7 smoke test: AppDsl tax. */
+/** V7 smoke test: UseCaseDsl tax. */
 import '../../../../../setup-config.js';
 import { test } from '../fixtures.js';
 
