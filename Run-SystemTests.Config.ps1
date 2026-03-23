@@ -16,215 +16,278 @@ $Config = @{
 
     Suites = @(
 
-        # === v1: Raw ===
-        @{  Id = "v1-smoke";
-            Name = "v1 (raw) - Smoke (real)";
-            Command = "`$env:EXTERNAL_SYSTEM_MODE='REAL'; npx playwright test --project=smoke-test tests/v1/smoke";
-            Path = "system-test";
-            TestReportPath = "system-test/playwright-report/index.html";
-            TestInstallCommands = @(
-                "npx playwright install chromium"
-            ) },
-        @{  Id = "v1-e2e";
-            Name = "v1 (raw) - E2E (real)";
-            Command = "npx playwright test --project=e2e-test tests/v1/e2e";
+        # === mod02: Raw (Smoke only) ===
+        @{  Id = "mod02-smoke";
+            Name = "mod02 (raw) - Smoke (real)";
+            Command = "`$env:EXTERNAL_SYSTEM_MODE='REAL'; npx playwright test --project=smoke-test tests/legacy/mod02/smoke";
             Path = "system-test";
             TestReportPath = "system-test/playwright-report/index.html";
             TestInstallCommands = @(
                 "npx playwright install chromium"
             ) },
 
-        # === v2: Clients ===
-        @{  Id = "v2-smoke";
-            Name = "v2 (clients) - Smoke (real)";
-            Command = "`$env:EXTERNAL_SYSTEM_MODE='REAL'; npx playwright test --project=smoke-test tests/v2/smoke";
+        # === mod03: Raw ===
+        @{  Id = "mod03-smoke";
+            Name = "mod03 (raw) - Smoke (real)";
+            Command = "`$env:EXTERNAL_SYSTEM_MODE='REAL'; npx playwright test --project=smoke-test tests/legacy/mod03/smoke";
             Path = "system-test";
             TestReportPath = "system-test/playwright-report/index.html";
             TestInstallCommands = @(
                 "npx playwright install chromium"
             ) },
-        @{  Id = "v2-e2e";
-            Name = "v2 (clients) - E2E (real)";
-            Command = "npx playwright test --project=e2e-test tests/v2/e2e";
-            Path = "system-test";
-            TestReportPath = "system-test/playwright-report/index.html";
-            TestInstallCommands = @(
-                "npx playwright install chromium"
-            ) },
-
-        # === v3: Drivers ===
-        @{  Id = "v3-smoke";
-            Name = "v3 (drivers) - Smoke (real)";
-            Command = "`$env:EXTERNAL_SYSTEM_MODE='REAL'; npx playwright test --project=smoke-test tests/v3/smoke";
-            Path = "system-test";
-            TestReportPath = "system-test/playwright-report/index.html";
-            TestInstallCommands = @(
-                "npx playwright install chromium"
-            ) },
-        @{  Id = "v3-e2e";
-            Name = "v3 (drivers) - E2E (real)";
-            Command = "npx playwright test --project=e2e-test tests/v3/e2e";
+        @{  Id = "mod03-e2e";
+            Name = "mod03 (raw) - E2E (real)";
+            Command = "npx playwright test --project=e2e-test tests/legacy/mod03/e2e";
             Path = "system-test";
             TestReportPath = "system-test/playwright-report/index.html";
             TestInstallCommands = @(
                 "npx playwright install chromium"
             ) },
 
-        # === v4: Channels ===
-        @{  Id = "v4-smoke";
-            Name = "v4 (channels) - Smoke (real)";
-            Command = "`$env:EXTERNAL_SYSTEM_MODE='REAL'; npx playwright test --project=smoke-test tests/v4/smoke";
+        # === mod04: Clients ===
+        @{  Id = "mod04-smoke";
+            Name = "mod04 (clients) - Smoke (real)";
+            Command = "`$env:EXTERNAL_SYSTEM_MODE='REAL'; npx playwright test --project=smoke-test tests/legacy/mod04/smoke";
             Path = "system-test";
             TestReportPath = "system-test/playwright-report/index.html";
             TestInstallCommands = @(
                 "npx playwright install chromium"
             ) },
-        @{  Id = "v4-e2e-api";
-            Name = "v4 (channels) - E2E (real) - API";
-            Command = "`$env:CHANNEL='API'; npx playwright test --project=e2e-test tests/v4/e2e";
-            Path = "system-test";
-            TestReportPath = "system-test/playwright-report/index.html";
-            TestInstallCommands = @(
-                "npx playwright install chromium"
-            ) },
-        @{  Id = "v4-e2e-ui";
-            Name = "v4 (channels) - E2E (real) - UI";
-            Command = "`$env:CHANNEL='UI'; npx playwright test --project=e2e-test tests/v4/e2e";
+        @{  Id = "mod04-e2e";
+            Name = "mod04 (clients) - E2E (real)";
+            Command = "npx playwright test --project=e2e-test tests/legacy/mod04/e2e";
             Path = "system-test";
             TestReportPath = "system-test/playwright-report/index.html";
             TestInstallCommands = @(
                 "npx playwright install chromium"
             ) },
 
-        # === v5: App DSL ===
-        @{  Id = "v5-smoke";
-            Name = "v5 (app dsl) - Smoke (real)";
-            Command = "`$env:EXTERNAL_SYSTEM_MODE='REAL'; npx playwright test --project=smoke-test tests/v5/smoke";
+        # === mod05: Drivers ===
+        @{  Id = "mod05-smoke";
+            Name = "mod05 (drivers) - Smoke (real)";
+            Command = "`$env:EXTERNAL_SYSTEM_MODE='REAL'; npx playwright test --project=smoke-test tests/legacy/mod05/smoke";
             Path = "system-test";
             TestReportPath = "system-test/playwright-report/index.html";
             TestInstallCommands = @(
                 "npx playwright install chromium"
             ) },
-        @{  Id = "v5-e2e-api";
-            Name = "v5 (app dsl) - E2E (real) - API";
-            Command = "`$env:CHANNEL='API'; npx playwright test --project=e2e-test tests/v5/e2e";
-            Path = "system-test";
-            TestReportPath = "system-test/playwright-report/index.html";
-            TestInstallCommands = @(
-                "npx playwright install chromium"
-            ) },
-        @{  Id = "v5-e2e-ui";
-            Name = "v5 (app dsl) - E2E (real) - UI";
-            Command = "`$env:CHANNEL='UI'; npx playwright test --project=e2e-test tests/v5/e2e";
+        @{  Id = "mod05-e2e";
+            Name = "mod05 (drivers) - E2E (real)";
+            Command = "npx playwright test --project=e2e-test tests/legacy/mod05/e2e";
             Path = "system-test";
             TestReportPath = "system-test/playwright-report/index.html";
             TestInstallCommands = @(
                 "npx playwright install chromium"
             ) },
 
-        # === v6: Scenario DSL ===
-        @{  Id = "v6-smoke";
-            Name = "v6 (scenario dsl) - Smoke (real)";
-            Command = "`$env:EXTERNAL_SYSTEM_MODE='REAL'; npx playwright test --project=smoke-test tests/v6/smoke";
+        # === mod06: Channels ===
+        @{  Id = "mod06-smoke";
+            Name = "mod06 (channels) - Smoke (real)";
+            Command = "`$env:EXTERNAL_SYSTEM_MODE='REAL'; npx playwright test --project=smoke-test tests/legacy/mod06/smoke";
             Path = "system-test";
             TestReportPath = "system-test/playwright-report/index.html";
             TestInstallCommands = @(
                 "npx playwright install chromium"
             ) },
-        @{  Id = "v6-e2e-api";
-            Name = "v6 (scenario dsl) - E2E (real) - API";
-            Command = "`$env:CHANNEL='API'; npx playwright test --project=e2e-test tests/v6/e2e";
+        @{  Id = "mod06-e2e-api";
+            Name = "mod06 (channels) - E2E (real) - API";
+            Command = "`$env:CHANNEL='API'; npx playwright test --project=e2e-test tests/legacy/mod06/e2e";
             Path = "system-test";
             TestReportPath = "system-test/playwright-report/index.html";
             TestInstallCommands = @(
                 "npx playwright install chromium"
             ) },
-        @{  Id = "v6-e2e-ui";
-            Name = "v6 (scenario dsl) - E2E (real) - UI";
-            Command = "`$env:CHANNEL='UI'; npx playwright test --project=e2e-test tests/v6/e2e";
+        @{  Id = "mod06-e2e-ui";
+            Name = "mod06 (channels) - E2E (real) - UI";
+            Command = "`$env:CHANNEL='UI'; npx playwright test --project=e2e-test tests/legacy/mod06/e2e";
             Path = "system-test";
             TestReportPath = "system-test/playwright-report/index.html";
             TestInstallCommands = @(
                 "npx playwright install chromium"
             ) },
 
-        # === v7: Scenario DSL (full) ===
-        @{  Id = "v7-smoke-stub";
-            Name = "v7 (scenario dsl) - Smoke (stub)";
-            Command = "`$env:EXTERNAL_SYSTEM_MODE='STUB'; npx playwright test --project=smoke-test tests/v7/smoke";
+        # === mod07: App DSL ===
+        @{  Id = "mod07-smoke";
+            Name = "mod07 (app dsl) - Smoke (real)";
+            Command = "`$env:EXTERNAL_SYSTEM_MODE='REAL'; npx playwright test --project=smoke-test tests/legacy/mod07/smoke";
             Path = "system-test";
             TestReportPath = "system-test/playwright-report/index.html";
             TestInstallCommands = @(
                 "npx playwright install chromium"
             ) },
-        @{  Id = "v7-smoke-real";
-            Name = "v7 (scenario dsl) - Smoke (real)";
-            Command = "`$env:EXTERNAL_SYSTEM_MODE='REAL'; npx playwright test --project=smoke-test tests/v7/smoke";
+        @{  Id = "mod07-e2e-api";
+            Name = "mod07 (app dsl) - E2E (real) - API";
+            Command = "`$env:CHANNEL='API'; npx playwright test --project=e2e-test tests/legacy/mod07/e2e";
             Path = "system-test";
             TestReportPath = "system-test/playwright-report/index.html";
             TestInstallCommands = @(
                 "npx playwright install chromium"
             ) },
-        # === v8: ATDD ===
-        @{  Id = "v8-acceptance-api";
-            Name = "v8 (atdd) - Acceptance (stub) - API";
-            Command = "`$env:EXTERNAL_SYSTEM_MODE='STUB'; `$env:CHANNEL='API'; npx playwright test --project=acceptance-test --grep-invert `"@isolated`"";
+        @{  Id = "mod07-e2e-ui";
+            Name = "mod07 (app dsl) - E2E (real) - UI";
+            Command = "`$env:CHANNEL='UI'; npx playwright test --project=e2e-test tests/legacy/mod07/e2e";
             Path = "system-test";
             TestReportPath = "system-test/playwright-report/index.html";
             TestInstallCommands = @(
                 "npx playwright install chromium"
             ) },
-        @{  Id = "v8-acceptance-ui";
-            Name = "v8 (atdd) - Acceptance (stub) - UI";
-            Command = "`$env:EXTERNAL_SYSTEM_MODE='STUB'; `$env:CHANNEL='UI'; npx playwright test --project=acceptance-test --grep-invert `"@isolated`"";
+
+        # === mod08: Scenario DSL ===
+        @{  Id = "mod08-smoke";
+            Name = "mod08 (scenario dsl) - Smoke (real)";
+            Command = "`$env:EXTERNAL_SYSTEM_MODE='REAL'; npx playwright test --project=smoke-test tests/legacy/mod08/smoke";
             Path = "system-test";
             TestReportPath = "system-test/playwright-report/index.html";
             TestInstallCommands = @(
                 "npx playwright install chromium"
             ) },
-        @{  Id = "v8-acceptance-isolated-api";
-            Name = "v8 (atdd) - Acceptance Isolated (stub) - API";
-            Command = "`$env:EXTERNAL_SYSTEM_MODE='STUB'; `$env:CHANNEL='API'; npx playwright test --project=acceptance-test --grep `"@isolated`" --workers=1";
+        @{  Id = "mod08-e2e-api";
+            Name = "mod08 (scenario dsl) - E2E (real) - API";
+            Command = "`$env:CHANNEL='API'; npx playwright test --project=e2e-test tests/legacy/mod08/e2e";
             Path = "system-test";
             TestReportPath = "system-test/playwright-report/index.html";
             TestInstallCommands = @(
                 "npx playwright install chromium"
             ) },
-        @{  Id = "v8-acceptance-isolated-ui";
-            Name = "v8 (atdd) - Acceptance Isolated (stub) - UI";
-            Command = "`$env:EXTERNAL_SYSTEM_MODE='STUB'; `$env:CHANNEL='UI'; npx playwright test --project=acceptance-test --grep `"@isolated`" --workers=1";
+        @{  Id = "mod08-e2e-ui";
+            Name = "mod08 (scenario dsl) - E2E (real) - UI";
+            Command = "`$env:CHANNEL='UI'; npx playwright test --project=e2e-test tests/legacy/mod08/e2e";
             Path = "system-test";
             TestReportPath = "system-test/playwright-report/index.html";
             TestInstallCommands = @(
                 "npx playwright install chromium"
             ) },
-        @{  Id = "v8-contract-stub";
-            Name = "v8 (atdd) - Contract (stub)";
-            Command = "`$env:EXTERNAL_SYSTEM_MODE='STUB'; npx playwright test --project=external-system-contract-test --workers=1";
+
+        # === mod09: External Stubs ===
+        @{  Id = "mod09-smoke-stub";
+            Name = "mod09 (external stubs) - Smoke (stub)";
+            Command = "`$env:EXTERNAL_SYSTEM_MODE='STUB'; npx playwright test --project=smoke-test tests/legacy/mod09/smoke";
             Path = "system-test";
             TestReportPath = "system-test/playwright-report/index.html";
             TestInstallCommands = @(
                 "npx playwright install chromium"
             ) },
-        @{  Id = "v8-contract-real";
-            Name = "v8 (atdd) - Contract (real)";
-            Command = "`$env:EXTERNAL_SYSTEM_MODE='REAL'; npx playwright test --project=external-system-contract-test --workers=1";
+        @{  Id = "mod09-smoke-real";
+            Name = "mod09 (external stubs) - Smoke (real)";
+            Command = "`$env:EXTERNAL_SYSTEM_MODE='REAL'; npx playwright test --project=smoke-test tests/legacy/mod09/smoke";
             Path = "system-test";
             TestReportPath = "system-test/playwright-report/index.html";
             TestInstallCommands = @(
                 "npx playwright install chromium"
             ) },
-        @{  Id = "v7-e2e-api";
-            Name = "v7 (scenario dsl) - E2E (real) - API";
-            Command = "`$env:CHANNEL='API'; npx playwright test --project=e2e-test tests/v7/e2e";
+
+        # === mod10: Acceptance ===
+        @{  Id = "mod10-acceptance-api";
+            Name = "mod10 (acceptance) - Acceptance (stub) - API";
+            Command = "`$env:EXTERNAL_SYSTEM_MODE='STUB'; `$env:CHANNEL='API'; npx playwright test --project=acceptance-test tests/legacy/mod10/acceptance --grep-invert `"@isolated`"";
             Path = "system-test";
             TestReportPath = "system-test/playwright-report/index.html";
             TestInstallCommands = @(
                 "npx playwright install chromium"
             ) },
-        @{  Id = "v7-e2e-ui";
-            Name = "v7 (scenario dsl) - E2E (real) - UI";
-            Command = "`$env:CHANNEL='UI'; npx playwright test --project=e2e-test tests/v7/e2e";
+        @{  Id = "mod10-acceptance-ui";
+            Name = "mod10 (acceptance) - Acceptance (stub) - UI";
+            Command = "`$env:EXTERNAL_SYSTEM_MODE='STUB'; `$env:CHANNEL='UI'; npx playwright test --project=acceptance-test tests/legacy/mod10/acceptance --grep-invert `"@isolated`"";
+            Path = "system-test";
+            TestReportPath = "system-test/playwright-report/index.html";
+            TestInstallCommands = @(
+                "npx playwright install chromium"
+            ) },
+        @{  Id = "mod10-acceptance-isolated-api";
+            Name = "mod10 (acceptance) - Acceptance Isolated (stub) - API";
+            Command = "`$env:EXTERNAL_SYSTEM_MODE='STUB'; `$env:CHANNEL='API'; npx playwright test --project=acceptance-test tests/legacy/mod10/acceptance --grep `"@isolated`" --workers=1";
+            Path = "system-test";
+            TestReportPath = "system-test/playwright-report/index.html";
+            TestInstallCommands = @(
+                "npx playwright install chromium"
+            ) },
+        @{  Id = "mod10-acceptance-isolated-ui";
+            Name = "mod10 (acceptance) - Acceptance Isolated (stub) - UI";
+            Command = "`$env:EXTERNAL_SYSTEM_MODE='STUB'; `$env:CHANNEL='UI'; npx playwright test --project=acceptance-test tests/legacy/mod10/acceptance --grep `"@isolated`" --workers=1";
+            Path = "system-test";
+            TestReportPath = "system-test/playwright-report/index.html";
+            TestInstallCommands = @(
+                "npx playwright install chromium"
+            ) },
+
+        # === mod11: Contract ===
+        @{  Id = "mod11-e2e-api";
+            Name = "mod11 (contract) - E2E (real) - API";
+            Command = "`$env:CHANNEL='API'; npx playwright test --project=e2e-test tests/legacy/mod11/e2e";
+            Path = "system-test";
+            TestReportPath = "system-test/playwright-report/index.html";
+            TestInstallCommands = @(
+                "npx playwright install chromium"
+            ) },
+        @{  Id = "mod11-e2e-ui";
+            Name = "mod11 (contract) - E2E (real) - UI";
+            Command = "`$env:CHANNEL='UI'; npx playwright test --project=e2e-test tests/legacy/mod11/e2e";
+            Path = "system-test";
+            TestReportPath = "system-test/playwright-report/index.html";
+            TestInstallCommands = @(
+                "npx playwright install chromium"
+            ) },
+        @{  Id = "mod11-contract-stub";
+            Name = "mod11 (contract) - Contract (stub)";
+            Command = "`$env:EXTERNAL_SYSTEM_MODE='STUB'; npx playwright test --project=external-system-contract-test tests/legacy/mod11/contract --workers=1";
+            Path = "system-test";
+            TestReportPath = "system-test/playwright-report/index.html";
+            TestInstallCommands = @(
+                "npx playwright install chromium"
+            ) },
+        @{  Id = "mod11-contract-real";
+            Name = "mod11 (contract) - Contract (real)";
+            Command = "`$env:EXTERNAL_SYSTEM_MODE='REAL'; npx playwright test --project=external-system-contract-test tests/legacy/mod11/contract --workers=1";
+            Path = "system-test";
+            TestReportPath = "system-test/playwright-report/index.html";
+            TestInstallCommands = @(
+                "npx playwright install chromium"
+            ) },
+
+        # === latest ===
+        @{  Id = "acceptance-api";
+            Name = "latest - Acceptance (stub) - API";
+            Command = "`$env:EXTERNAL_SYSTEM_MODE='STUB'; `$env:CHANNEL='API'; npx playwright test --project=acceptance-test tests/latest/acceptance --grep-invert `"@isolated`"";
+            Path = "system-test";
+            TestReportPath = "system-test/playwright-report/index.html";
+            TestInstallCommands = @(
+                "npx playwright install chromium"
+            ) },
+        @{  Id = "acceptance-ui";
+            Name = "latest - Acceptance (stub) - UI";
+            Command = "`$env:EXTERNAL_SYSTEM_MODE='STUB'; `$env:CHANNEL='UI'; npx playwright test --project=acceptance-test tests/latest/acceptance --grep-invert `"@isolated`"";
+            Path = "system-test";
+            TestReportPath = "system-test/playwright-report/index.html";
+            TestInstallCommands = @(
+                "npx playwright install chromium"
+            ) },
+        @{  Id = "acceptance-isolated-api";
+            Name = "latest - Acceptance Isolated (stub) - API";
+            Command = "`$env:EXTERNAL_SYSTEM_MODE='STUB'; `$env:CHANNEL='API'; npx playwright test --project=acceptance-test tests/latest/acceptance --grep `"@isolated`" --workers=1";
+            Path = "system-test";
+            TestReportPath = "system-test/playwright-report/index.html";
+            TestInstallCommands = @(
+                "npx playwright install chromium"
+            ) },
+        @{  Id = "acceptance-isolated-ui";
+            Name = "latest - Acceptance Isolated (stub) - UI";
+            Command = "`$env:EXTERNAL_SYSTEM_MODE='STUB'; `$env:CHANNEL='UI'; npx playwright test --project=acceptance-test tests/latest/acceptance --grep `"@isolated`" --workers=1";
+            Path = "system-test";
+            TestReportPath = "system-test/playwright-report/index.html";
+            TestInstallCommands = @(
+                "npx playwright install chromium"
+            ) },
+        @{  Id = "contract-stub";
+            Name = "latest - Contract (stub)";
+            Command = "`$env:EXTERNAL_SYSTEM_MODE='STUB'; npx playwright test --project=external-system-contract-test tests/latest/contract --workers=1";
+            Path = "system-test";
+            TestReportPath = "system-test/playwright-report/index.html";
+            TestInstallCommands = @(
+                "npx playwright install chromium"
+            ) },
+        @{  Id = "contract-real";
+            Name = "latest - Contract (real)";
+            Command = "`$env:EXTERNAL_SYSTEM_MODE='REAL'; npx playwright test --project=external-system-contract-test tests/latest/contract --workers=1";
             Path = "system-test";
             TestReportPath = "system-test/playwright-report/index.html";
             TestInstallCommands = @(
