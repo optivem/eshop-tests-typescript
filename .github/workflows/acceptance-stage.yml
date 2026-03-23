@@ -237,7 +237,8 @@ jobs:
           ENVIRONMENT: acceptance
           EXTERNAL_SYSTEM_MODE: REAL
 
-      - name: v7 - Acceptance - API Channel
+      # === v8 ===
+      - name: v8 - Acceptance - API Channel
         run: npx playwright test --project=acceptance-test --grep-invert "@isolated"
         working-directory: system-test
         env:
@@ -245,7 +246,7 @@ jobs:
           EXTERNAL_SYSTEM_MODE: STUB
           CHANNEL: API
 
-      - name: v7 - Acceptance - UI Channel
+      - name: v8 - Acceptance - UI Channel
         run: npx playwright test --project=acceptance-test --grep-invert "@isolated"
         working-directory: system-test
         env:
@@ -253,7 +254,7 @@ jobs:
           EXTERNAL_SYSTEM_MODE: STUB
           CHANNEL: UI
 
-      - name: v7 - Acceptance (Isolated) - API Channel
+      - name: v8 - Acceptance (Isolated) - API Channel
         run: npx playwright test --project=acceptance-test --grep "@isolated" --workers=1
         working-directory: system-test
         env:
@@ -261,7 +262,7 @@ jobs:
           EXTERNAL_SYSTEM_MODE: STUB
           CHANNEL: API
 
-      - name: v7 - Acceptance (Isolated) - UI Channel
+      - name: v8 - Acceptance (Isolated) - UI Channel
         run: npx playwright test --project=acceptance-test --grep "@isolated" --workers=1
         working-directory: system-test
         env:
@@ -269,14 +270,14 @@ jobs:
           EXTERNAL_SYSTEM_MODE: STUB
           CHANNEL: UI
 
-      - name: v7 - Contract (Stub)
+      - name: v8 - Contract (Stub)
         run: npx playwright test --project=external-system-contract-test --workers=1
         working-directory: system-test
         env:
           ENVIRONMENT: acceptance
           EXTERNAL_SYSTEM_MODE: STUB
 
-      - name: v7 - Contract (Real)
+      - name: v8 - Contract (Real)
         run: npx playwright test --project=external-system-contract-test --workers=1
         working-directory: system-test
         env:

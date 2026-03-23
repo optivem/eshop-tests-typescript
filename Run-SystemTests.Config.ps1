@@ -165,48 +165,49 @@ $Config = @{
             TestInstallCommands = @(
                 "npx playwright install chromium"
             ) },
-        @{  Id = "v7-acceptance-api";
-            Name = "v7 (scenario dsl) - Acceptance (stub) - API";
+        # === v8: ATDD ===
+        @{  Id = "v8-acceptance-api";
+            Name = "v8 (atdd) - Acceptance (stub) - API";
             Command = "`$env:EXTERNAL_SYSTEM_MODE='STUB'; `$env:CHANNEL='API'; npx playwright test --project=acceptance-test --grep-invert `"@isolated`"";
             Path = "system-test";
             TestReportPath = "system-test/playwright-report/index.html";
             TestInstallCommands = @(
                 "npx playwright install chromium"
             ) },
-        @{  Id = "v7-acceptance-ui";
-            Name = "v7 (scenario dsl) - Acceptance (stub) - UI";
+        @{  Id = "v8-acceptance-ui";
+            Name = "v8 (atdd) - Acceptance (stub) - UI";
             Command = "`$env:EXTERNAL_SYSTEM_MODE='STUB'; `$env:CHANNEL='UI'; npx playwright test --project=acceptance-test --grep-invert `"@isolated`"";
             Path = "system-test";
             TestReportPath = "system-test/playwright-report/index.html";
             TestInstallCommands = @(
                 "npx playwright install chromium"
             ) },
-        @{  Id = "v7-acceptance-isolated-api";
-            Name = "v7 (scenario dsl) - Acceptance Isolated (stub) - API";
+        @{  Id = "v8-acceptance-isolated-api";
+            Name = "v8 (atdd) - Acceptance Isolated (stub) - API";
             Command = "`$env:EXTERNAL_SYSTEM_MODE='STUB'; `$env:CHANNEL='API'; npx playwright test --project=acceptance-test --grep `"@isolated`" --workers=1";
             Path = "system-test";
             TestReportPath = "system-test/playwright-report/index.html";
             TestInstallCommands = @(
                 "npx playwright install chromium"
             ) },
-        @{  Id = "v7-acceptance-isolated-ui";
-            Name = "v7 (scenario dsl) - Acceptance Isolated (stub) - UI";
+        @{  Id = "v8-acceptance-isolated-ui";
+            Name = "v8 (atdd) - Acceptance Isolated (stub) - UI";
             Command = "`$env:EXTERNAL_SYSTEM_MODE='STUB'; `$env:CHANNEL='UI'; npx playwright test --project=acceptance-test --grep `"@isolated`" --workers=1";
             Path = "system-test";
             TestReportPath = "system-test/playwright-report/index.html";
             TestInstallCommands = @(
                 "npx playwright install chromium"
             ) },
-        @{  Id = "v7-contract-stub";
-            Name = "v7 (scenario dsl) - Contract (stub)";
+        @{  Id = "v8-contract-stub";
+            Name = "v8 (atdd) - Contract (stub)";
             Command = "`$env:EXTERNAL_SYSTEM_MODE='STUB'; npx playwright test --project=external-system-contract-test --workers=1";
             Path = "system-test";
             TestReportPath = "system-test/playwright-report/index.html";
             TestInstallCommands = @(
                 "npx playwright install chromium"
             ) },
-        @{  Id = "v7-contract-real";
-            Name = "v7 (scenario dsl) - Contract (real)";
+        @{  Id = "v8-contract-real";
+            Name = "v8 (atdd) - Contract (real)";
             Command = "`$env:EXTERNAL_SYSTEM_MODE='REAL'; npx playwright test --project=external-system-contract-test --workers=1";
             Path = "system-test";
             TestReportPath = "system-test/playwright-report/index.html";
