@@ -1,3 +1,5 @@
+> **This repository is archived.** See [optivem/starter](https://github.com/optivem/starter) for the active project.
+
 # eshop-tests-typescript
 
 > **This repository has moved.**
